@@ -1,0 +1,17 @@
+
+local.properties
+
+**/bin/
+**/build/
+
+.classpath
+.project
+
+.gradle/
+.settings/
+/build/
+
+publishLocal.sh
+publishSnapshot.sh
+
+.DS_Store

@@ -1,0 +1,5 @@
+include ':gdx-dialogs-android'
+include ':gdx-dialogs-core'
+include ':gdx-dialogs-desktop'
+include ':gdx-dialogs-html'
+include ':gdx-dialogs-ios'

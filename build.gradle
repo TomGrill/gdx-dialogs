@@ -1,0 +1,193 @@
+ext {
+	GROUPID = 'de.tomgrill.gdxdialogs'
+	VERSION = '0.1.0-SNAPSHOT'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'org.robovm:robovm-gradle-plugin:1.0.0-beta-04'
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = 'gdx-dialogs'
+        gdxVersion = '1.6.1'
+        roboVMVersion = '1.0.0-beta-04'
+
+		jUnitVersion = '4.+'
+	    mockitoVersion = '1.10.+'
+	    powermockVersion = '1.6.+'
+
+		
+
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+
+	group = GROUPID
+    version = VERSION
+}
+
+project(":gdx-dialogs-android") {
+    apply plugin : 'java'
+    	
+	apply from : '../publish.gradle'
+
+    configurations {
+        custom
+        compile.extendsFrom custom
+	}  
+
+	eclipse {
+		project {
+		    name = appName + "-android"
+		}
+	}
+
+	dependencies {
+		
+		compile project(':gdx-dialogs-core')
+		
+		
+		compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"		
+		
+
+		
+		compile fileTree(dir: 'libs', include: '*.jar')
+	}
+}
+
+
+
+project(":gdx-dialogs-core") {
+    apply plugin : 'java'
+    	
+	apply from : '../publish.gradle'
+
+    configurations {
+        custom
+        compile.extendsFrom custom
+	} 
+
+	eclipse {
+		project {
+		    name = appName + "-core"
+		}
+	}
+
+	dependencies {
+		compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+		
+		compile fileTree(dir: 'libs', include: '*.jar')
+	}
+}
+
+
+
+
+
+project(":gdx-dialogs-desktop") {
+    apply plugin : 'java'
+    	
+	apply from : '../publish.gradle'
+
+    configurations {
+        custom
+        compile.extendsFrom custom
+	} 
+
+	eclipse {
+		project {
+		    name = appName + "-desktop"
+		}
+	}
+
+	dependencies {
+		
+		compile project(':gdx-dialogs-core')
+		
+
+		compile fileTree(dir: 'libs', include: '*.jar')
+	}
+}
+
+
+
+project(":gdx-dialogs-html") {
+    apply plugin : 'java'
+    	
+    	
+	apply from : '../publish.gradle'
+
+    configurations {
+        custom
+        compile.extendsFrom custom
+	} 
+
+	eclipse {
+		project {
+		    name = appName + "-html"
+		}
+	}
+	
+dependencies {
+		
+		compile project(':gdx-dialogs-core')
+		
+		compile fileTree(dir: 'libs', include: '*.jar')
+	}
+}
+
+
+
+project(":gdx-dialogs-ios") {
+    apply plugin : 'java'
+    apply plugin : 'robovm'
+    	
+    	
+	apply from : '../publish.gradle'
+
+    configurations {
+        custom
+        compile.extendsFrom custom
+	} 
+
+	eclipse {
+		project {
+		    name = appName + "-ios"
+		}
+	}
+
+	dependencies {
+		
+		compile project(':gdx-dialogs-core')
+		
+		compile "org.robovm:robovm-rt:${roboVMVersion}"
+        compile "org.robovm:robovm-cocoatouch:${roboVMVersion}"
+        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+
+		
+		compile fileTree(dir: 'libs', include: '*.jar')
+	}
+}
+
+
+tasks.eclipse.doLast {
+    delete ".project"
+}

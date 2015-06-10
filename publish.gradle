@@ -1,0 +1,137 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def isLocalBuild() {
+    return hasProperty("LOCAL")
+}
+
+def isReleaseBuild() {
+    return hasProperty("RELEASE")
+}
+
+def isSnapshotBuild() {
+    return hasProperty("SNAPSHOT")
+}
+
+def getLocalRepositoryUrl() {
+    return hasProperty('LOCAL_REPOSITORY_URL') ? LOCAL_REPOSITORY_URL
+            : 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+}
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
+def getGroupId() {
+    return GROUPID;
+}
+
+def getVersion() {
+    if (isReleaseBuild()) {
+        return VERSION.replace("-SNAPSHOT", "")
+    } else {
+        return VERSION;
+    }
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.groupId = getGroupId()
+                pom.version = getVersion()
+				//pom.artifactId = "gdx-facebook"
+
+                if (isLocalBuild()) {
+                    repository(url: getLocalRepositoryUrl())
+                } else {
+                    if (isReleaseBuild()) {
+                        repository(url: getReleaseRepositoryUrl()) {
+                            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                        }
+                    }
+                    if (isSnapshotBuild()) {
+                        snapshotRepository(url: getSnapshotRepositoryUrl()) {
+                            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                        }
+                    }
+                }
+
+				
+
+
+                pom.project {
+                    name 'libGDX dialogs API'
+                    description 'dialogs API for libGDX'
+                    url 'https://bitbucket.org/TomGrill/gdx-dialogs'
+
+                    scm {
+                        url 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
+                        connection 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
+                        developerConnection 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                    
+                    developers {
+                        developer {
+                            id 'tomgrill'
+                            name 'Thomas Pronold'
+                        }
+                    }                
+                }
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+       // sign configurations.archives
+    }
+    
+    task libraryJar(type: Jar, dependsOn:classes) {
+        from sourceSets.main.output.classesDir
+        from configurations.custom.collect { it.isDirectory() ? it : zipTree(it) }
+        classifier = 'library'
+    }
+     
+    task sourcesJar(type: Jar, dependsOn:classes) {
+        from sourceSets.main.allSource
+        classifier = 'sources'
+    }
+
+    task javadocJar(type: Jar, dependsOn:javadoc) {
+        from javadoc.destinationDir
+        classifier = 'javadoc'
+    }
+
+    artifacts {
+        archives libraryJar
+        archives sourcesJar
+// TODO ?
+//        archives javadocJar
+    }
+
+}
