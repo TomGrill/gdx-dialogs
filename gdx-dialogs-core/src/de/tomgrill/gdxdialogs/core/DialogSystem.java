@@ -199,7 +199,7 @@ public class DialogSystem {
 		}
 	}
 
-	public DialogManager getPlayServices() {
+	public DialogManager getDialogManager() {
 		return dialogManager;
 	}
 
