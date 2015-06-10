@@ -19,13 +19,13 @@ package de.tomgrill.gdxdialogs.android;
 import android.app.Activity;
 import de.tomgrill.gdxdialogs.core.DialogManager;
 
-public class AndroidPlayServices extends DialogManager {
+public class AndroidDialogManager extends DialogManager {
 
 	private final String TAG = "gdx-dialogs";
 
 	private Activity activity;
 
-	public AndroidPlayServices(Activity activity) {
+	public AndroidDialogManager(Activity activity) {
 		this.activity = activity;
 
 	}
