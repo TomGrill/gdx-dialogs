@@ -50,22 +50,30 @@ public class DesktopButtonDialog implements ButtonDialog {
 			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
 		}
 
-		Object[] options = new Object[labels.size];
+		Thread t = new Thread(new Runnable() {
 
-		for (int i = 0; i < labels.size; i++) {
-			options[i] = labels.get(i);
-		}
+			@Override
+			public void run() {
+				Object[] options = new Object[labels.size];
 
-		int optionType = JOptionPane.YES_OPTION;
+				for (int i = 0; i < labels.size; i++) {
+					options[i] = labels.get(i);
+				}
 
-		if (labels.size != 1) {
-			optionType = JOptionPane.YES_NO_CANCEL_OPTION;
-		}
+				int optionType = JOptionPane.YES_OPTION;
 
-		int n = JOptionPane.showOptionDialog(null, (String) message, (String) title, optionType, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-		if (listener != null) {
-			listener.click(n);
-		}
+				if (labels.size != 1) {
+					optionType = JOptionPane.YES_NO_CANCEL_OPTION;
+				}
+
+				int n = JOptionPane.showOptionDialog(null, (String) message, (String) title, optionType, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				if (listener != null) {
+					listener.click(n);
+				}
+			}
+		});
+		t.start();
+
 		return this;
 	}
 
