@@ -74,7 +74,18 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	private void performClickOnButton(long buttonIndex) {
 		if (listener != null) {
-			listener.click((int) buttonIndex);
+			
+			int buttonNr = (int) buttonIndex;
+			
+			if(labels.size == 2) {
+				if(buttonIndex == 0) {
+					buttonNr = 1;
+				} else {
+					buttonNr = 0;
+				}
+			}
+			
+			listener.click(buttonNr);
 		}
 	}
 
@@ -84,7 +95,7 @@ public class IOSButtonDialog implements ButtonDialog {
 		UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
 			@Override
-			public void didDismiss(UIAlertView alertView, long buttonIndex) {
+			public void didDismiss(UIAlertView alertView, long buttonIndex) {				
 				performClickOnButton(buttonIndex);
 			}
 
@@ -124,8 +135,15 @@ public class IOSButtonDialog implements ButtonDialog {
 
 		String firstButton = (String) labels.get(0);
 
-		for (int i = 1; i < labels.size; i++) {
-			otherButtons[i - 1] = (String) labels.get(i);
+		if (labels.size == 2) {
+			firstButton = (String) labels.get(1);
+			otherButtons[0] = (String) labels.get(0);
+		}
+
+		if (labels.size == 3) {
+			for (int i = 1; i < labels.size; i++) {
+				otherButtons[i - 1] = (String) labels.get(i);
+			}
 		}
 
 		alertView = new UIAlertView(title, message, delegate, firstButton, otherButtons);
