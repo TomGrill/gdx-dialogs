@@ -1,6 +1,8 @@
 # gdx-dialogs
 libGDX extension providing cross-platform support for native dialogs
 
+![Alt text](/assets/dialogs.jpg?raw=true "Examples")
+
 ## Version
 Current status i **beta**. (It is not recommended to use this library in production releases.)
 
