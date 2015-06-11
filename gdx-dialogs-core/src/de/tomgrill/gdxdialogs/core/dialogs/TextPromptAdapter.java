@@ -14,30 +14,50 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.ios;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-import de.tomgrill.gdxdialogs.core.DialogManager;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
-import de.tomgrill.gdxdialogs.ios.dialogs.IOSButtonDialog;
-import de.tomgrill.gdxdialogs.ios.dialogs.IOSProgressDialog;
+import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public class IOSDialogManager extends DialogManager {
+public class TextPromptAdapter implements TextPrompt {
 
 	@Override
-	public ButtonDialog newButtonDialog() {
-		return new IOSButtonDialog();
+	public TextPrompt show() {
+		return this;
 	}
 
 	@Override
-	public ProgressDialog newProgressDialog() {
-		return new IOSProgressDialog();
+	public TextPrompt build() {
+		return this;
 	}
 
 	@Override
-	public TextPrompt newTextPrompt() {
-		// TODO Auto-generated method stub
-		return null;
+	public TextPrompt setTitle(CharSequence title) {
+		return this;
 	}
+
+	@Override
+	public TextPrompt setMessage(CharSequence message) {
+		return this;
+	}
+
+	@Override
+	public TextPrompt setCancelButtonLabel(CharSequence label) {
+		return this;
+	}
+
+	@Override
+	public TextPrompt setConfirmButtonLabel(CharSequence label) {
+		return this;
+	}
+
+	@Override
+	public TextPrompt setTextPromptListener(TextPromptListener listener) {
+		return this;
+	}
+
+	@Override
+	public TextPrompt setValue(CharSequence message) {
+		return this;
+	}
+
 }

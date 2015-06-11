@@ -19,8 +19,10 @@ package de.tomgrill.gdxdialogs.desktop;
 import de.tomgrill.gdxdialogs.core.DialogManager;
 import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
 import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopButtonDialog;
 import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopProgressDialog;
+import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopTextPrompt;
 
 public class DesktopDialogManager extends DialogManager {
 
@@ -32,6 +34,11 @@ public class DesktopDialogManager extends DialogManager {
 	@Override
 	public ProgressDialog newProgressDialog() {
 		return new DesktopProgressDialog();
+	}
+
+	@Override
+	public TextPrompt newTextPrompt() {
+		return new DesktopTextPrompt();
 	}
 
 }

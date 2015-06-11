@@ -22,6 +22,7 @@ import de.tomgrill.gdxdialogs.android.dialogs.AndroidProgressDialog;
 import de.tomgrill.gdxdialogs.core.DialogManager;
 import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
 
 public class AndroidDialogManager extends DialogManager {
 
@@ -42,6 +43,12 @@ public class AndroidDialogManager extends DialogManager {
 	@Override
 	public ProgressDialog newProgressDialog() {
 		return new AndroidProgressDialog(activity);
+	}
+
+	@Override
+	public TextPrompt newTextPrompt() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

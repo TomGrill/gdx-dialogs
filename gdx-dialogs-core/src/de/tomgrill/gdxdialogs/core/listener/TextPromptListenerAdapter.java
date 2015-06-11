@@ -14,18 +14,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.core.listener;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+public class TextPromptListenerAdapter implements TextPromptListener {
 
-public abstract class DialogManager {
+	@Override
+	public void cancel() {
 
-	abstract public ButtonDialog newButtonDialog();
+	}
 
-	abstract public ProgressDialog newProgressDialog();
+	@Override
+	public void confirm(String text) {
 
-	abstract public TextPrompt newTextPrompt();
+	}
 
 }

@@ -20,6 +20,8 @@ import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialogAdapter;
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialogAdapter;
+import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.dialogs.TextPromptAdapter;
 
 public class NullDialogManager extends DialogManager {
 
@@ -33,6 +35,11 @@ public class NullDialogManager extends DialogManager {
 	@Override
 	public ProgressDialog newProgressDialog() {
 		return new ProgressDialogAdapter();
+	}
+
+	@Override
+	public TextPrompt newTextPrompt() {
+		return new TextPromptAdapter();
 	}
 
 }

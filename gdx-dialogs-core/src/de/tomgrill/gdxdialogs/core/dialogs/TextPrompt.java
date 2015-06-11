@@ -14,18 +14,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public abstract class DialogManager {
+public interface TextPrompt {
+	public TextPrompt show();
 
-	abstract public ButtonDialog newButtonDialog();
+	public TextPrompt build();
 
-	abstract public ProgressDialog newProgressDialog();
+	public TextPrompt setTitle(CharSequence title);
 
-	abstract public TextPrompt newTextPrompt();
+	public TextPrompt setMessage(CharSequence message);
 
+	public TextPrompt setValue(CharSequence message);
+
+	public TextPrompt setCancelButtonLabel(CharSequence label);
+
+	public TextPrompt setConfirmButtonLabel(CharSequence label);
+
+	public TextPrompt setTextPromptListener(TextPromptListener listener);
 }
