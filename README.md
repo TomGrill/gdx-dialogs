@@ -89,13 +89,16 @@ project(":desktop") {
 https://github.com/TomGrill/gdx-dialogs-app
 
 **Enable**
+
 ```
 DialogSystem dSystem = new DialogSystem(); // You may only do this once.
 DialogManager	dManager = dSystem.getDialogManager();
 ```
 
 **ButtonDialog**
-```		ButtonDialog bDialog = dManager.newButtonDialog();
+
+```		
+		ButtonDialog bDialog = dManager.newButtonDialog();
 		bDialog.setTitle("Buy a item");
 		bDialog.setMessage("Do you want to buy the mozarella?");
 
