@@ -79,12 +79,12 @@ afterEvaluate { project ->
                 pom.project {
                     name 'libGDX dialogs API'
                     description 'dialogs API for libGDX'
-                    url 'https://bitbucket.org/TomGrill/gdx-dialogs'
+                    url 'https://github.com/TomGrill/gdx-dialogs'
 
                     scm {
-                        url 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
-                        connection 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
-                        developerConnection 'scm:git@bitbucket.org:TomGrill/gdx-dialogs.git'
+                        url 'scm:git@github.com:TomGrill/gdx-dialogs.git'
+                        connection 'scm:git@github.com:TomGrill/gdx-dialogs.git'
+                        developerConnection 'scm:git@github.com:TomGrill/gdx-dialogs.git'
                     }
 
                     licenses {
@@ -130,8 +130,7 @@ afterEvaluate { project ->
     artifacts {
         archives libraryJar
         archives sourcesJar
-// TODO ?
-//        archives javadocJar
+       // archives javadocJar
     }
 
 }
