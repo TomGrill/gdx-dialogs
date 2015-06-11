@@ -17,14 +17,42 @@
 package de.tomgrill.gdxdialogs.core.dialogs;
 
 public interface ProgressDialog {
+	/**
+	 * Sets the message.
+	 * 
+	 * @param message
+	 * @return
+	 */
 	public ProgressDialog setMessage(CharSequence message);
 
+	/**
+	 * Sets the title
+	 * 
+	 * @param title
+	 * @return
+	 */
 	public ProgressDialog setTitle(CharSequence title);
 
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior.
+	 * 
+	 * @return
+	 */
 	public ProgressDialog show();
 
+	/**
+	 * Dismisses the dialog. You can show the dialog again.
+	 * 
+	 * @return
+	 */
 	public ProgressDialog dismiss();
 
+	/**
+	 * This builds the button and prepares for usage.
+	 * 
+	 * @return
+	 */
 	public ProgressDialog build();
 
 }
