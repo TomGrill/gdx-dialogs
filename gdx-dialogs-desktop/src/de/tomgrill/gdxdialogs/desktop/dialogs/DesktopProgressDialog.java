@@ -16,7 +16,8 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import com.badlogic.gdx.Gdx;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
 
@@ -24,29 +25,59 @@ public class DesktopProgressDialog implements ProgressDialog {
 
 	private final String TAG = "gdx-dialogs";
 
+	private JOptionPane optionPane;
+
+	private JDialog dialog;
+
+	private CharSequence title;
+	private CharSequence message;
+
 	@Override
 	public ProgressDialog setMessage(CharSequence message) {
+		this.message = message;
 		return this;
 	}
 
 	@Override
 	public ProgressDialog setTitle(CharSequence title) {
+		this.title = title;
 		return this;
 	}
 
 	@Override
 	public ProgressDialog show() {
-		Gdx.app.log(TAG, "For Desktop there is no ProgressDialog available for now.");
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				dialog.setVisible(true);
+			}
+
+		});
+		t.start();
 		return this;
 	}
 
 	@Override
 	public ProgressDialog dismiss() {
+		dialog.dispose();
+		optionPane.setVisible(false);
 		return this;
 	}
 
 	@Override
 	public ProgressDialog build() {
+
+		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+		dialog = new JDialog();
+
+		dialog.setTitle((String) title);
+		dialog.setModal(true);
+
+		dialog.setContentPane(optionPane);
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.pack();
+
 		return this;
 	}
 
