@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.android;
+package de.tomgrill.gdxdialogs.android.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,8 +22,8 @@ import android.content.DialogInterface;
 
 import com.badlogic.gdx.utils.Array;
 
-import de.tomgrill.gdxdialogs.core.ButtonClickListenerAdapter;
-import de.tomgrill.gdxdialogs.core.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 public class AndroidButtonDialog implements ButtonDialog {
 
@@ -38,7 +38,9 @@ public class AndroidButtonDialog implements ButtonDialog {
 	private CharSequence message;
 	private CharSequence title;
 
-	private ButtonClickListenerAdapter listener;
+	private ButtonClickListener listener;
+
+	private boolean isBuild = false;
 
 	private Array<CharSequence> labels = new Array<CharSequence>();
 
@@ -54,6 +56,11 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog show() {
+
+		if (dialog == null || isBuild == false) {
+			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
+		}
+
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -75,13 +82,16 @@ public class AndroidButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListenerAdapter listener) {
+	public ButtonDialog setClickListener(ButtonClickListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
 	public ButtonDialog addButton(CharSequence label) {
+		if (labels.size >= 3) {
+			throw new RuntimeException("You can only have up to three buttons added.");
+		}
 		labels.add(label);
 		return this;
 	}
@@ -140,8 +150,17 @@ public class AndroidButtonDialog implements ButtonDialog {
 			@Override
 			public void run() {
 				dialog = builder.create();
+				isBuild = true;
 			}
 		});
+
+		// Wait till button is build
+		while (!isBuild) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+		}
 
 		return this;
 	}

@@ -14,34 +14,50 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.android;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-import android.app.Activity;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidButtonDialog;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidProgressDialog;
-import de.tomgrill.gdxdialogs.core.DialogManager;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public class AndroidDialogManager extends DialogManager {
+public class ButtonDialogAdapter implements ButtonDialog {
 
-	private final String TAG = "gdx-dialogs";
-
-	private Activity activity;
-
-	public AndroidDialogManager(Activity activity) {
-		this.activity = activity;
-
+	@Override
+	public ButtonDialog setCancelable(boolean cancelable) {
+		return this;
 	}
 
 	@Override
-	public ButtonDialog newButtonDialog() {
-		return new AndroidButtonDialog(activity);
+	public ButtonDialog show() {
+		return this;
 	}
 
 	@Override
-	public ProgressDialog newProgressDialog() {
-		return new AndroidProgressDialog(activity);
+	public ButtonDialog dismiss() {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setClickListener(ButtonClickListener listener) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog addButton(CharSequence label) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog build() {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setMessage(CharSequence message) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setTitle(CharSequence title) {
+		return this;
 	}
 
 }

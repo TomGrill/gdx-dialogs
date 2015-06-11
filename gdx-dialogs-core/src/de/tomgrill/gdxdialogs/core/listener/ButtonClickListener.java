@@ -14,14 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.core.listener;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+public interface ButtonClickListener {
 
-public abstract class DialogManager {
-
-	abstract public ButtonDialog newButtonDialog();
-
-	abstract public ProgressDialog newProgressDialog();
+	public void click(int button);
 }

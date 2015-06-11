@@ -14,23 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.core.listener;
 
-public interface ButtonDialog {
 
-	public ButtonDialog setCancelable(boolean cancelable);
+public abstract class ButtonClickListenerAdapter implements ButtonClickListener {
 
-	public ButtonDialog show();
-
-	public ButtonDialog dismiss();
-
-	public ButtonDialog setClickListener(ButtonClickListenerAdapter listener);
-
-	public ButtonDialog addButton(CharSequence label);
-
-	public ButtonDialog build();
-
-	public ButtonDialog setMessage(CharSequence message);
-
-	public ButtonDialog setTitle(CharSequence title);
 }

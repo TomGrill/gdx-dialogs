@@ -14,47 +14,39 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-public class ButtonDialogAdapter implements ButtonDialog {
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+
+public class DesktopProgressDialog implements ProgressDialog {
+
+	private final String TAG = "gdx-dialogs";
 
 	@Override
-	public ButtonDialog setCancelable(boolean cancelable) {
+	public ProgressDialog setMessage(CharSequence message) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog show() {
+	public ProgressDialog setTitle(CharSequence title) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog dismiss() {
+	public ProgressDialog show() {
+		Gdx.app.log(TAG, "For Desktop there is no ProgressDialog available for now.");
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListenerAdapter listener) {
+	public ProgressDialog dismiss() {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog addButton(CharSequence label) {
-		return this;
-	}
-
-	@Override
-	public ButtonDialog build() {
-		return this;
-	}
-
-	@Override
-	public ButtonDialog setMessage(CharSequence message) {
-		return this;
-	}
-
-	@Override
-	public ButtonDialog setTitle(CharSequence title) {
+	public ProgressDialog build() {
 		return this;
 	}
 

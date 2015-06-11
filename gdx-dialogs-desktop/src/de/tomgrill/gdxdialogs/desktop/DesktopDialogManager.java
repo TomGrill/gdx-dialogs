@@ -14,8 +14,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.desktop;
 
-public abstract class ButtonClickListenerAdapter implements ButtonClickListener {
+import de.tomgrill.gdxdialogs.core.DialogManager;
+import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopButtonDialog;
+import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopProgressDialog;
+
+public class DesktopDialogManager extends DialogManager {
+
+	@Override
+	public ButtonDialog newButtonDialog() {
+		return new DesktopButtonDialog();
+	}
+
+	@Override
+	public ProgressDialog newProgressDialog() {
+		return new DesktopProgressDialog();
+	}
 
 }

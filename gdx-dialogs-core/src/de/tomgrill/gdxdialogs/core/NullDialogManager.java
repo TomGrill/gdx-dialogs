@@ -16,6 +16,11 @@
 
 package de.tomgrill.gdxdialogs.core;
 
+import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialogAdapter;
+import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialogAdapter;
+
 public class NullDialogManager extends DialogManager {
 
 	private final String TAG = "gdx-dialogs";
@@ -23,6 +28,11 @@ public class NullDialogManager extends DialogManager {
 	@Override
 	public ButtonDialog newButtonDialog() {
 		return new ButtonDialogAdapter();
+	}
+
+	@Override
+	public ProgressDialog newProgressDialog() {
+		return new ProgressDialogAdapter();
 	}
 
 }

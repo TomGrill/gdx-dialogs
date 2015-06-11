@@ -14,34 +14,23 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.android;
+package de.tomgrill.gdxdialogs.ios;
 
-import android.app.Activity;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidButtonDialog;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidProgressDialog;
 import de.tomgrill.gdxdialogs.core.DialogManager;
 import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSButtonDialog;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSProgressDialog;
 
-public class AndroidDialogManager extends DialogManager {
-
-	private final String TAG = "gdx-dialogs";
-
-	private Activity activity;
-
-	public AndroidDialogManager(Activity activity) {
-		this.activity = activity;
-
-	}
+public class IOSDialogManager extends DialogManager {
 
 	@Override
 	public ButtonDialog newButtonDialog() {
-		return new AndroidButtonDialog(activity);
+		return new IOSButtonDialog();
 	}
 
 	@Override
 	public ProgressDialog newProgressDialog() {
-		return new AndroidProgressDialog(activity);
+		return new IOSProgressDialog();
 	}
-
 }

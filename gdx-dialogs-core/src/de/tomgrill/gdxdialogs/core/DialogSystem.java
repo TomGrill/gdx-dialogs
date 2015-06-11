@@ -40,7 +40,7 @@ public class DialogSystem {
 
 		tryLoadAndroidDialogs();
 		// tryLoadIOSDialogs();
-		// tryLoadDesktopDialogs();
+		tryLoadDesktopDialogs();
 		// tryLoadHTMLDialogs();
 
 		if (dialogManager == null) {

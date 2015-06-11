@@ -14,9 +14,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.core;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-public interface ButtonClickListener {
+public interface ProgressDialog {
+	public ProgressDialog setMessage(CharSequence message);
 
-	public void click(int button);
+	public ProgressDialog setTitle(CharSequence title);
+
+	public ProgressDialog show();
+
+	public ProgressDialog dismiss();
+
+	public ProgressDialog build();
+
 }

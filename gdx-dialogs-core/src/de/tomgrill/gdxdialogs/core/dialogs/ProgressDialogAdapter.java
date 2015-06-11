@@ -14,34 +14,33 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.android;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-import android.app.Activity;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidButtonDialog;
-import de.tomgrill.gdxdialogs.android.dialogs.AndroidProgressDialog;
-import de.tomgrill.gdxdialogs.core.DialogManager;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+public class ProgressDialogAdapter implements ProgressDialog {
 
-public class AndroidDialogManager extends DialogManager {
-
-	private final String TAG = "gdx-dialogs";
-
-	private Activity activity;
-
-	public AndroidDialogManager(Activity activity) {
-		this.activity = activity;
-
+	@Override
+	public ProgressDialog setMessage(CharSequence message) {
+		return this;
 	}
 
 	@Override
-	public ButtonDialog newButtonDialog() {
-		return new AndroidButtonDialog(activity);
+	public ProgressDialog setTitle(CharSequence title) {
+		return this;
 	}
 
 	@Override
-	public ProgressDialog newProgressDialog() {
-		return new AndroidProgressDialog(activity);
+	public ProgressDialog show() {
+		return this;
+	}
+
+	@Override
+	public ProgressDialog dismiss() {
+		return this;
+	}
+
+	@Override
+	public ProgressDialog build() {
+		return this;
 	}
 
 }
