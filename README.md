@@ -46,7 +46,9 @@ project(":android") {
 }
 ```
 
-Copy the the /android/res folder from this project to your android project. Keep the directory structure.
+Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
+
+You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-android/res/values-v11/styles.xml) if you want use another theme like Holo.Light
 
 **iOS**
 Add this to your robovm.xml
