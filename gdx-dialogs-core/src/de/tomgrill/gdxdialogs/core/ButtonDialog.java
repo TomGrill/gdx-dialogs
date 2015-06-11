@@ -16,7 +16,21 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-public abstract class DialogManager {
+public interface ButtonDialog {
 
-	abstract public ButtonDialog newButtonDialog();
+	public ButtonDialog setCancelable(boolean cancelable);
+
+	public ButtonDialog show();
+
+	public ButtonDialog dismiss();
+
+	public ButtonDialog setClickListener(ButtonClickListenerAdapter listener);
+
+	public ButtonDialog addButton(CharSequence label);
+
+	public ButtonDialog build();
+
+	public ButtonDialog setMessage(CharSequence message);
+
+	public ButtonDialog setTitle(CharSequence title);
 }

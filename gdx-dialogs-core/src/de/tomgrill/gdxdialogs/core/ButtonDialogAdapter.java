@@ -16,7 +16,46 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-public abstract class DialogManager {
+public class ButtonDialogAdapter implements ButtonDialog {
 
-	abstract public ButtonDialog newButtonDialog();
+	@Override
+	public ButtonDialog setCancelable(boolean cancelable) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog show() {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog dismiss() {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setClickListener(ButtonClickListenerAdapter listener) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog addButton(CharSequence label) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog build() {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setMessage(CharSequence message) {
+		return this;
+	}
+
+	@Override
+	public ButtonDialog setTitle(CharSequence title) {
+		return this;
+	}
+
 }

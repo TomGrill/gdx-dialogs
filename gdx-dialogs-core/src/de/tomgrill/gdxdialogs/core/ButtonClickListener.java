@@ -16,7 +16,7 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-public abstract class DialogManager {
+public interface ButtonClickListener {
 
-	abstract public ButtonDialog newButtonDialog();
+	public void click(int button);
 }

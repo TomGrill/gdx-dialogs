@@ -17,6 +17,7 @@
 package de.tomgrill.gdxdialogs.android;
 
 import android.app.Activity;
+import de.tomgrill.gdxdialogs.core.ButtonDialog;
 import de.tomgrill.gdxdialogs.core.DialogManager;
 
 public class AndroidDialogManager extends DialogManager {
@@ -28,6 +29,11 @@ public class AndroidDialogManager extends DialogManager {
 	public AndroidDialogManager(Activity activity) {
 		this.activity = activity;
 
+	}
+
+	@Override
+	public ButtonDialog newButtonDialog() {
+		return new AndroidButtonDialog(activity);
 	}
 
 }

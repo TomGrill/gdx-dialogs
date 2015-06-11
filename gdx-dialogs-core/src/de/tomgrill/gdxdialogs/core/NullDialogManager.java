@@ -16,9 +16,13 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-
 public class NullDialogManager extends DialogManager {
 
 	private final String TAG = "gdx-dialogs";
+
+	@Override
+	public ButtonDialog newButtonDialog() {
+		return new ButtonDialogAdapter();
+	}
 
 }

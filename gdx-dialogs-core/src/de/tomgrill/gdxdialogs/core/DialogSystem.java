@@ -183,10 +183,14 @@ public class DialogSystem {
 				}
 				Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz, activityClazz).newInstance(activity);
 
-				Method gdxAppAddAndroidEventListenerMethod = ClassReflection.getMethod(gdxAppObject.getClass(), "addAndroidEventListener", gdxAndroidEventListenerClazz);
-				gdxAppAddAndroidEventListenerMethod.invoke(gdxAppObject, dialogManager);
+				// Method gdxAppAddAndroidEventListenerMethod =
+				// ClassReflection.getMethod(gdxAppObject.getClass(),
+				// "addAndroidEventListener", gdxAndroidEventListenerClazz);
+				// gdxAppAddAndroidEventListenerMethod.invoke(gdxAppObject,
+				// dialogManager);
 
-				gdxAppAddLifecycleListenerMethod.invoke(gdxAppObject, dialogManager);
+				// gdxAppAddLifecycleListenerMethod.invoke(gdxAppObject,
+				// dialogManager);
 
 				this.dialogManager = (DialogManager) dialogManager;
 
