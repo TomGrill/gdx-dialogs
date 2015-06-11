@@ -22,6 +22,7 @@ import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
 import de.tomgrill.gdxdialogs.ios.dialogs.IOSButtonDialog;
 import de.tomgrill.gdxdialogs.ios.dialogs.IOSProgressDialog;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSTextPrompt;
 
 public class IOSDialogManager extends DialogManager {
 
@@ -37,7 +38,6 @@ public class IOSDialogManager extends DialogManager {
 
 	@Override
 	public TextPrompt newTextPrompt() {
-		// TODO Auto-generated method stub
-		return null;
+		return new IOSTextPrompt();
 	}
 }

@@ -54,6 +54,9 @@ public class IOSProgressDialog implements ProgressDialog {
 
 	@Override
 	public ProgressDialog dismiss() {
+		if (alertView == null) {
+			throw new RuntimeException("TextPrompt has not been build. Use build() before dismiss().");
+		}
 		alertView.dismiss(0, false);
 		return this;
 	}
