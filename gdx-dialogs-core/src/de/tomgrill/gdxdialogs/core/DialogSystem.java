@@ -39,7 +39,7 @@ public class DialogSystem {
 		loadGdxReflections();
 
 		tryLoadAndroidDialogs();
-		// tryLoadIOSDialogs();
+		tryLoadIOSDialogs();
 		tryLoadDesktopDialogs();
 		// tryLoadHTMLDialogs();
 
@@ -114,20 +114,10 @@ public class DialogSystem {
 			return;
 		}
 		try {
-			Class<?> iosApplicationClazz = ClassReflection.forName("com.badlogic.gdx.backends.iosrobovm.IOSApplication");
-
+			
 			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.ios.IOSDialogManager");
 
-			Object application = null;
-
-			if (ClassReflection.isAssignableFrom(iosApplicationClazz, gdxAppObject.getClass())) {
-
-				application = gdxAppObject;
-			} else {
-				System.out.println("SHITS");
-			}
-
-			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz, iosApplicationClazz).newInstance(application);
+			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
 
 			this.dialogManager = (DialogManager) dialogManager;
 

@@ -37,7 +37,6 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog setCancelable(boolean cancelable) {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
@@ -81,7 +80,7 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog build() {
-		if (alertView == null) {
+		
 
 			UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
@@ -127,13 +126,13 @@ public class IOSButtonDialog implements ButtonDialog {
 			String firstButton = (String) labels.get(0);
 
 			for (int i = 1; i < labels.size; i++) {
-				otherButtons[i] = (String) labels.get(i);
+				otherButtons[i - 1] = (String) labels.get(i);
 			}
 
 			alertView = new UIAlertView(title, message, delegate, firstButton, otherButtons);
 
 			// alertView.setCancelButtonIndex(2);
-		}
+		
 		return this;
 	}
 

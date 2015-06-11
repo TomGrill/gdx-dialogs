@@ -17,9 +17,12 @@
 package de.tomgrill.gdxdialogs.ios.dialogs;
 
 import org.robovm.apple.coregraphics.CGPoint;
+import org.robovm.apple.coregraphics.CGRect;
+import org.robovm.apple.coregraphics.CGSize;
 import org.robovm.apple.uikit.UIActivityIndicatorView;
 import org.robovm.apple.uikit.UIActivityIndicatorViewStyle;
 import org.robovm.apple.uikit.UIAlertView;
+import org.robovm.apple.uikit.UIScreen;
 
 import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
 
@@ -67,16 +70,25 @@ public class IOSProgressDialog implements ProgressDialog {
 
 			alertView = new UIAlertView();
 
-			indicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
-
-			indicator.setCenter(new CGPoint(alertView.getBounds().getWidth() / 2f, alertView.getBounds().getHeight() - 50));
+			
+			
+			alertView.setTitle(title);
+			alertView.setMessage(message);
+			
+			CGSize screenSize = UIScreen.getMainScreen().getBounds().getSize();
+			
+			
+			indicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
+			indicator.setFrame(new CGRect(0.0, 0.0, 40.0, 40.0));
+			//indicator.setCenter(indicator.getCenter());
+			
+			indicator.setCenter(new CGPoint(screenSize.getWidth() / 2f - 20f, screenSize.getWidth() / 2f - 50));
 			indicator.startAnimating();
 			alertView.addSubview(indicator);
 			indicator.release();
 
 		}
-		alertView.setTitle(title);
-		alertView.setMessage(message);
+		
 		return this;
 	}
 
