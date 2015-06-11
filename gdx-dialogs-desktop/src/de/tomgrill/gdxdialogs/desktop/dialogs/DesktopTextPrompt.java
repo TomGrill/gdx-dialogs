@@ -96,4 +96,9 @@ public class DesktopTextPrompt implements TextPrompt {
 		return this;
 	}
 
+	@Override
+	public TextPrompt dismiss() {
+		return this;
+	}
+
 }

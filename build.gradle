@@ -29,6 +29,8 @@ allprojects {
 		jUnitVersion = '4.+'
 	    mockitoVersion = '1.10.+'
 	    powermockVersion = '1.6.+'
+	    
+//	    appcompatVersion = '21.0.0'
 
 		
 
@@ -65,7 +67,9 @@ project(":gdx-dialogs-android") {
 		compile project(':gdx-dialogs-core')
 		
 		
-		compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"		
+		compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"	
+		
+//		compile "com.android.support:appcompat-v7:$appcompatVersion"	
 		
 
 		

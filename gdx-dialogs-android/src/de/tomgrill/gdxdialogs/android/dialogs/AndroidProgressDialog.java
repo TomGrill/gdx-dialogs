@@ -64,6 +64,11 @@ public class AndroidProgressDialog implements ProgressDialog {
 
 	@Override
 	public ProgressDialog dismiss() {
+
+		if (progressDialog == null || isBuild == false) {
+			throw new RuntimeException("ProgressDialog has not been build. Use build() before dismiss().");
+		}
+
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {

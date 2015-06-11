@@ -21,6 +21,8 @@ import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 public interface TextPrompt {
 	public TextPrompt show();
 
+	public TextPrompt dismiss();
+
 	public TextPrompt build();
 
 	public TextPrompt setTitle(CharSequence title);

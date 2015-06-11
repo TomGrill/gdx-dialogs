@@ -60,4 +60,9 @@ public class TextPromptAdapter implements TextPrompt {
 		return this;
 	}
 
+	@Override
+	public TextPrompt dismiss() {
+		return this;
+	}
+
 }

@@ -72,6 +72,11 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog dismiss() {
+
+		if (dialog == null || isBuild == false) {
+			throw new RuntimeException("ButtonDialog has not been build. Use build() before dismiss().");
+		}
+
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
