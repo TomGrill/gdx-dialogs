@@ -28,14 +28,14 @@ public class IOSTextPrompt implements TextPrompt {
 
 	private final String TAG = "gdx-dialogs";
 
-	private String message;
-	private String title;
-	private String cancelLabel;
-	private String confirmLabel;
+	private String message = "";
+	private String title = "";
+	private String cancelLabel = "";
+	private String confirmLabel = "";
 
 	private TextPromptListener listener;
 
-	private String inputValue;
+	private String inputValue = "";
 
 	private UIAlertView alertView;
 
@@ -51,63 +51,66 @@ public class IOSTextPrompt implements TextPrompt {
 
 	@Override
 	public TextPrompt build() {
-		if (alertView == null) {
 
-			UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
+		if (alertView != null) {
+			alertView.dispose();
+		}
 
-				@Override
-				public void didDismiss(UIAlertView alertView, long buttonIndex) {
-					if (listener != null) {
-						if (buttonIndex == 0) {
-							listener.cancel();
-						}
+		UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
-						if (buttonIndex == 1) {
-							UITextField textFiel = alertView.getTextField(0);
-							listener.confirm(textFiel.getText());
-						}
+			@Override
+			public void didDismiss(UIAlertView alertView, long buttonIndex) {
+				if (listener != null) {
+					if (buttonIndex == 0) {
+						listener.cancel();
+					}
+
+					if (buttonIndex == 1) {
+						UITextField textFiel = alertView.getTextField(0);
+						listener.confirm(textFiel.getText());
 					}
 				}
+			}
 
-				@Override
-				public void clicked(UIAlertView alertView, long buttonIndex) {
+			@Override
+			public void clicked(UIAlertView alertView, long buttonIndex) {
 
-				}
+			}
 
-				@Override
-				public void cancel(UIAlertView alertView) {
+			@Override
+			public void cancel(UIAlertView alertView) {
 
-				}
+			}
 
-				@Override
-				public void willPresent(UIAlertView alertView) {
+			@Override
+			public void willPresent(UIAlertView alertView) {
 
-				}
+			}
 
-				@Override
-				public void didPresent(UIAlertView alertView) {
+			@Override
+			public void didPresent(UIAlertView alertView) {
 
-				}
+			}
 
-				@Override
-				public void willDismiss(UIAlertView alertView, long buttonIndex) {
+			@Override
+			public void willDismiss(UIAlertView alertView, long buttonIndex) {
 
-				}
+			}
 
-				@Override
-				public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
-					return false;
-				}
+			@Override
+			public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
+				return false;
+			}
 
-			};
+		};
 
-			String[] otherButtons = new String[1];
-			otherButtons[0] = confirmLabel;
+		String[] otherButtons = new String[1];
+		otherButtons[0] = confirmLabel;
 
-			alertView = new UIAlertView(title, message, delegate, cancelLabel, otherButtons);
+		alertView = new UIAlertView(title, message, delegate, cancelLabel, otherButtons);
 
-			alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
-		}
+		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
+
 		return this;
 	}
 

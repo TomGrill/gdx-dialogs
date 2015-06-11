@@ -100,6 +100,9 @@ public class DesktopButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog build() {
+		if (labels.size == 0) {
+			throw new RuntimeException("You to add at least one button with addButton(..);");
+		}
 		isBuild = true;
 		return this;
 	}
