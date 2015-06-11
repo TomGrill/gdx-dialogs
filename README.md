@@ -95,8 +95,8 @@ DialogManager	dManager = dSystem.getDialogManager();
 ```
 
 **ButtonDialog**
-```
-bDialog.setTitle("Buy a item");
+```		ButtonDialog bDialog = dManager.newButtonDialog();
+		bDialog.setTitle("Buy a item");
 		bDialog.setMessage("Do you want to buy the mozarella?");
 
 		bDialog.setClickListener(new ButtonClickListener() {
