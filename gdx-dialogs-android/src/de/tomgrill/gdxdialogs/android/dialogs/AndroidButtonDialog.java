@@ -35,8 +35,8 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 	private boolean cancelable;
 
-	private CharSequence message;
-	private CharSequence title;
+	private CharSequence message = "";
+	private CharSequence title = "";
 
 	private ButtonClickListener listener;
 

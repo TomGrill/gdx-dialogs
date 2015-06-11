@@ -28,8 +28,8 @@ public class DesktopButtonDialog implements ButtonDialog {
 
 	private final String TAG = "gdx-dialogs";
 
-	private CharSequence title;
-	private CharSequence message;
+	private CharSequence title = "";
+	private CharSequence message = "";
 
 	private ButtonClickListener listener;
 

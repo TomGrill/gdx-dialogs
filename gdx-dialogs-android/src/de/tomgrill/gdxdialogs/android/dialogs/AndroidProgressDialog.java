@@ -25,8 +25,8 @@ public class AndroidProgressDialog implements ProgressDialog {
 
 	private android.app.ProgressDialog progressDialog;
 
-	private CharSequence message;
-	private CharSequence title;
+	private CharSequence message = "";
+	private CharSequence title = "";
 
 	private boolean isBuild = false;
 

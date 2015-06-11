@@ -23,10 +23,10 @@ import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
 public class DesktopTextPrompt implements TextPrompt {
 
-	private CharSequence title;
-	private CharSequence message;
-	private CharSequence cancelLabel;
-	private CharSequence confirmLabel;
+	private CharSequence title = "";
+	private CharSequence message = "";
+	private CharSequence cancelLabel = "";
+	private CharSequence confirmLabel = "";
 
 	private TextPromptListener listener;
 

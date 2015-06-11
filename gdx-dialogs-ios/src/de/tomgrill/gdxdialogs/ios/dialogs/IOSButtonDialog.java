@@ -28,8 +28,8 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	private UIAlertView alertView;
 
-	private String title;
-	private String message;
+	private String title = "";
+	private String message = "";
 
 	private ButtonClickListener listener;
 
@@ -80,59 +80,58 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	@Override
 	public ButtonDialog build() {
-		
 
-			UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
+		UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
-				@Override
-				public void didDismiss(UIAlertView alertView, long buttonIndex) {
-					performClickOnButton(buttonIndex);
-				}
-
-				@Override
-				public void clicked(UIAlertView alertView, long buttonIndex) {
-
-				}
-
-				@Override
-				public void cancel(UIAlertView alertView) {
-
-				}
-
-				@Override
-				public void willPresent(UIAlertView alertView) {
-
-				}
-
-				@Override
-				public void didPresent(UIAlertView alertView) {
-
-				}
-
-				@Override
-				public void willDismiss(UIAlertView alertView, long buttonIndex) {
-
-				}
-
-				@Override
-				public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
-					return false;
-				}
-
-			};
-
-			String[] otherButtons = new String[labels.size - 1];
-
-			String firstButton = (String) labels.get(0);
-
-			for (int i = 1; i < labels.size; i++) {
-				otherButtons[i - 1] = (String) labels.get(i);
+			@Override
+			public void didDismiss(UIAlertView alertView, long buttonIndex) {
+				performClickOnButton(buttonIndex);
 			}
 
-			alertView = new UIAlertView(title, message, delegate, firstButton, otherButtons);
+			@Override
+			public void clicked(UIAlertView alertView, long buttonIndex) {
 
-			// alertView.setCancelButtonIndex(2);
-		
+			}
+
+			@Override
+			public void cancel(UIAlertView alertView) {
+
+			}
+
+			@Override
+			public void willPresent(UIAlertView alertView) {
+
+			}
+
+			@Override
+			public void didPresent(UIAlertView alertView) {
+
+			}
+
+			@Override
+			public void willDismiss(UIAlertView alertView, long buttonIndex) {
+
+			}
+
+			@Override
+			public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
+				return false;
+			}
+
+		};
+
+		String[] otherButtons = new String[labels.size - 1];
+
+		String firstButton = (String) labels.get(0);
+
+		for (int i = 1; i < labels.size; i++) {
+			otherButtons[i - 1] = (String) labels.get(i);
+		}
+
+		alertView = new UIAlertView(title, message, delegate, firstButton, otherButtons);
+
+		// alertView.setCancelButtonIndex(2);
+
 		return this;
 	}
 

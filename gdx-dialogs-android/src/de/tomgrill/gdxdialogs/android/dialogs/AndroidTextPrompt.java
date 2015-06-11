@@ -38,14 +38,14 @@ public class AndroidTextPrompt implements TextPrompt {
 	private TextView titleView;
 	private TextView messageView;
 
-	private CharSequence message;
-	private CharSequence title;
-	private CharSequence cancelLabel;
-	private CharSequence confirmLabel;
+	private CharSequence message = "";
+	private CharSequence title = "";
+	private CharSequence cancelLabel = "";
+	private CharSequence confirmLabel = "";
 
 	private TextPromptListener listener;
 
-	private CharSequence inputValue;
+	private CharSequence inputValue = "";
 
 	private EditText userInput;
 

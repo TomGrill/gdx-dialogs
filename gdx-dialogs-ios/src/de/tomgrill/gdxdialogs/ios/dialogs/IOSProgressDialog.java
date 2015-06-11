@@ -31,8 +31,8 @@ public class IOSProgressDialog implements ProgressDialog {
 	private UIAlertView alertView;
 	private UIActivityIndicatorView indicator;
 
-	private String title;
-	private String message;
+	private String title = "";
+	private String message = "";
 
 	@Override
 	public ProgressDialog setMessage(CharSequence message) {
@@ -70,25 +70,22 @@ public class IOSProgressDialog implements ProgressDialog {
 
 			alertView = new UIAlertView();
 
-			
-			
 			alertView.setTitle(title);
 			alertView.setMessage(message);
-			
+
 			CGSize screenSize = UIScreen.getMainScreen().getBounds().getSize();
-			
-			
+
 			indicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
 			indicator.setFrame(new CGRect(0.0, 0.0, 40.0, 40.0));
-			//indicator.setCenter(indicator.getCenter());
-			
+			// indicator.setCenter(indicator.getCenter());
+
 			indicator.setCenter(new CGPoint(screenSize.getWidth() / 2f - 20f, screenSize.getWidth() / 2f - 50));
 			indicator.startAnimating();
 			alertView.addSubview(indicator);
 			indicator.release();
 
 		}
-		
+
 		return this;
 	}
 

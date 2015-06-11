@@ -29,8 +29,8 @@ public class DesktopProgressDialog implements ProgressDialog {
 
 	private JDialog dialog;
 
-	private CharSequence title;
-	private CharSequence message;
+	private CharSequence title = "";
+	private CharSequence message = "";
 
 	@Override
 	public ProgressDialog setMessage(CharSequence message) {
