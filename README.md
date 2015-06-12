@@ -50,6 +50,8 @@ Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from th
 
 You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-android/res/values-v11/styles.xml) if you want use another theme like Holo.Light
 
+If your project already has styles.xml file make sure you merge what you need from both files.
+
 **iOS**
 Add this to your robovm.xml
 ```
