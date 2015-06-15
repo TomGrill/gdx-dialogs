@@ -72,7 +72,7 @@ project(":ios") {
 }
 ```
 
-**Core**
+**Desktop**
 
 Add this to your libGDX build.gradle
 ```
