@@ -18,7 +18,7 @@ package de.tomgrill.gdxdialogs.core.dialogs;
 
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public interface ButtonDialog {
+public interface GDXButtonDialog {
 
 	/**
 	 * Only on Android: When set true, user can click outside of the dialog and
@@ -27,7 +27,7 @@ public interface ButtonDialog {
 	 * @param cancelable
 	 * @return
 	 */
-	public ButtonDialog setCancelable(boolean cancelable);
+	public GDXButtonDialog setCancelable(boolean cancelable);
 
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
@@ -36,14 +36,14 @@ public interface ButtonDialog {
 	 * 
 	 * @return
 	 */
-	public ButtonDialog show();
+	public GDXButtonDialog show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
 	 * 
 	 * @return
 	 */
-	public ButtonDialog dismiss();
+	public GDXButtonDialog dismiss();
 
 	/**
 	 * Sets the {@link ButtonClickListener}
@@ -51,7 +51,7 @@ public interface ButtonDialog {
 	 * @param listener
 	 * @return
 	 */
-	public ButtonDialog setClickListener(ButtonClickListener listener);
+	public GDXButtonDialog setClickListener(ButtonClickListener listener);
 
 	/**
 	 * Add new button to the dialog. You need to add at least one button.
@@ -59,7 +59,7 @@ public interface ButtonDialog {
 	 * @param label
 	 * @return
 	 */
-	public ButtonDialog addButton(CharSequence label);
+	public GDXButtonDialog addButton(CharSequence label);
 
 	/**
 	 * This builds the button and prepares for usage. You need to add at least
@@ -67,7 +67,7 @@ public interface ButtonDialog {
 	 * 
 	 * @return
 	 */
-	public ButtonDialog build();
+	public GDXButtonDialog build();
 
 	/**
 	 * Sets the message.
@@ -75,7 +75,7 @@ public interface ButtonDialog {
 	 * @param message
 	 * @return
 	 */
-	public ButtonDialog setMessage(CharSequence message);
+	public GDXButtonDialog setMessage(CharSequence message);
 
 	/**
 	 * Sets the title
@@ -83,5 +83,5 @@ public interface ButtonDialog {
 	 * @param title
 	 * @return
 	 */
-	public ButtonDialog setTitle(CharSequence title);
+	public GDXButtonDialog setTitle(CharSequence title);
 }

@@ -16,31 +16,43 @@
 
 package de.tomgrill.gdxdialogs.core.dialogs;
 
-public class ProgressDialogAdapter implements ProgressDialog {
+public interface GDXProgressDialog {
+	/**
+	 * Sets the message.
+	 * 
+	 * @param message
+	 * @return
+	 */
+	public GDXProgressDialog setMessage(CharSequence message);
 
-	@Override
-	public ProgressDialog setMessage(CharSequence message) {
-		return this;
-	}
+	/**
+	 * Sets the title
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public GDXProgressDialog setTitle(CharSequence title);
 
-	@Override
-	public ProgressDialog setTitle(CharSequence title) {
-		return this;
-	}
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior.
+	 * 
+	 * @return
+	 */
+	public GDXProgressDialog show();
 
-	@Override
-	public ProgressDialog show() {
-		return this;
-	}
+	/**
+	 * Dismisses the dialog. You can show the dialog again.
+	 * 
+	 * @return
+	 */
+	public GDXProgressDialog dismiss();
 
-	@Override
-	public ProgressDialog dismiss() {
-		return this;
-	}
-
-	@Override
-	public ProgressDialog build() {
-		return this;
-	}
+	/**
+	 * This builds the button and prepares for usage.
+	 * 
+	 * @return
+	 */
+	public GDXProgressDialog build();
 
 }

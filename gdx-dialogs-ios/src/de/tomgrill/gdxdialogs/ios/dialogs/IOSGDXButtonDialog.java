@@ -21,10 +21,10 @@ import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
 
 import com.badlogic.gdx.utils.Array;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public class IOSButtonDialog implements ButtonDialog {
+public class IOSGDXButtonDialog implements GDXButtonDialog {
 
 	private UIAlertView alertView;
 
@@ -35,36 +35,40 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	private Array<CharSequence> labels = new Array<CharSequence>();
 
+	public IOSGDXButtonDialog() {
+	}
+
 	@Override
-	public ButtonDialog setCancelable(boolean cancelable) {
+	public GDXButtonDialog setCancelable(boolean cancelable) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog show() {
+	public GDXButtonDialog show() {
 		if (alertView == null) {
-			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 		alertView.show();
 		return this;
 	}
 
 	@Override
-	public ButtonDialog dismiss() {
-		if (alertView != null) {
-			alertView.dismiss(-1, false);
+	public GDXButtonDialog dismiss() {
+		if (alertView == null) {
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
+		alertView.dismiss(-1, false);
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListener listener) {
+	public GDXButtonDialog setClickListener(ButtonClickListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog addButton(CharSequence label) {
+	public GDXButtonDialog addButton(CharSequence label) {
 		if (labels.size >= 3) {
 			throw new RuntimeException("You can only have up to three buttons added.");
 		}
@@ -74,28 +78,28 @@ public class IOSButtonDialog implements ButtonDialog {
 
 	private void performClickOnButton(long buttonIndex) {
 		if (listener != null) {
-			
+
 			int buttonNr = (int) buttonIndex;
-			
-			if(labels.size == 2) {
-				if(buttonIndex == 0) {
+
+			if (labels.size == 2) {
+				if (buttonIndex == 0) {
 					buttonNr = 1;
 				} else {
 					buttonNr = 0;
 				}
 			}
-			
+
 			listener.click(buttonNr);
 		}
 	}
 
 	@Override
-	public ButtonDialog build() {
+	public GDXButtonDialog build() {
 
 		UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
 			@Override
-			public void didDismiss(UIAlertView alertView, long buttonIndex) {				
+			public void didDismiss(UIAlertView alertView, long buttonIndex) {
 				performClickOnButton(buttonIndex);
 			}
 
@@ -154,13 +158,13 @@ public class IOSButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog setMessage(CharSequence message) {
+	public GDXButtonDialog setMessage(CharSequence message) {
 		this.message = (String) message;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setTitle(CharSequence title) {
+	public GDXButtonDialog setTitle(CharSequence title) {
 		this.title = (String) title;
 		return this;
 	}

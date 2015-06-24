@@ -17,9 +17,9 @@
 package de.tomgrill.gdxdialogs.android.dialogs;
 
 import android.app.Activity;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
-public class AndroidProgressDialog implements ProgressDialog {
+public class AndroidGDXProgressDialog implements GDXProgressDialog {
 
 	private Activity activity;
 
@@ -30,26 +30,26 @@ public class AndroidProgressDialog implements ProgressDialog {
 
 	private boolean isBuild = false;
 
-	public AndroidProgressDialog(Activity activity) {
+	public AndroidGDXProgressDialog(Activity activity) {
 		this.activity = activity;
 	}
 
 	@Override
-	public ProgressDialog setMessage(CharSequence message) {
+	public GDXProgressDialog setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog setTitle(CharSequence title) {
+	public GDXProgressDialog setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog show() {
+	public GDXProgressDialog show() {
 		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException("ProgressDialog has not been build. Use build() before show().");
+			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
@@ -63,10 +63,10 @@ public class AndroidProgressDialog implements ProgressDialog {
 	}
 
 	@Override
-	public ProgressDialog dismiss() {
+	public GDXProgressDialog dismiss() {
 
 		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException("ProgressDialog has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
@@ -80,13 +80,13 @@ public class AndroidProgressDialog implements ProgressDialog {
 	}
 
 	@Override
-	public ProgressDialog build() {
+	public GDXProgressDialog build() {
 		if (progressDialog == null) {
 
 			activity.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					progressDialog = new android.app.ProgressDialog(AndroidProgressDialog.this.activity);
+					progressDialog = new android.app.ProgressDialog(AndroidGDXProgressDialog.this.activity);
 
 					progressDialog.setMessage(message);
 					progressDialog.setTitle(title);

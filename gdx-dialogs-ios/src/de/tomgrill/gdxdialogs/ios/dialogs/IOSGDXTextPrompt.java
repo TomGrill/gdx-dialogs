@@ -21,12 +21,10 @@ import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
 import org.robovm.apple.uikit.UIAlertViewStyle;
 import org.robovm.apple.uikit.UITextField;
 
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public class IOSTextPrompt implements TextPrompt {
-
-	private final String TAG = "gdx-dialogs";
+public class IOSGDXTextPrompt implements GDXTextPrompt {
 
 	private String message = "";
 	private String title = "";
@@ -35,22 +33,23 @@ public class IOSTextPrompt implements TextPrompt {
 
 	private TextPromptListener listener;
 
-	private String inputValue = "";
-
 	private UIAlertView alertView;
 
+	public IOSGDXTextPrompt() {
+	}
+
 	@Override
-	public TextPrompt show() {
+	public GDXTextPrompt show() {
 
 		if (alertView == null) {
-			throw new RuntimeException("TextPrompt has not been build. Use build() before show().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 		alertView.show();
 		return this;
 	}
 
 	@Override
-	public TextPrompt build() {
+	public GDXTextPrompt build() {
 
 		if (alertView != null) {
 			alertView.dispose();
@@ -115,45 +114,44 @@ public class IOSTextPrompt implements TextPrompt {
 	}
 
 	@Override
-	public TextPrompt setTitle(CharSequence title) {
+	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = (String) title;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setMessage(CharSequence message) {
+	public GDXTextPrompt setMessage(CharSequence message) {
 		this.message = (String) message;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setValue(CharSequence value) {
-		this.inputValue = (String) value;
+	public GDXTextPrompt setValue(CharSequence value) {
 		return this;
 	}
 
 	@Override
-	public TextPrompt setCancelButtonLabel(CharSequence label) {
+	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
 		this.cancelLabel = (String) label;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setConfirmButtonLabel(CharSequence label) {
+	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
 		this.confirmLabel = (String) label;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setTextPromptListener(TextPromptListener listener) {
+	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public TextPrompt dismiss() {
+	public GDXTextPrompt dismiss() {
 		if (alertView == null) {
-			throw new RuntimeException("TextPrompt has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 		alertView.dismiss(0, false);
 		return this;

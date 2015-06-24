@@ -22,10 +22,10 @@ import android.content.DialogInterface;
 
 import com.badlogic.gdx.utils.Array;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public class AndroidButtonDialog implements ButtonDialog {
+public class AndroidGDXButtonDialog implements GDXButtonDialog {
 
 	private Activity activity;
 
@@ -44,21 +44,21 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 	private Array<CharSequence> labels = new Array<CharSequence>();
 
-	public AndroidButtonDialog(Activity activity) {
+	public AndroidGDXButtonDialog(Activity activity) {
 		this.activity = activity;
 	}
 
 	@Override
-	public ButtonDialog setCancelable(boolean cancelable) {
+	public GDXButtonDialog setCancelable(boolean cancelable) {
 		this.cancelable = cancelable;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog show() {
+	public GDXButtonDialog show() {
 
 		if (dialog == null || isBuild == false) {
-			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
@@ -71,10 +71,10 @@ public class AndroidButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog dismiss() {
+	public GDXButtonDialog dismiss() {
 
 		if (dialog == null || isBuild == false) {
-			throw new RuntimeException("ButtonDialog has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
@@ -87,13 +87,13 @@ public class AndroidButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListener listener) {
+	public GDXButtonDialog setClickListener(ButtonClickListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog addButton(CharSequence label) {
+	public GDXButtonDialog addButton(CharSequence label) {
 		if (labels.size >= 3) {
 			throw new RuntimeException("You can only have up to three buttons added.");
 		}
@@ -102,7 +102,7 @@ public class AndroidButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog build() {
+	public GDXButtonDialog build() {
 		builder = new AlertDialog.Builder(activity);
 		builder.setCancelable(cancelable);
 		builder.setMessage(message);
@@ -116,8 +116,8 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 					@Override
 					public void onClick(DialogInterface di, int which) {
-						if (AndroidButtonDialog.this.listener != null) {
-							AndroidButtonDialog.this.listener.click(0);
+						if (AndroidGDXButtonDialog.this.listener != null) {
+							AndroidGDXButtonDialog.this.listener.click(0);
 						}
 
 					}
@@ -129,8 +129,8 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						if (AndroidButtonDialog.this.listener != null) {
-							AndroidButtonDialog.this.listener.click(1);
+						if (AndroidGDXButtonDialog.this.listener != null) {
+							AndroidGDXButtonDialog.this.listener.click(1);
 						}
 					}
 
@@ -142,8 +142,8 @@ public class AndroidButtonDialog implements ButtonDialog {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						if (AndroidButtonDialog.this.listener != null) {
-							AndroidButtonDialog.this.listener.click(2);
+						if (AndroidGDXButtonDialog.this.listener != null) {
+							AndroidGDXButtonDialog.this.listener.click(2);
 						}
 					}
 
@@ -171,13 +171,13 @@ public class AndroidButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog setMessage(CharSequence message) {
+	public GDXButtonDialog setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setTitle(CharSequence title) {
+	public GDXButtonDialog setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}

@@ -16,30 +16,7 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialogAdapter;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialogAdapter;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPromptAdapter;
-
-public class NullDialogManager extends DialogManager {
-
-	private final String TAG = "gdx-dialogs";
-
-	@Override
-	public ButtonDialog newButtonDialog() {
-		return new ButtonDialogAdapter();
-	}
-
-	@Override
-	public ProgressDialog newProgressDialog() {
-		return new ProgressDialogAdapter();
-	}
-
-	@Override
-	public TextPrompt newTextPrompt() {
-		return new TextPromptAdapter();
-	}
-
+public class GDXDialogsVars {
+	public static final String LOG_TAG = "gdx-dialogs";
+	public static final String VERSION = "0.2.0-SNAPSHOT";
 }

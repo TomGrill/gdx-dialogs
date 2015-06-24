@@ -16,16 +16,19 @@
 
 package de.tomgrill.gdxdialogs.core;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.dialogs.FallbackGDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.FallbackGDXProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.FallbackGDXTextPrompt;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 
-public abstract class DialogManager {
+class FallbackGDXDialogs extends GDXDialogs {
 
-	abstract public ButtonDialog newButtonDialog();
-
-	abstract public ProgressDialog newProgressDialog();
-
-	abstract public TextPrompt newTextPrompt();
+	public FallbackGDXDialogs() {
+		registerDialog(GDXButtonDialog.class.getName(), FallbackGDXButtonDialog.class.getName());
+		registerDialog(GDXProgressDialog.class.getName(), FallbackGDXProgressDialog.class.getName());
+		registerDialog(GDXTextPrompt.class.getName(), FallbackGDXTextPrompt.class.getName());
+	}
 
 }

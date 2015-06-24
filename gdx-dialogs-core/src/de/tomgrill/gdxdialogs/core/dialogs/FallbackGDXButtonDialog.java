@@ -14,31 +14,50 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxdialogs.desktop;
+package de.tomgrill.gdxdialogs.core.dialogs;
 
-import de.tomgrill.gdxdialogs.core.DialogManager;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
-import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopButtonDialog;
-import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopProgressDialog;
-import de.tomgrill.gdxdialogs.desktop.dialogs.DesktopTextPrompt;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public class DesktopDialogManager extends DialogManager {
+public class FallbackGDXButtonDialog implements GDXButtonDialog {
 
 	@Override
-	public ButtonDialog newButtonDialog() {
-		return new DesktopButtonDialog();
+	public GDXButtonDialog setCancelable(boolean cancelable) {
+		return this;
 	}
 
 	@Override
-	public ProgressDialog newProgressDialog() {
-		return new DesktopProgressDialog();
+	public GDXButtonDialog show() {
+		return this;
 	}
 
 	@Override
-	public TextPrompt newTextPrompt() {
-		return new DesktopTextPrompt();
+	public GDXButtonDialog dismiss() {
+		return this;
+	}
+
+	@Override
+	public GDXButtonDialog setClickListener(ButtonClickListener listener) {
+		return this;
+	}
+
+	@Override
+	public GDXButtonDialog addButton(CharSequence label) {
+		return this;
+	}
+
+	@Override
+	public GDXButtonDialog build() {
+		return this;
+	}
+
+	@Override
+	public GDXButtonDialog setMessage(CharSequence message) {
+		return this;
+	}
+
+	@Override
+	public GDXButtonDialog setTitle(CharSequence title) {
+		return this;
 	}
 
 }

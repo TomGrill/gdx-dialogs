@@ -26,12 +26,11 @@ import android.widget.TextView;
 
 import com.badlogic.gdx.Gdx;
 
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public class AndroidTextPrompt implements TextPrompt {
-
-	private final String TAG = "gdx-dialogs";
+public class AndroidGDXTextPrompt implements GDXTextPrompt {
 
 	private Activity activity;
 
@@ -53,14 +52,14 @@ public class AndroidTextPrompt implements TextPrompt {
 
 	private boolean isBuild = false;
 
-	public AndroidTextPrompt(Activity activity) {
+	public AndroidGDXTextPrompt(Activity activity) {
 		this.activity = activity;
 	}
 
 	@Override
-	public TextPrompt show() {
+	public GDXTextPrompt show() {
 		if (alertDialog == null || isBuild == false) {
-			throw new RuntimeException("TextPrompt has not been build. Use build() before show().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
 		if (alertDialog != null && userInput != null) {
@@ -78,7 +77,7 @@ public class AndroidTextPrompt implements TextPrompt {
 	}
 
 	@Override
-	public TextPrompt build() {
+	public GDXTextPrompt build() {
 		activity.runOnUiThread(new Runnable() {
 			//
 			@Override
@@ -137,53 +136,53 @@ public class AndroidTextPrompt implements TextPrompt {
 		try {
 			return activity.getResources().getIdentifier(pVariableName, pVariableType, activity.getPackageName());
 		} catch (Exception e) {
-			Gdx.app.error(TAG, "Cannot find resouce with name: " + pVariableName + " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
+			Gdx.app.error(GDXDialogsVars.LOG_TAG, "Cannot find resouce with name: " + pVariableName + " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
 			e.printStackTrace();
 			return -1;
 		}
 	}
 
 	@Override
-	public TextPrompt setTitle(CharSequence title) {
+	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setMessage(CharSequence message) {
+	public GDXTextPrompt setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setValue(CharSequence value) {
+	public GDXTextPrompt setValue(CharSequence value) {
 		this.inputValue = value;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setCancelButtonLabel(CharSequence label) {
+	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
 		this.cancelLabel = label;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setConfirmButtonLabel(CharSequence label) {
+	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
 		this.confirmLabel = label;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setTextPromptListener(TextPromptListener listener) {
+	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public TextPrompt dismiss() {
+	public GDXTextPrompt dismiss() {
 
 		if (alertDialog == null || isBuild == false) {
-			throw new RuntimeException("TextPrompt has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 
 		activity.runOnUiThread(new Runnable() {

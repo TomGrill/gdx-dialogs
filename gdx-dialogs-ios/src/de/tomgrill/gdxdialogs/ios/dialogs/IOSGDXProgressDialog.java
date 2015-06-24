@@ -24,9 +24,9 @@ import org.robovm.apple.uikit.UIActivityIndicatorViewStyle;
 import org.robovm.apple.uikit.UIAlertView;
 import org.robovm.apple.uikit.UIScreen;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
-public class IOSProgressDialog implements ProgressDialog {
+public class IOSGDXProgressDialog implements GDXProgressDialog {
 
 	private UIAlertView alertView;
 	private UIActivityIndicatorView indicator;
@@ -34,38 +34,41 @@ public class IOSProgressDialog implements ProgressDialog {
 	private String title = "";
 	private String message = "";
 
+	public IOSGDXProgressDialog() {
+	}
+
 	@Override
-	public ProgressDialog setMessage(CharSequence message) {
+	public GDXProgressDialog setMessage(CharSequence message) {
 		this.message = (String) message;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog setTitle(CharSequence title) {
+	public GDXProgressDialog setTitle(CharSequence title) {
 		this.title = (String) title;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog show() {
+	public GDXProgressDialog show() {
 		if (alertView == null) {
-			throw new RuntimeException("ProgressDialog has not been build. Use build() before show().");
+			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 		alertView.show();
 		return this;
 	}
 
 	@Override
-	public ProgressDialog dismiss() {
+	public GDXProgressDialog dismiss() {
 		if (alertView == null) {
-			throw new RuntimeException("TextPrompt has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 		alertView.dismiss(0, false);
 		return this;
 	}
 
 	@Override
-	public ProgressDialog build() {
+	public GDXProgressDialog build() {
 		if (alertView == null) {
 
 			alertView = new UIAlertView();
@@ -77,7 +80,6 @@ public class IOSProgressDialog implements ProgressDialog {
 
 			indicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
 			indicator.setFrame(new CGRect(0.0, 0.0, 40.0, 40.0));
-			// indicator.setCenter(indicator.getCenter());
 
 			indicator.setCenter(new CGPoint(screenSize.getWidth() / 2f - 20f, screenSize.getWidth() / 2f - 50));
 			indicator.startAnimating();

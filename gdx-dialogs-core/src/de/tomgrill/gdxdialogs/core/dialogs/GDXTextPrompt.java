@@ -18,14 +18,14 @@ package de.tomgrill.gdxdialogs.core.dialogs;
 
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public interface TextPrompt {
+public interface GDXTextPrompt {
 	/**
 	 * Sets the title
 	 * 
 	 * @param title
 	 * @return
 	 */
-	public TextPrompt setTitle(CharSequence title);
+	public GDXTextPrompt setTitle(CharSequence title);
 
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
@@ -33,21 +33,21 @@ public interface TextPrompt {
 	 * 
 	 * @return
 	 */
-	public TextPrompt show();
+	public GDXTextPrompt show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
 	 * 
 	 * @return
 	 */
-	public TextPrompt dismiss();
+	public GDXTextPrompt dismiss();
 
 	/**
 	 * This builds the button and prepares for usage.
 	 * 
 	 * @return
 	 */
-	public TextPrompt build();
+	public GDXTextPrompt build();
 
 	/**
 	 * Sets the message.
@@ -55,7 +55,7 @@ public interface TextPrompt {
 	 * @param message
 	 * @return
 	 */
-	public TextPrompt setMessage(CharSequence message);
+	public GDXTextPrompt setMessage(CharSequence message);
 
 	/**
 	 * Sets the default value for the input field.
@@ -63,7 +63,7 @@ public interface TextPrompt {
 	 * @param message
 	 * @return
 	 */
-	public TextPrompt setValue(CharSequence message);
+	public GDXTextPrompt setValue(CharSequence message);
 
 	/**
 	 * Sets the label for the cancel button on the dialog.
@@ -71,7 +71,7 @@ public interface TextPrompt {
 	 * @param message
 	 * @return
 	 */
-	public TextPrompt setCancelButtonLabel(CharSequence label);
+	public GDXTextPrompt setCancelButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the label for the confirm button on the dialog.
@@ -79,7 +79,7 @@ public interface TextPrompt {
 	 * @param message
 	 * @return
 	 */
-	public TextPrompt setConfirmButtonLabel(CharSequence label);
+	public GDXTextPrompt setConfirmButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the {@link TextPromptListener}
@@ -87,5 +87,5 @@ public interface TextPrompt {
 	 * @param message
 	 * @return
 	 */
-	public TextPrompt setTextPromptListener(TextPromptListener listener);
+	public GDXTextPrompt setTextPromptListener(TextPromptListener listener);
 }

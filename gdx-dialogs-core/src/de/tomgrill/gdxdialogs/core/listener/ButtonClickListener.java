@@ -18,5 +18,12 @@ package de.tomgrill.gdxdialogs.core.listener;
 
 public interface ButtonClickListener {
 
+	/**
+	 * 
+	 * @param button
+	 *            Number of button in the order it got added. 1st added = 0, 2nd
+	 *            added = 1, 3rd added = 2. -1 if the dialog got cancelled.
+	 *            Note: Not every OS allows canceling the button.
+	 */
 	public void click(int button);
 }

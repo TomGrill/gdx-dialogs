@@ -19,11 +19,9 @@ package de.tomgrill.gdxdialogs.desktop.dialogs;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
-public class DesktopProgressDialog implements ProgressDialog {
-
-	private final String TAG = "gdx-dialogs";
+public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
 	private JOptionPane optionPane;
 
@@ -32,20 +30,23 @@ public class DesktopProgressDialog implements ProgressDialog {
 	private CharSequence title = "";
 	private CharSequence message = "";
 
+	public DesktopGDXProgressDialog() {
+	}
+
 	@Override
-	public ProgressDialog setMessage(CharSequence message) {
+	public GDXProgressDialog setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog setTitle(CharSequence title) {
+	public GDXProgressDialog setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}
 
 	@Override
-	public ProgressDialog show() {
+	public GDXProgressDialog show() {
 		Thread t = new Thread(new Runnable() {
 
 			@Override
@@ -59,14 +60,14 @@ public class DesktopProgressDialog implements ProgressDialog {
 	}
 
 	@Override
-	public ProgressDialog dismiss() {
+	public GDXProgressDialog dismiss() {
 		dialog.dispose();
 		optionPane.setVisible(false);
 		return this;
 	}
 
 	@Override
-	public ProgressDialog build() {
+	public GDXProgressDialog build() {
 
 		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
 		dialog = new JDialog();

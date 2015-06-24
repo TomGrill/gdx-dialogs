@@ -19,42 +19,51 @@ package de.tomgrill.gdxdialogs.core;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
-import com.badlogic.gdx.utils.reflect.Method;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 
-public class DialogSystem {
-
-	private static final String TAG = "gdx-dialogs";
+public class GDXDialogsSystem {
 
 	private Class<?> gdxClazz = null;
 	private Object gdxAppObject = null;
 
-	private Class<?> gdxLifecycleListenerClazz = null;
-	private Method gdxAppAddLifecycleListenerMethod = null;
+	private GDXDialogs gdxDialogs;
 
-	private DialogManager dialogManager;
+	private static GDXDialogsSystem instance;
 
-	public DialogSystem() {
+	private static boolean isInstalled = false;
 
-		loadGdxReflections();
+	private GDXDialogsSystem() {
 
-		tryLoadAndroidDialogs();
-		tryLoadIOSDialogs();
-		tryLoadDesktopDialogs();
-		// tryLoadHTMLDialogs();
+	}
 
-		if (dialogManager == null) {
-			dialogManager = new NullDialogManager();
+	public static GDXDialogs install() {
+		if (isInstalled) {
+			throw new RuntimeException(GDXDialogsSystem.class.getSimpleName() + " has already been installed. You may not call install() more than once.");
+		}
+		isInstalled = true;
+		instance = new GDXDialogsSystem();
+		instance.installSystem();
+		return GDXDialogsSystem.getDialogManager();
+	}
+
+	private void installSystem() {
+		installGdxReflections();
+
+		installAndroidGDXDialogs();
+		installIOSGDXDialogs();
+		installDesktopGDXDialogs();
+		// installHTMLGDXDialogs();
+
+		if (gdxDialogs == null) {
+			gdxDialogs = new FallbackGDXDialogs();
 		}
 	}
 
-	private void loadGdxReflections() {
+	private void installGdxReflections() {
 
 		try {
 			gdxClazz = ClassReflection.forName("com.badlogic.gdx.Gdx");
 			gdxAppObject = ClassReflection.getField(gdxClazz, "app").get(null);
-			gdxLifecycleListenerClazz = ClassReflection.forName("com.badlogic.gdx.LifecycleListener");
-			gdxAppAddLifecycleListenerMethod = ClassReflection.getMethod(gdxAppObject.getClass(), "addLifecycleListener", gdxLifecycleListenerClazz);
 
 		} catch (ReflectionException e) {
 			e.printStackTrace();
@@ -63,88 +72,84 @@ public class DialogSystem {
 
 	}
 
-	private void tryLoadDesktopDialogs() {
+	private void installDesktopGDXDialogs() {
 		if (Gdx.app.getType() != ApplicationType.Desktop) {
-			Gdx.app.debug(TAG, "Skip loading gdx-dialogs for Desktop. Not running Desktop. \n");
+			showDebugSkipInstall(ApplicationType.Desktop.name());
 			return;
 		}
 		try {
 
-			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.desktop.DesktopDialogManager");
+			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.desktop.DesktopGDXDialogs");
 
 			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
 
-			this.dialogManager = (DialogManager) dialogManager;
+			this.gdxDialogs = (GDXDialogs) dialogManager;
 
-			Gdx.app.debug(TAG, "gdx-dialogs for Desktop loaded successfully.");
+			showDebugInstallSuccessful(ApplicationType.Desktop.name());
 
 		} catch (ReflectionException e) {
-			Gdx.app.debug(TAG, "Error creating gdx-dialogs for Desktop (are the gdx-dialogs **.jar files installed?). \n");
+			showErrorInstall(ApplicationType.Desktop.name(), "desktop");
 			e.printStackTrace();
 		}
 
 	}
 
-	private void tryLoadHTMLDialogs() {
+	private void installHTMLGDXDialogs() {
 		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			Gdx.app.debug(TAG, "Skip loading gdx-dialogs for HTML. Not running HTML. \n");
+			showDebugSkipInstall(ApplicationType.WebGL.name());
 			return;
 		}
 
 		try {
 
-			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.html.HTMLDialogManager");
+			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.html.HTMLGDXDialogs");
 			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
 
-			this.dialogManager = (DialogManager) dialogManager;
-
-			Gdx.app.debug(TAG, "gdx-dialogs for HTML loaded successfully.");
+			this.gdxDialogs = (GDXDialogs) dialogManager;
+			showDebugInstallSuccessful(ApplicationType.WebGL.name());
 
 		} catch (ReflectionException e) {
-			Gdx.app.debug(TAG, "Error creating gdx-dialogs for HTML (are the gdx-dialogs **.jar files installed?). \n");
+			showErrorInstall(ApplicationType.WebGL.name(), "html");
 			e.printStackTrace();
 		}
 
 	}
 
-	private void tryLoadIOSDialogs() {
+	private void installIOSGDXDialogs() {
 
 		if (Gdx.app.getType() != ApplicationType.iOS) {
-			Gdx.app.debug(TAG, "Skip loading gdx-dialogs for iOS. Not running iOS. \n");
+			showDebugSkipInstall(ApplicationType.iOS.name());
 			return;
 		}
 		try {
-			
-			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.ios.IOSDialogManager");
+
+			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.ios.IOSGDXDialogs");
 
 			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
 
-			this.dialogManager = (DialogManager) dialogManager;
-
-			Gdx.app.debug(TAG, "gdx-dialogs for iOS loaded successfully.");
+			this.gdxDialogs = (GDXDialogs) dialogManager;
+			showDebugInstallSuccessful(ApplicationType.iOS.name());
 
 		} catch (ReflectionException e) {
-			Gdx.app.debug(TAG, "Error creating gdx-dialogs for iOS (are the gdx-dialogs **.jar files installed?). \n");
+			showErrorInstall(ApplicationType.iOS.name(), "ios");
 			e.printStackTrace();
 		}
 
 	}
 
-	private void tryLoadAndroidDialogs() {
+	private void installAndroidGDXDialogs() {
 
 		if (Gdx.app.getType() != ApplicationType.Android) {
-			Gdx.app.debug(TAG, "Skip loading gdx-dialogs for Android. Not running Android. \n");
+			showDebugSkipInstall(ApplicationType.Android.name());
 			return;
 		}
 
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			try {
 
-				Class<?> gdxAndroidEventListenerClazz = ClassReflection.forName("com.badlogic.gdx.backends.android.AndroidEventListener");
-
 				Class<?> activityClazz = ClassReflection.forName("android.app.Activity");
 
-				Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.android.AndroidDialogManager");
+				Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.android.AndroidGDXDialogs");
 
 				Object activity = null;
 
@@ -173,31 +178,20 @@ public class DialogSystem {
 				}
 				Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz, activityClazz).newInstance(activity);
 
-				// Method gdxAppAddAndroidEventListenerMethod =
-				// ClassReflection.getMethod(gdxAppObject.getClass(),
-				// "addAndroidEventListener", gdxAndroidEventListenerClazz);
-				// gdxAppAddAndroidEventListenerMethod.invoke(gdxAppObject,
-				// dialogManager);
-
-				// gdxAppAddLifecycleListenerMethod.invoke(gdxAppObject,
-				// dialogManager);
-
-				this.dialogManager = (DialogManager) dialogManager;
-
-				Gdx.app.debug(TAG, "gdx-dialogs for Android loaded successfully.");
+				this.gdxDialogs = (GDXDialogs) dialogManager;
+				showDebugInstallSuccessful(ApplicationType.Android.name());
 
 			} catch (Exception e) {
-				Gdx.app.debug(TAG, "Error creating gdx-dialogs for Android (are the gdx-dialogs **.jar files installed?). \n");
+				showErrorInstall(ApplicationType.Android.name(), "android");
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public DialogManager getDialogManager() {
-		return dialogManager;
+	public static GDXDialogs getDialogManager() {
+		return instance.gdxDialogs;
 	}
 
-	/** @return null if class is not available in runtime */
 	private static Class<?> findClass(String name) {
 		try {
 			return ClassReflection.forName(name);
@@ -206,4 +200,17 @@ public class DialogSystem {
 		}
 	}
 
+	private void showDebugSkipInstall(String os) {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, "Skip installing " + GDXDialogsVars.LOG_TAG + " for " + os + ". Not running " + os + ". \n");
+	}
+
+	private void showErrorInstall(String os, String artifact) {
+		Gdx.app.error(GDXDialogsVars.LOG_TAG, "Error installing " + GDXDialogsVars.LOG_TAG + " for " + os + "\n");
+		Gdx.app.error(GDXDialogsVars.LOG_TAG, "Did you add compile >> \"de.tomgrill.gdxdialogs:gdx-dialogs-" + artifact + ":" + GDXDialogsVars.VERSION
+				+ "\" << to your gradle dependencies?\n");
+	}
+
+	private void showDebugInstallSuccessful(String os) {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXDialogsVars.LOG_TAG + " for " + os + " installed successfully.");
+	}
 }

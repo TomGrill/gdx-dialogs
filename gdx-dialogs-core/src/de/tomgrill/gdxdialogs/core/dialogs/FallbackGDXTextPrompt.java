@@ -16,47 +16,52 @@
 
 package de.tomgrill.gdxdialogs.core.dialogs;
 
-import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public class ButtonDialogAdapter implements ButtonDialog {
+public class FallbackGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
-	public ButtonDialog setCancelable(boolean cancelable) {
+	public GDXTextPrompt show() {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog show() {
+	public GDXTextPrompt build() {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog dismiss() {
+	public GDXTextPrompt setTitle(CharSequence title) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListener listener) {
+	public GDXTextPrompt setMessage(CharSequence message) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog addButton(CharSequence label) {
+	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog build() {
+	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setMessage(CharSequence message) {
+	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setTitle(CharSequence title) {
+	public GDXTextPrompt setValue(CharSequence message) {
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt dismiss() {
 		return this;
 	}
 

@@ -16,28 +16,20 @@
 
 package de.tomgrill.gdxdialogs.ios;
 
-import de.tomgrill.gdxdialogs.core.DialogManager;
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.ProgressDialog;
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
-import de.tomgrill.gdxdialogs.ios.dialogs.IOSButtonDialog;
-import de.tomgrill.gdxdialogs.ios.dialogs.IOSProgressDialog;
-import de.tomgrill.gdxdialogs.ios.dialogs.IOSTextPrompt;
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSGDXButtonDialog;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSGDXProgressDialog;
+import de.tomgrill.gdxdialogs.ios.dialogs.IOSGDXTextPrompt;
 
-public class IOSDialogManager extends DialogManager {
+public class IOSGDXDialogs extends GDXDialogs {
 
-	@Override
-	public ButtonDialog newButtonDialog() {
-		return new IOSButtonDialog();
+	public IOSGDXDialogs() {
+		registerDialog(GDXButtonDialog.class.getName(), IOSGDXButtonDialog.class.getName());
+		registerDialog(GDXProgressDialog.class.getName(), IOSGDXProgressDialog.class.getName());
+		registerDialog(GDXTextPrompt.class.getName(), IOSGDXTextPrompt.class.getName());
 	}
 
-	@Override
-	public ProgressDialog newProgressDialog() {
-		return new IOSProgressDialog();
-	}
-
-	@Override
-	public TextPrompt newTextPrompt() {
-		return new IOSTextPrompt();
-	}
 }

@@ -18,27 +18,26 @@ package de.tomgrill.gdxdialogs.desktop.dialogs;
 
 import javax.swing.JOptionPane;
 
-import de.tomgrill.gdxdialogs.core.dialogs.TextPrompt;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-public class DesktopTextPrompt implements TextPrompt {
+public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	private CharSequence title = "";
 	private CharSequence message = "";
-	private CharSequence cancelLabel = "";
-	private CharSequence confirmLabel = "";
 
 	private TextPromptListener listener;
 
+	public DesktopGDXTextPrompt() {
+	}
+
 	@Override
-	public TextPrompt show() {
+	public GDXTextPrompt show() {
 
 		Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-
-				// System.out.println("INFO message: " + infoMessage);
 
 				String response = JOptionPane.showInputDialog(null, (String) message, (String) title, JOptionPane.QUESTION_MESSAGE);
 
@@ -57,47 +56,45 @@ public class DesktopTextPrompt implements TextPrompt {
 	}
 
 	@Override
-	public TextPrompt setTitle(CharSequence title) {
+	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setMessage(CharSequence message) {
+	public GDXTextPrompt setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setCancelButtonLabel(CharSequence label) {
-		this.cancelLabel = label;
+	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
 		return this;
 	}
 
 	@Override
-	public TextPrompt setConfirmButtonLabel(CharSequence label) {
-		this.confirmLabel = label;
+	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
 		return this;
 	}
 
 	@Override
-	public TextPrompt build() {
+	public GDXTextPrompt build() {
 		return this;
 	}
 
 	@Override
-	public TextPrompt setTextPromptListener(TextPromptListener listener) {
+	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public TextPrompt setValue(CharSequence message) {
+	public GDXTextPrompt setValue(CharSequence message) {
 		return this;
 	}
 
 	@Override
-	public TextPrompt dismiss() {
+	public GDXTextPrompt dismiss() {
 		return this;
 	}
 

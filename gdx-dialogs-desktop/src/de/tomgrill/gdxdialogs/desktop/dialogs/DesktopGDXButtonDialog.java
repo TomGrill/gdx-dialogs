@@ -21,12 +21,11 @@ import javax.swing.JOptionPane;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
-import de.tomgrill.gdxdialogs.core.dialogs.ButtonDialog;
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-public class DesktopButtonDialog implements ButtonDialog {
-
-	private final String TAG = "gdx-dialogs";
+public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
 	private CharSequence title = "";
 	private CharSequence message = "";
@@ -37,14 +36,17 @@ public class DesktopButtonDialog implements ButtonDialog {
 
 	boolean isBuild = false;
 
+	public DesktopGDXButtonDialog() {
+	}
+
 	@Override
-	public ButtonDialog setCancelable(boolean cancelable) {
-		Gdx.app.log(TAG, "INFO: Desktop Dialogs cannot be set cancelable");
+	public GDXButtonDialog setCancelable(boolean cancelable) {
+		Gdx.app.log(GDXDialogsVars.LOG_TAG, "INFO: Desktop Dialogs cannot be set cancelable");
 		return this;
 	}
 
 	@Override
-	public ButtonDialog show() {
+	public GDXButtonDialog show() {
 
 		if (isBuild == false) {
 			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
@@ -78,19 +80,19 @@ public class DesktopButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog dismiss() {
-		Gdx.app.log(TAG, "INFO: Desktop Dialogs cannot be dismissed");
+	public GDXButtonDialog dismiss() {
+		Gdx.app.log(GDXDialogsVars.LOG_TAG, "INFO: Desktop Dialogs cannot be dismissed");
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setClickListener(ButtonClickListener listener) {
+	public GDXButtonDialog setClickListener(ButtonClickListener listener) {
 		this.listener = listener;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog addButton(CharSequence label) {
+	public GDXButtonDialog addButton(CharSequence label) {
 		if (labels.size >= 3) {
 			throw new RuntimeException("You can only have up to three buttons added.");
 		}
@@ -99,7 +101,7 @@ public class DesktopButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog build() {
+	public GDXButtonDialog build() {
 		if (labels.size == 0) {
 			throw new RuntimeException("You to add at least one button with addButton(..);");
 		}
@@ -108,13 +110,13 @@ public class DesktopButtonDialog implements ButtonDialog {
 	}
 
 	@Override
-	public ButtonDialog setMessage(CharSequence message) {
+	public GDXButtonDialog setMessage(CharSequence message) {
 		this.message = message;
 		return this;
 	}
 
 	@Override
-	public ButtonDialog setTitle(CharSequence title) {
+	public GDXButtonDialog setTitle(CharSequence title) {
 		this.title = title;
 		return this;
 	}
