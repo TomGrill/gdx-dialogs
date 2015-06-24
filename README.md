@@ -50,6 +50,8 @@ Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from th
 
 You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-android/res/values-v11/styles.xml) if you want use another theme like Holo.Light
 
+If your project already has styles.xml file make sure you merge what you need from both files.
+
 **iOS**
 Add this to your robovm.xml
 ```
@@ -70,7 +72,7 @@ project(":ios") {
 }
 ```
 
-**Core**
+**Desktop**
 
 Add this to your libGDX build.gradle
 ```
@@ -89,65 +91,68 @@ project(":desktop") {
 https://github.com/TomGrill/gdx-dialogs-app
 
 **Enable**
+
 ```
 DialogSystem dSystem = new DialogSystem(); // You may only do this once.
 DialogManager	dManager = dSystem.getDialogManager();
 ```
 
 **ButtonDialog**
-```
+
+```		
+ButtonDialog bDialog = dManager.newButtonDialog();
 bDialog.setTitle("Buy a item");
-		bDialog.setMessage("Do you want to buy the mozarella?");
+bDialog.setMessage("Do you want to buy the mozarella?");
 
-		bDialog.setClickListener(new ButtonClickListener() {
+bDialog.setClickListener(new ButtonClickListener() {
 
-			@Override
-			public void click(int button) {
-				// handle button click here
-			}
-		});
+	@Override
+	public void click(int button) {
+		// handle button click here
+	}
+});
 
-		bDialog.addButton("No"); 
-		bDialog.addButton("Never"); 
-		bDialog.addButton("Yes, nomnom!");
+bDialog.addButton("No"); 
+bDialog.addButton("Never"); 
+bDialog.addButton("Yes, nomnom!");
 
-		bDialog.build().show();
+bDialog.build().show();
 ```
 
 **ButtonDialog**
 ```
-    ProgressDialog progressDialog = dManager.newProgressDialog();
+ProgressDialog progressDialog = dManager.newProgressDialog();
 
-		progressDialog.setTitle("Download");
-		progressDialog.setMessage("Loading new level from server...");
+progressDialog.setTitle("Download");
+progressDialog.setMessage("Loading new level from server...");
 
-		progressDialog.build().show();
+progressDialog.build().show();
 ```
 
 **TextPrompt**
 ```
-    TextPrompt textPrompt = dManager.newTextPrompt();
+TextPrompt textPrompt = dManager.newTextPrompt();
 
-		textPrompt.setTitle("Your name");
-		textPrompt.setMessage("Please tell me your name.");
+textPrompt.setTitle("Your name");
+textPrompt.setMessage("Please tell me your name.");
 
-		textPrompt.setCancelButtonLabel("Cancel");
-		textPrompt.setConfirmButtonLabel("Save name");
+textPrompt.setCancelButtonLabel("Cancel");
+textPrompt.setConfirmButtonLabel("Save name");
 
-		textPrompt.setTextPromptListener(new TextPromptListener() {
+textPrompt.setTextPromptListener(new TextPromptListener() {
 
-			@Override
-			public void confirm(String text) {
-			  // do something with the user input
-			}
+	@Override
+	public void confirm(String text) {
+	  // do something with the user input
+	}
 
-			@Override
-			public void cancel() {
-			  // handle input cancel 
-			}
-		});
+	@Override
+	public void cancel() {
+	  // handle input cancel 
+	}
+});
 
-		textPrompt.build().show();
+textPrompt.build().show();
 ```
 
 ##Release History
