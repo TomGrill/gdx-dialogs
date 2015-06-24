@@ -4,9 +4,9 @@ libGDX extension providing cross-platform support for native dialogs
 ![Alt text](/assets/dialogs.jpg?raw=true "Examples")
 
 ## Version
-Current status i **beta**. (It is not recommended to use this library in production releases.)
+Current status i **beta**.
 
-Current snapshot: **0.1.0**
+Current snapshot: **0.2.0**
 
 Current stable: **not yet existing**
 
@@ -22,28 +22,17 @@ Desktop show Java UI Dialogs which usually dont fit very well in desktop game. I
 ## Installation
 **Core**
 
-Add this to your libGDX build.gradle
-```
-project(":core") {
-	dependencies {
-	    ...
-	    compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:0.1.0-SNAPSHOT"
-	    ...
-	}
-}
+Add this to your build.gradle core dependencies
+```gradle
+	compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:0.2.0-SNAPSHOT"
 ```
 
 **Android**
 
-Add this to your libGDX build.gradle
-```
+Add this to your build.gradle android dependencies
+```gradle
 project(":android") {
-	dependencies {
-	    ...
-	    compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.1.0-SNAPSHOT"
-	    ...
-	}
-}
+	compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.2.0-SNAPSHOT"
 ```
 
 Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
@@ -54,35 +43,23 @@ If your project already has styles.xml file make sure you merge what you need fr
 
 **iOS**
 Add this to your robovm.xml
-```
+```xml
 <forceLinkClasses>
     ....
-    <pattern>de.tomgrill.gdxdialogs.ios.IOSDialogManager</pattern>
+    <pattern>de.tomgrill.gdxdialogs.ios.IOSGDXDialogs</pattern>
 </forceLinkClasses>
 ```
 
-Add this to your libGDX build.gradle
-```
-project(":ios") {
-	dependencies {
-	    ...
-	    compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:0.1.0-SNAPSHOT"
-	    ...
-	}
-}
+Add this to your build.gradle ios dependencies
+```gradle
+	compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:0.2.0-SNAPSHOT"
 ```
 
 **Desktop**
 
-Add this to your libGDX build.gradle
-```
-project(":desktop") {
-	dependencies {
-	    ...
-	    compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:0.1.0-SNAPSHOT"
-	    ...
-	}
-}
+Add this to your build.gradle desktop dependencies
+```gradle
+	compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:0.2.0-SNAPSHOT"
 ```
 
 ## Usage
@@ -93,14 +70,13 @@ https://github.com/TomGrill/gdx-dialogs-app
 **Enable**
 
 ```
-DialogSystem dSystem = new DialogSystem(); // You may only do this once.
-DialogManager	dManager = dSystem.getDialogManager();
+GDXDialogs dialogs = GDXDialogsSystem.install();
 ```
 
 **ButtonDialog**
 
-```		
-ButtonDialog bDialog = dManager.newButtonDialog();
+```java	
+ButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
 bDialog.setTitle("Buy a item");
 bDialog.setMessage("Do you want to buy the mozarella?");
 
@@ -120,8 +96,8 @@ bDialog.build().show();
 ```
 
 **ButtonDialog**
-```
-ProgressDialog progressDialog = dManager.newProgressDialog();
+```java
+ProgressDialog progressDialog = dialogs.newDialog(GDXProgressDialog.class);
 
 progressDialog.setTitle("Download");
 progressDialog.setMessage("Loading new level from server...");
@@ -130,8 +106,8 @@ progressDialog.build().show();
 ```
 
 **TextPrompt**
-```
-TextPrompt textPrompt = dManager.newTextPrompt();
+```java
+TextPrompt textPrompt = dialogs.newDialog(GDXTextPrompt.class);
 
 textPrompt.setTitle("Your name");
 textPrompt.setMessage("Please tell me your name.");
@@ -155,10 +131,51 @@ textPrompt.setTextPromptListener(new TextPromptListener() {
 textPrompt.build().show();
 ```
 
+## Create your own dialogs.
+
+In case you require are certain dialog (F.e. DatePicker, ProgressBar, ....) which is not supported by gdx-dialogs yet you can write your own dialog.
+
+1. Create a interface like [GDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/GDXButtonDialog.java)
+2. Create the implementation for Android like this: [AndroidGDXButtonDialog](gdx-dialogs-android/src/de/tomgrill/gdxdialogs/android/dialogs/AndroidGDXButtonDialog.java)
+3. Create the implementation for Desktop like this: [DesktopGDXButtonDialog](gdx-dialogs-desktop/src/de/tomgrill/gdxdialogs/desktop/dialogs/DesktopGDXButtonDialog.java)
+4. Create the implementation for iOS like this: [IOSGDXButtonDialog](gdx-dialogs-ios/src/de/tomgrill/gdxdialogs/ios/dialogs/IOSGDXButtonDialog.java)
+5. Create a empty method fallback implementation: [FallbackGDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/FallbackGDXButtonDialog.java)
+
+If your dialog is written register it like this:
+
+```java
+if(Gdx.app.getType() == ApplicationType.Android) {
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.AndroidGDXButtonDialog");		
+}
+
+else if(Gdx.app.getType() == ApplicationType.Desktop) {
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.DesktopGDXButtonDialog");		
+}
+
+else if(Gdx.app.getType() == ApplicationType.iOS) {
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.IOSGDXButtonDialog");		
+}
+
+else {
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.FallbackGDXButtonDialog");		
+}
+```
+
+Use your own dialog:
+
+```java
+	dialogs.newDialog(GDXButtonDialog.class); // Use your dialog interface here
+```
+
+**Note:** Every platform specific implementation must have constructor even if it is empty. Android implementations must have a contructor accepting Activity parameter.
+
+**Increase your karma points :) Share your dialog with us, add it to this repository and make a Pull Request.**
+
 ##Release History
 
 Release history for major milestones (available via Maven):
 
+*Version 0.2.0: API Changes. You can create own dialogs now.
 *Version 0.1.0: Initial Release
 
 ##Reporting Issues
