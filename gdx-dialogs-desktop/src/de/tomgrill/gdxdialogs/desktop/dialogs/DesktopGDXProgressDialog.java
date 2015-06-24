@@ -19,6 +19,9 @@ package de.tomgrill.gdxdialogs.desktop.dialogs;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
 public class DesktopGDXProgressDialog implements GDXProgressDialog {
@@ -51,6 +54,7 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() + " now shown.");
 				dialog.setVisible(true);
 			}
 
@@ -63,6 +67,7 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 	public GDXProgressDialog dismiss() {
 		dialog.dispose();
 		optionPane.setVisible(false);
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() + " dismissed.");
 		return this;
 	}
 

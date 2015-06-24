@@ -20,8 +20,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
@@ -64,6 +66,7 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() + " now shown.");
 				dialog.show();
 			}
 		});
@@ -80,6 +83,7 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() + " dismissed.");
 				dialog.dismiss();
 			}
 		});

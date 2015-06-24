@@ -18,6 +18,9 @@ package de.tomgrill.gdxdialogs.desktop.dialogs;
 
 import javax.swing.JOptionPane;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
@@ -38,7 +41,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 			@Override
 			public void run() {
-
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
 				String response = JOptionPane.showInputDialog(null, (String) message, (String) title, JOptionPane.QUESTION_MESSAGE);
 
 				if (listener != null) {
@@ -95,6 +98,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt dismiss() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " dismiss ignored. (Desktop TextPrompt cannot be dismissed)");
 		return this;
 	}
 

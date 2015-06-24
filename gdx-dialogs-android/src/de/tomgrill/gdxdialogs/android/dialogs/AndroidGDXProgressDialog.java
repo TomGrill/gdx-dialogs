@@ -17,6 +17,10 @@
 package de.tomgrill.gdxdialogs.android.dialogs;
 
 import android.app.Activity;
+
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
 public class AndroidGDXProgressDialog implements GDXProgressDialog {
@@ -49,12 +53,13 @@ public class AndroidGDXProgressDialog implements GDXProgressDialog {
 	@Override
 	public GDXProgressDialog show() {
 		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " now shown.");
 				progressDialog.show();
 			}
 		});
@@ -66,12 +71,13 @@ public class AndroidGDXProgressDialog implements GDXProgressDialog {
 	public GDXProgressDialog dismiss() {
 
 		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " dismissed.");
 				progressDialog.dismiss();
 			}
 		});

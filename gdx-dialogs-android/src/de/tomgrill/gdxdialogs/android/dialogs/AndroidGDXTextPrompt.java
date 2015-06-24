@@ -69,6 +69,7 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " now shown.");
 				alertDialog.show();
 			}
 		});
@@ -188,6 +189,7 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");
 				alertDialog.dismiss();
 			}
 		});

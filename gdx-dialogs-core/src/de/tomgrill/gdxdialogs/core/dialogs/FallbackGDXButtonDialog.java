@@ -16,6 +16,9 @@
 
 package de.tomgrill.gdxdialogs.core.dialogs;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 public class FallbackGDXButtonDialog implements GDXButtonDialog {
@@ -27,11 +30,13 @@ public class FallbackGDXButtonDialog implements GDXButtonDialog {
 
 	@Override
 	public GDXButtonDialog show() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXButtonDialog.class.getSimpleName() + " now shown ignored. (Fallback with empty methods)");
 		return this;
 	}
 
 	@Override
 	public GDXButtonDialog dismiss() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXButtonDialog.class.getSimpleName() + " dismiss ignored. (Fallback with empty methods)");
 		return this;
 	}
 

@@ -41,7 +41,7 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
 	@Override
 	public GDXButtonDialog setCancelable(boolean cancelable) {
-		Gdx.app.log(GDXDialogsVars.LOG_TAG, "INFO: Desktop Dialogs cannot be set cancelable");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, "INFO: Desktop Dialogs cannot be set cancelled");
 		return this;
 	}
 
@@ -49,13 +49,15 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 	public GDXButtonDialog show() {
 
 		if (isBuild == false) {
-			throw new RuntimeException("ButtonDialog has not been build. Use build() before show().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
 		Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
+
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
 				Object[] options = new Object[labels.size];
 
 				for (int i = 0; i < labels.size; i++) {
@@ -81,7 +83,7 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
 	@Override
 	public GDXButtonDialog dismiss() {
-		Gdx.app.log(GDXDialogsVars.LOG_TAG, "INFO: Desktop Dialogs cannot be dismissed");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " dismiss ignored. (Desktop ButtonDialogs cannot be dismissed)");
 		return this;
 	}
 

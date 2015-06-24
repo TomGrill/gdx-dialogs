@@ -16,12 +16,16 @@
 
 package de.tomgrill.gdxdialogs.core.dialogs;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
 public class FallbackGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt show() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " now shown ignored. (Fallback with empty methods)");
 		return this;
 	}
 
@@ -62,6 +66,7 @@ public class FallbackGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt dismiss() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " dismiss ignored. (Fallback with empty methods)");
 		return this;
 	}
 

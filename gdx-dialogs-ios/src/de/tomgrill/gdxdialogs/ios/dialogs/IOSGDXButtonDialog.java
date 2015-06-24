@@ -19,8 +19,10 @@ package de.tomgrill.gdxdialogs.ios.dialogs;
 import org.robovm.apple.uikit.UIAlertView;
 import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
@@ -48,6 +50,7 @@ public class IOSGDXButtonDialog implements GDXButtonDialog {
 		if (alertView == null) {
 			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXButtonDialog.class.getSimpleName() + " now shown.");
 		alertView.show();
 		return this;
 	}
@@ -57,6 +60,7 @@ public class IOSGDXButtonDialog implements GDXButtonDialog {
 		if (alertView == null) {
 			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXButtonDialog.class.getSimpleName() + " dismissed.");
 		alertView.dismiss(-1, false);
 		return this;
 	}

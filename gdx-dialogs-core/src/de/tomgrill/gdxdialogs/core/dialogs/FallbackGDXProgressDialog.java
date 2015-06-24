@@ -16,6 +16,10 @@
 
 package de.tomgrill.gdxdialogs.core.dialogs;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
+
 public class FallbackGDXProgressDialog implements GDXProgressDialog {
 
 	@Override
@@ -30,11 +34,13 @@ public class FallbackGDXProgressDialog implements GDXProgressDialog {
 
 	@Override
 	public GDXProgressDialog show() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXProgressDialog.class.getSimpleName() + " now shown ignored. (Fallback with empty methods)");
 		return this;
 	}
 
 	@Override
 	public GDXProgressDialog dismiss() {
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXProgressDialog.class.getSimpleName() + " dismiss ignored. (Fallback with empty methods)");
 		return this;
 	}
 

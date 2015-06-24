@@ -21,6 +21,9 @@ import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
 import org.robovm.apple.uikit.UIAlertViewStyle;
 import org.robovm.apple.uikit.UITextField;
 
+import com.badlogic.gdx.Gdx;
+
+import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
@@ -44,6 +47,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 		if (alertView == null) {
 			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " now shown.");
 		alertView.show();
 		return this;
 	}
@@ -153,6 +157,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 		if (alertView == null) {
 			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " dismissed.");
 		alertView.dismiss(0, false);
 		return this;
 	}
