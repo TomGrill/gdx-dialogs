@@ -174,8 +174,8 @@ Use your own dialog:
 
 Release history for major milestones (available via Maven):
 
-*Version 0.2.0: API Changes. You can create own dialogs now.
-*Version 0.1.0: Initial Release
+* Version 0.2.0: API Changes. You can create own dialogs now.
+* Version 0.1.0: Initial Release
 
 ##Reporting Issues
 
