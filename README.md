@@ -31,7 +31,6 @@ Add this to your build.gradle core dependencies
 
 Add this to your build.gradle android dependencies
 ```gradle
-project(":android") {
 	compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.2.0-SNAPSHOT"
 ```
 
