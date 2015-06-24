@@ -134,11 +134,11 @@ textPrompt.build().show();
 
 In case you require are certain dialog (F.e. DatePicker, ProgressBar, ....) which is not supported by gdx-dialogs yet you can write your own dialog.
 
-1. Create a interface like [GDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/GDXButtonDialog.java)
-2. Create the implementation for Android like this: [AndroidGDXButtonDialog](gdx-dialogs-android/src/de/tomgrill/gdxdialogs/android/dialogs/AndroidGDXButtonDialog.java)
-3. Create the implementation for Desktop like this: [DesktopGDXButtonDialog](gdx-dialogs-desktop/src/de/tomgrill/gdxdialogs/desktop/dialogs/DesktopGDXButtonDialog.java)
-4. Create the implementation for iOS like this: [IOSGDXButtonDialog](gdx-dialogs-ios/src/de/tomgrill/gdxdialogs/ios/dialogs/IOSGDXButtonDialog.java)
-5. Create a empty method fallback implementation: [FallbackGDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/FallbackGDXButtonDialog.java)
+1. Create a interface like this (in core project): [GDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/GDXButtonDialog.java)
+2. Create the implementation for Android like this (in android project): [AndroidGDXButtonDialog](gdx-dialogs-android/src/de/tomgrill/gdxdialogs/android/dialogs/AndroidGDXButtonDialog.java)
+3. Create the implementation for Desktop like this (in desktop project): [DesktopGDXButtonDialog](gdx-dialogs-desktop/src/de/tomgrill/gdxdialogs/desktop/dialogs/DesktopGDXButtonDialog.java)
+4. Create the implementation for iOS like this (in ios project): [IOSGDXButtonDialog](gdx-dialogs-ios/src/de/tomgrill/gdxdialogs/ios/dialogs/IOSGDXButtonDialog.java)
+5. Create a empty method fallback implementation (in core project): [FallbackGDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/FallbackGDXButtonDialog.java)
 
 If your dialog is written register it like this:
 
