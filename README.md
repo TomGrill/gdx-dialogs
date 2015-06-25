@@ -41,6 +41,7 @@ You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-a
 If your project already has styles.xml file make sure you merge what you need from both files.
 
 **iOS**
+
 Add this to your robovm.xml
 ```xml
 <forceLinkClasses>
