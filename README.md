@@ -24,14 +24,14 @@ Desktop show Java UI Dialogs which usually dont fit very well in desktop game. I
 
 Add this to your build.gradle core dependencies
 ```gradle
-	compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:0.2.0-SNAPSHOT"
 ```
 
 **Android**
 
 Add this to your build.gradle android dependencies
 ```gradle
-	compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.2.0-SNAPSHOT"
 ```
 
 Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
@@ -41,6 +41,7 @@ You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-a
 If your project already has styles.xml file make sure you merge what you need from both files.
 
 **iOS**
+
 Add this to your robovm.xml
 ```xml
 <forceLinkClasses>
@@ -51,14 +52,14 @@ Add this to your robovm.xml
 
 Add this to your build.gradle ios dependencies
 ```gradle
-	compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:0.2.0-SNAPSHOT"
 ```
 
 **Desktop**
 
 Add this to your build.gradle desktop dependencies
 ```gradle
-	compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:0.2.0-SNAPSHOT"
 ```
 
 ## Usage
@@ -138,7 +139,7 @@ In case you require are certain dialog (F.e. DatePicker, ProgressBar, ....) whic
 2. Create the implementation for Android like this (in android project): [AndroidGDXButtonDialog](gdx-dialogs-android/src/de/tomgrill/gdxdialogs/android/dialogs/AndroidGDXButtonDialog.java)
 3. Create the implementation for Desktop like this (in desktop project): [DesktopGDXButtonDialog](gdx-dialogs-desktop/src/de/tomgrill/gdxdialogs/desktop/dialogs/DesktopGDXButtonDialog.java)
 4. Create the implementation for iOS like this (in ios project): [IOSGDXButtonDialog](gdx-dialogs-ios/src/de/tomgrill/gdxdialogs/ios/dialogs/IOSGDXButtonDialog.java)
-5. Create a empty method fallback implementation (in core project): [FallbackGDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/FallbackGDXButtonDialog.java)
+5. Create a fallback implementation with empty methods (in core project): [FallbackGDXButtonDialog](gdx-dialogs-core/src/de/tomgrill/gdxdialogs/core/dialogs/FallbackGDXButtonDialog.java)
 
 If your dialog is written register it like this:
 
@@ -163,7 +164,7 @@ else {
 Use your own dialog:
 
 ```java
-	dialogs.newDialog(GDXButtonDialog.class); // Use your dialog interface here
+dialogs.newDialog(GDXButtonDialog.class); // Use your dialog interface here
 ```
 
 **Note:** Every platform specific implementation must have constructor even if it is empty. Android implementations must have a contructor accepting Activity parameter.
