@@ -30,17 +30,11 @@ public class GDXDialogsSystem {
 
 	private static GDXDialogsSystem instance;
 
-	private static boolean isInstalled = false;
-
 	private GDXDialogsSystem() {
 
 	}
 
 	public static GDXDialogs install() {
-		if (isInstalled) {
-			throw new RuntimeException(GDXDialogsSystem.class.getSimpleName() + " has already been installed. You may not call install() more than once.");
-		}
-		isInstalled = true;
 		instance = new GDXDialogsSystem();
 		instance.installSystem();
 		return GDXDialogsSystem.getDialogManager();
