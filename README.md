@@ -95,7 +95,7 @@ bDialog.addButton("Yes, nomnom!");
 bDialog.build().show();
 ```
 
-**ButtonDialog**
+**ProgressDialog**
 ```java
 ProgressDialog progressDialog = dialogs.newDialog(GDXProgressDialog.class);
 
