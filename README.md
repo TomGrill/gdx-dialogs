@@ -76,7 +76,7 @@ GDXDialogs dialogs = GDXDialogsSystem.install();
 **ButtonDialog**
 
 ```java	
-ButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
 bDialog.setTitle("Buy a item");
 bDialog.setMessage("Do you want to buy the mozarella?");
 
@@ -97,7 +97,7 @@ bDialog.build().show();
 
 **ProgressDialog**
 ```java
-ProgressDialog progressDialog = dialogs.newDialog(GDXProgressDialog.class);
+GDXProgressDialog progressDialog = dialogs.newDialog(GDXProgressDialog.class);
 
 progressDialog.setTitle("Download");
 progressDialog.setMessage("Loading new level from server...");
@@ -107,7 +107,7 @@ progressDialog.build().show();
 
 **TextPrompt**
 ```java
-TextPrompt textPrompt = dialogs.newDialog(GDXTextPrompt.class);
+GDXTextPrompt textPrompt = dialogs.newDialog(GDXTextPrompt.class);
 
 textPrompt.setTitle("Your name");
 textPrompt.setMessage("Please tell me your name.");
