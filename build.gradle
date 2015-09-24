@@ -11,8 +11,8 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath 'com.android.tools.build:gradle:1.0.0'
-        classpath 'org.robovm:robovm-gradle-plugin:1.0.0-beta-04'
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'org.robovm:robovm-gradle-plugin:1.8.0'
     }
 }
 
@@ -23,8 +23,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'gdx-dialogs'
-        gdxVersion = '1.6.1'
-        roboVMVersion = '1.0.0-beta-04'
+        gdxVersion = '1.7.0'
+        roboVMVersion = '1.8.0'
 
 		jUnitVersion = '4.+'
 	    mockitoVersion = '1.10.+'
