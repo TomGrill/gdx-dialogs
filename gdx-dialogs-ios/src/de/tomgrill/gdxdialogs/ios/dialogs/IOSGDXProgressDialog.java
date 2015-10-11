@@ -16,13 +16,8 @@
 
 package de.tomgrill.gdxdialogs.ios.dialogs;
 
-import org.robovm.apple.coregraphics.CGPoint;
-import org.robovm.apple.coregraphics.CGRect;
-import org.robovm.apple.coregraphics.CGSize;
 import org.robovm.apple.uikit.UIActivityIndicatorView;
-import org.robovm.apple.uikit.UIActivityIndicatorViewStyle;
 import org.robovm.apple.uikit.UIAlertView;
-import org.robovm.apple.uikit.UIScreen;
 
 import com.badlogic.gdx.Gdx;
 
@@ -81,15 +76,18 @@ public class IOSGDXProgressDialog implements GDXProgressDialog {
 			alertView.setTitle(title);
 			alertView.setMessage(message);
 
-			CGSize screenSize = UIScreen.getMainScreen().getBounds().getSize();
+			// CGSize screenSize =
+			// UIScreen.getMainScreen().getBounds().getSize();
 
-			indicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
-			indicator.setFrame(new CGRect(0.0, 0.0, 40.0, 40.0));
-
-			indicator.setCenter(new CGPoint(screenSize.getWidth() / 2f - 20f, screenSize.getWidth() / 2f - 50));
-			indicator.startAnimating();
-			alertView.addSubview(indicator);
-			indicator.release();
+			// indicator = new
+			// UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
+			// indicator.setFrame(new CGRect(0.0, 0.0, 40.0, 40.0));
+			//
+			// indicator.setCenter(new CGPoint(screenSize.getWidth() / 2f - 20f,
+			// screenSize.getWidth() / 2f - 50));
+			// indicator.startAnimating();
+			// alertView.addSubview(indicator);
+			// indicator.release();
 
 		}
 
