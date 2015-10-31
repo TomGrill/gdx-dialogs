@@ -21,7 +21,7 @@ import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 public interface GDXTextPrompt {
 	/**
 	 * Sets the title
-	 * 
+	 *
 	 * @param title
 	 * @return
 	 */
@@ -30,28 +30,28 @@ public interface GDXTextPrompt {
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
 	 * else there might be strange behavior.
-	 * 
+	 *
 	 * @return
 	 */
 	public GDXTextPrompt show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
-	 * 
+	 *
 	 * @return
 	 */
 	public GDXTextPrompt dismiss();
 
 	/**
 	 * This builds the button and prepares for usage.
-	 * 
+	 *
 	 * @return
 	 */
 	public GDXTextPrompt build();
 
 	/**
 	 * Sets the message.
-	 * 
+	 *
 	 * @param message
 	 * @return
 	 */
@@ -59,7 +59,7 @@ public interface GDXTextPrompt {
 
 	/**
 	 * Sets the default value for the input field.
-	 * 
+	 *
 	 * @param message
 	 * @return
 	 */
@@ -67,24 +67,24 @@ public interface GDXTextPrompt {
 
 	/**
 	 * Sets the label for the cancel button on the dialog.
-	 * 
-	 * @param message
+	 *
+	 * @param label
 	 * @return
 	 */
 	public GDXTextPrompt setCancelButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the label for the confirm button on the dialog.
-	 * 
-	 * @param message
+	 *
+	 * @param label
 	 * @return
 	 */
 	public GDXTextPrompt setConfirmButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the {@link TextPromptListener}
-	 * 
-	 * @param message
+	 *
+	 * @param listener
 	 * @return
 	 */
 	public GDXTextPrompt setTextPromptListener(TextPromptListener listener);
