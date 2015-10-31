@@ -103,6 +103,7 @@ afterEvaluate { project ->
                         developer {
                             id 'tomgrill'
                             name 'Thomas Pronold'
+                            email 'mail@tomgrill.de'
                         }
                     }
                 }
@@ -112,7 +113,7 @@ afterEvaluate { project ->
 
     signing {
         required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-       // sign configurations.archives
+        sign configurations.archives
     }
 
     task libraryJar(type: Jar, dependsOn:classes) {
@@ -134,7 +135,7 @@ afterEvaluate { project ->
     artifacts {
         archives libraryJar
         archives sourcesJar
-       // archives javadocJar
+        archives javadocJar
     }
 
 }
