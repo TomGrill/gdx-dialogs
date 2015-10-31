@@ -11,8 +11,10 @@ local.properties
 .settings/
 /build/
 
-publishLocal.sh
-publishSnapshot.sh
-publishSnapshotTpronold.sh
+publish*
+
+.idea/
+*.iml
+
 
 .DS_Store

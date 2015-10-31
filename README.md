@@ -4,11 +4,10 @@ libGDX extension providing cross-platform support for native dialogs
 ![Alt text](/assets/dialogs.jpg?raw=true "Examples")
 
 ## Version
-Current status i **beta**.
 
-Current snapshot: **0.2.0**
+Current stable: **1.0.0**
+Current snapshot: **1.0.1-SNAPSHOT**
 
-Current stable: **not yet existing**
 
 ##Supported Platforms
 Android, iOS, Desktop (kinda)
@@ -16,7 +15,7 @@ Desktop show Java UI Dialogs which usually dont fit very well in desktop game. I
 
 ##Currently available dialog types
 1. ButtonDialog: shows a dialog with 1-3 buttons for the user to click.
-2. ProgressDialog: Shows dialog with a progresswheel. Not cancelable by the user.
+2. ProgressDialog: Shows dialog with a progress wheel. Not cancelable by the user.
 3. TextPrompt: On screen display with text input.
 
 ## Installation
@@ -24,14 +23,14 @@ Desktop show Java UI Dialogs which usually dont fit very well in desktop game. I
 
 Add this to your build.gradle core dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.0.0"
 ```
 
 **Android**
 
 Add this to your build.gradle android dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:1.0.0"
 ```
 
 Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
@@ -52,14 +51,14 @@ Add this to your robovm.xml
 
 Add this to your build.gradle ios dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:1.0.0"
 ```
 
 **Desktop**
 
 Add this to your build.gradle desktop dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:0.2.0-SNAPSHOT"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.0.0"
 ```
 
 ## Usage
@@ -75,7 +74,7 @@ GDXDialogs dialogs = GDXDialogsSystem.install();
 
 **ButtonDialog**
 
-```java	
+```java
 GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
 bDialog.setTitle("Buy a item");
 bDialog.setMessage("Do you want to buy the mozarella?");
@@ -88,8 +87,8 @@ bDialog.setClickListener(new ButtonClickListener() {
 	}
 });
 
-bDialog.addButton("No"); 
-bDialog.addButton("Never"); 
+bDialog.addButton("No");
+bDialog.addButton("Never");
 bDialog.addButton("Yes, nomnom!");
 
 bDialog.build().show();
@@ -124,7 +123,7 @@ textPrompt.setTextPromptListener(new TextPromptListener() {
 
 	@Override
 	public void cancel() {
-	  // handle input cancel 
+	  // handle input cancel
 	}
 });
 
@@ -145,19 +144,19 @@ If your dialog is written register it like this:
 
 ```java
 if(Gdx.app.getType() == ApplicationType.Android) {
-	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.AndroidGDXButtonDialog");		
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.AndroidGDXButtonDialog");
 }
 
 else if(Gdx.app.getType() == ApplicationType.Desktop) {
-	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.DesktopGDXButtonDialog");		
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.DesktopGDXButtonDialog");
 }
 
 else if(Gdx.app.getType() == ApplicationType.iOS) {
-	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.IOSGDXButtonDialog");		
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.IOSGDXButtonDialog");
 }
 
 else {
-	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.FallbackGDXButtonDialog");		
+	dialogs.registerDialog("package.for.your.dialog.interface.GDXButtonDialog", "package.for.your.dialog.os.specific.implementation.FallbackGDXButtonDialog");
 }
 ```
 
@@ -175,6 +174,7 @@ dialogs.newDialog(GDXButtonDialog.class); // Use your dialog interface here
 
 Release history for major milestones (available via Maven):
 
+* Version 1.0.0: no changes, just released 0.2.0 as first stable build
 * Version 0.2.0: API Changes. You can create own dialogs now.
 * Version 0.1.0: Initial Release
 
