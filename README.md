@@ -13,6 +13,9 @@ Current snapshot: **1.0.1-SNAPSHOT**
 Android, iOS, Desktop (kinda)
 Desktop show Java UI Dialogs which usually dont fit very well in desktop game. I added Desktop support mainly to make testing while developing easier.
 
+##Requirements
+Android API 9+, iOS 6+
+
 ##Currently available dialog types
 1. ButtonDialog: shows a dialog with 1-3 buttons for the user to click.
 2. ProgressDialog: Shows dialog with a progress wheel. Not cancelable by the user.
