@@ -28,7 +28,6 @@ import de.tomgrill.gdxdialogs.iosmoe.dialogs.IOSMOEGDXTextPrompt;
 public class IOSMOEGDXDialogs extends GDXDialogs {
 
 	public IOSMOEGDXDialogs () {
-		Gdx.app.log("IOSMOEGDXDialogs", "Hello!");
 		registerDialog(GDXButtonDialog.class.getName(), IOSMOEGDXButtonDialog.class.getName());
 		registerDialog(GDXProgressDialog.class.getName(), IOSMOEGDXProgressDialog.class.getName());
 		registerDialog(GDXTextPrompt.class.getName(), IOSMOEGDXTextPrompt.class.getName());
