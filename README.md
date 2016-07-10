@@ -133,6 +133,24 @@ textPrompt.setTextPromptListener(new TextPromptListener() {
 textPrompt.build().show();
 ```
 
+**Open GL Context**
+
+Sometimes you want to call a method within one of your listeners which requires OpenGL context from the libgdx main thread. Since all dialogs run in their own thread (without OpenGL context) you have to make sure your method runs in the main thread by wrapping as postRunnable:
+
+```java
+dialog.setClickListener(new ButtonClickListener() {
+    @Override
+    public void click(int button) {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                // call the a method which requires OpenGL context.
+            }
+        });
+    }
+});
+```
+
 ## Create your own dialogs.
 
 In case you require are certain dialog (F.e. DatePicker, ProgressBar, ....) which is not supported by gdx-dialogs yet you can write your own dialog.
