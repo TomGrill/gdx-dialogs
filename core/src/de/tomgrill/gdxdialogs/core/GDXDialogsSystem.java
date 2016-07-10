@@ -115,6 +115,7 @@ public class GDXDialogsSystem {
 			showDebugSkipInstall(ApplicationType.iOS.name());
 			return;
 		}
+		// there doesn't seem to be an easy way to tell robovm and moe apart
 		try {
 
 			final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.ios.IOSGDXDialogs");
@@ -122,11 +123,23 @@ public class GDXDialogsSystem {
 			Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
 
 			this.gdxDialogs = (GDXDialogs) dialogManager;
-			showDebugInstallSuccessful(ApplicationType.iOS.name());
+			showDebugInstallSuccessful(ApplicationType.iOS.name()+"-robovm");
 
 		} catch (ReflectionException e) {
-			showErrorInstall(ApplicationType.iOS.name(), "ios");
-			e.printStackTrace();
+			try {
+				final Class<?> dialogManagerClazz = ClassReflection.forName("de.tomgrill.gdxdialogs.iosmoe.IOSMOEGDXDialogs");
+
+				Object dialogManager = ClassReflection.getConstructor(dialogManagerClazz).newInstance();
+
+				this.gdxDialogs = (GDXDialogs) dialogManager;
+				showDebugInstallSuccessful(ApplicationType.iOS.name() + "-moe");
+			} catch (ReflectionException ex) {
+				showErrorInstall(ApplicationType.iOS.name(), "ios");
+				e.printStackTrace();
+
+				showErrorInstall(ApplicationType.iOS.name(), "ios-moe");
+				ex.printStackTrace();
+			}
 		}
 
 	}
