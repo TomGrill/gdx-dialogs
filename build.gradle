@@ -41,9 +41,6 @@ allprojects {
 }
 
 project(":android") {
-    apply plugin : 'java'
-
-	apply from : '../publish.gradle'
 
     configurations {
         custom
