@@ -21,8 +21,8 @@ import com.badlogic.gdx.Gdx;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
-import ios.uikit.UIActivityIndicatorView;
-import ios.uikit.UIAlertView;
+import apple.uikit.UIActivityIndicatorView;
+import apple.uikit.UIAlertView;
 
 public class IOSMOEGDXProgressDialog implements GDXProgressDialog {
 

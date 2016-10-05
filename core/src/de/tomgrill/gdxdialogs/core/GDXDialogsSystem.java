@@ -46,7 +46,7 @@ public class GDXDialogsSystem {
 		installAndroidGDXDialogs();
 		installIOSGDXDialogs();
 		installDesktopGDXDialogs();
-		// installHTMLGDXDialogs();
+		installHTMLGDXDialogs();
 
 		if (gdxDialogs == null) {
 			gdxDialogs = new FallbackGDXDialogs();

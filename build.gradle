@@ -1,6 +1,6 @@
 ext {
 	GROUPID = 'de.tomgrill.gdxdialogs'
-	VERSION = '1.1.2-SNAPSHOT'
+	VERSION = '1.1.2-SNAPSHOT-DEV'
 }
 
 buildscript {
@@ -13,8 +13,8 @@ buildscript {
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath 'org.robovm:robovm-gradle-plugin:1.8.0'
-		classpath 'com.intel.gradle:moeGradlePlugin:1.1.0.final-1'
+		classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
+		classpath 'org.multi-os-engine:moe-gradle:1.2.0'
     }
 }
 
@@ -126,7 +126,6 @@ project(":desktop") {
 
 project(":html") {
     apply plugin : 'java'
-
 
 	apply from : '../publish.gradle'
 
