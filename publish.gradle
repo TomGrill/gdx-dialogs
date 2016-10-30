@@ -139,13 +139,3 @@ afterEvaluate { project ->
     }
 
 }
-
-afterEvaluate { project ->
-    install {
-        repositories.mavenInstaller {
-            pom.groupId = getGroupId()
-            pom.version = getVersion()
-            pom.artifactId = getArtifactId()
-        }
-    }
-}
