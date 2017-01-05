@@ -1,6 +1,6 @@
 ext {
 	GROUPID = 'de.tomgrill.gdxdialogs'
-	VERSION = '1.1.2-SNAPSHOT'
+	VERSION = '1.2.0'
 }
 
 buildscript {
@@ -13,7 +13,7 @@ buildscript {
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.0'
         classpath 'org.multi-os-engine:moe-gradle:1.2.3'
     }
 }
@@ -25,8 +25,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'gdx-dialogs'
-        gdxVersion = '1.9.5-SNAPSHOT'
-        roboVMVersion = '2.2.1-SNAPSHOT'
+        gdxVersion = '1.9.5'
+        roboVMVersion = '2.3.0'
 
     }
 
