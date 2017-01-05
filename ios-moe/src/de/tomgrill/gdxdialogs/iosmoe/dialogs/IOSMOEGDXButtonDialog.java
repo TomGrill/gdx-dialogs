@@ -19,12 +19,12 @@ package de.tomgrill.gdxdialogs.iosmoe.dialogs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
-import com.intel.moe.natj.general.ann.NInt;
+import org.moe.natj.general.ann.NInt;
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
-import ios.uikit.UIAlertView;
-import ios.uikit.protocol.UIAlertViewDelegate;
+import apple.uikit.UIAlertView;
+import apple.uikit.protocol.UIAlertViewDelegate;
 
 public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 	private final static String TAG = IOSMOEGDXButtonDialog.class.getSimpleName();
@@ -59,7 +59,7 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 	@Override
 	public GDXButtonDialog dismiss() {
 		if (alertView == null) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXButtonDialog.class.getSimpleName() + " dismissed.");
 		alertView.dismissWithClickedButtonIndexAnimated(-1, false);

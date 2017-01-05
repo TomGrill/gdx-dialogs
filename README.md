@@ -71,6 +71,22 @@ Add this to your build.gradle desktop dependencies
 compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.1.1"
 ```
 
+**HTML(GWT)**
+
+Add this to your build.gradle html dependencies
+```gradle
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:$gdxDialogsVersion"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:$gdxDialogsVersion:sources"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:$gdxDialogsVersion:sources"
+```
+
+Add this to your GdxDefinition.gwt.xml
+```xml
+<inherits name='de.tomgrill.gdxdialogs.html.gdx_dialogs_html' />
+<inherits name="de.tomgrill.gdxdialogs.core.gdx_dialogs_core" />
+```
+
+
 ## Usage
 
 **View the gdx-dialogs sample app**

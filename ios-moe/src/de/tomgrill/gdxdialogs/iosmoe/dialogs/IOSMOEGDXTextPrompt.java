@@ -18,14 +18,14 @@ package de.tomgrill.gdxdialogs.iosmoe.dialogs;
 
 import com.badlogic.gdx.Gdx;
 
-import com.intel.moe.natj.general.ann.NInt;
+import org.moe.natj.general.ann.NInt;
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
-import ios.uikit.UIAlertView;
-import ios.uikit.UITextField;
-import ios.uikit.enums.UIAlertViewStyle;
-import ios.uikit.protocol.UIAlertViewDelegate;
+import apple.uikit.UIAlertView;
+import apple.uikit.UITextField;
+import apple.uikit.enums.UIAlertViewStyle;
+import apple.uikit.protocol.UIAlertViewDelegate;
 
 public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 

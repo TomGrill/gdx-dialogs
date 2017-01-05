@@ -31,7 +31,7 @@ public abstract class GDXDialogs {
 				final Class<T> dialogClazz = ClassReflection.forName(registeredDialogs.get(className));
 
 				Object dialogObject = ClassReflection.getConstructor(dialogClazz).newInstance();
-				return dialogClazz.cast(dialogObject);
+				return (T) dialogObject;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
