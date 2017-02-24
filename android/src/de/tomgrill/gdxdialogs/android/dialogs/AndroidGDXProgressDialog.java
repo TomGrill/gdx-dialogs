@@ -50,37 +50,49 @@ public class AndroidGDXProgressDialog implements GDXProgressDialog {
 		return this;
 	}
 
-	@Override
-	public GDXProgressDialog show() {
-		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior. The boolean hangs the current thread if true.
+	 *
+	 *
+	 * @param hang if true hangs the thread witch it were called from
+	 * @return The same instance that the method was called from.
+	 */
+	public GDXProgressDialog show(boolean hang) {
+		if (progressDialog == null || !isBuild) {
+			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use"+
+					" build() before show().");
 		}
 
-		activity.runOnUiThread(new Runnable() {
+		Runnable r = new Runnable() {
 			@Override
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " now shown.");
 				progressDialog.show();
 			}
-		});
+		};
+
+		if (hang) r.run();
+		else activity.runOnUiThread(r);
 
 		return this;
 	}
 
 	@Override
+	public GDXProgressDialog show() {
+		return show(false);
+	}
+
+	@Override
 	public GDXProgressDialog dismiss() {
 
-		if (progressDialog == null || isBuild == false) {
-			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+		if (progressDialog == null || !isBuild) {
+			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use "+
+					"build() before dismiss().");
 		}
 
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " dismissed.");
-				progressDialog.dismiss();
-			}
-		});
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " dismissed.");
+		progressDialog.dismiss(); // Method is thread safe.
 
 		return this;
 	}
@@ -107,6 +119,7 @@ public class AndroidGDXProgressDialog implements GDXProgressDialog {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
+					e.printStackTrace(); //It's never supposed to happen, I know, but if it does, we better know.
 				}
 			}
 		}

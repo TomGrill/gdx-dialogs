@@ -20,39 +20,39 @@ public interface GDXProgressDialog {
 	/**
 	 * Sets the message.
 	 * 
-	 * @param message
-	 * @return
+	 * @param message The text to be displayed at the body of the dialog.
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXProgressDialog setMessage(CharSequence message);
+	GDXProgressDialog setMessage(CharSequence message);
 
 	/**
 	 * Sets the title
 	 * 
-	 * @param title
-	 * @return
+	 * @param title String value to set the title
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXProgressDialog setTitle(CharSequence title);
+	GDXProgressDialog setTitle(CharSequence title);
 
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior.
-	 * 
-	 * @return
+	 * else there might be strange behavior. Runs asynchronously on a different thread.
+	 *
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXProgressDialog show();
+	GDXProgressDialog show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
 	 * 
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXProgressDialog dismiss();
+	GDXProgressDialog dismiss();
 
 	/**
 	 * This builds the button and prepares for usage.
 	 * 
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXProgressDialog build();
+	GDXProgressDialog build();
 
 }

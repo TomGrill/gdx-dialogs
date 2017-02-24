@@ -22,70 +22,70 @@ public interface GDXTextPrompt {
 	/**
 	 * Sets the title
 	 *
-	 * @param title
-	 * @return
+	 * @param title String value to set the title
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setTitle(CharSequence title);
+	GDXTextPrompt setTitle(CharSequence title);
 
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior.
+	 * else there might be strange behavior. Runs asynchronously on a different thread.
 	 *
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt show();
+	GDXTextPrompt show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
 	 *
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt dismiss();
+	GDXTextPrompt dismiss();
 
 	/**
 	 * This builds the button and prepares for usage.
 	 *
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt build();
+	GDXTextPrompt build();
 
 	/**
 	 * Sets the message.
 	 *
-	 * @param message
-	 * @return
+	 * @param message The text to be displayed at the body of the dialog.
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setMessage(CharSequence message);
+	GDXTextPrompt setMessage(CharSequence message);
 
 	/**
 	 * Sets the default value for the input field.
 	 *
-	 * @param message
-	 * @return
+	 * @param inputTip Placeholder for the text input field.
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setValue(CharSequence message);
+	GDXTextPrompt setValue(CharSequence inputTip);
 
 	/**
 	 * Sets the label for the cancel button on the dialog.
 	 *
-	 * @param label
-	 * @return
+	 * @param label Text of the cancel button
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setCancelButtonLabel(CharSequence label);
+	GDXTextPrompt setCancelButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the label for the confirm button on the dialog.
 	 *
-	 * @param label
-	 * @return
+	 * @param label Text of the confirm button
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setConfirmButtonLabel(CharSequence label);
+	GDXTextPrompt setConfirmButtonLabel(CharSequence label);
 
 	/**
 	 * Sets the {@link TextPromptListener}
 	 *
-	 * @param listener
-	 * @return
+	 * @param listener listener to be called when the event is triggered
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXTextPrompt setTextPromptListener(TextPromptListener listener);
+	GDXTextPrompt setTextPromptListener(TextPromptListener listener);
 }

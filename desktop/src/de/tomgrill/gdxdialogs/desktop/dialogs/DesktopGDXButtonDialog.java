@@ -16,14 +16,13 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
+import javax.swing.*;
 
 public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
@@ -34,7 +33,7 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
 	private Array<CharSequence> labels = new Array<CharSequence>();
 
-	boolean isBuild = false;
+	private boolean isBuild = false;
 
 	public DesktopGDXButtonDialog() {
 	}
@@ -45,11 +44,19 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 		return this;
 	}
 
-	@Override
-	public GDXButtonDialog show() {
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior. The boolean hangs the current thread if true.
+	 *
+	 *
+	 * @param hang if true hangs the thread witch it were called from
+	 * @return The same instance that the method was called from.
+	 */
+	public GDXButtonDialog show(boolean hang) {
 
-		if (isBuild == false) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+		if (!isBuild) {
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() +
+					" has not been build. Use build() before show().");
 		}
 
 		Thread t = new Thread(new Runnable() {
@@ -57,7 +64,8 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 			@Override
 			public void run() {
 
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
+				Gdx.app.debug(
+						GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
 				Object[] options = new Object[labels.size];
 
 				for (int i = 0; i < labels.size; i++) {
@@ -70,15 +78,22 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 					optionType = JOptionPane.YES_NO_CANCEL_OPTION;
 				}
 
-				int n = JOptionPane.showOptionDialog(null, (String) message, (String) title, optionType, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				int n = JOptionPane.showOptionDialog(null, message, (String) title, optionType,
+						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				if (listener != null) {
 					listener.click(n);
 				}
 			}
 		});
-		t.start();
+		if (hang) t.run();
+		else t.start();
 
 		return this;
+	}
+
+	@Override
+	public GDXButtonDialog show() {
+		return show(false);
 	}
 
 	@Override

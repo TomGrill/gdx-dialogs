@@ -16,13 +16,12 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+
+import javax.swing.*;
 
 public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
@@ -34,18 +33,29 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	public DesktopGDXTextPrompt() {
 	}
 
-	@Override
-	public GDXTextPrompt show() {
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior. The boolean hangs the current thread if true.
+	 *
+	 * @param hang if true hangs the thread witch it were called from
+	 * @return The same instance that the method was called from.
+	 */
+	public GDXTextPrompt show(boolean hang) {
 
 		Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
-				String response = JOptionPane.showInputDialog(null, (String) message, (String) title, JOptionPane.QUESTION_MESSAGE);
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG,
+						DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
+				String response = JOptionPane.showInputDialog(null, message, (String) title,
+						JOptionPane.QUESTION_MESSAGE);
 
 				if (listener != null) {
-					if (response == null || (response != null && ("".equals(response)))) {
+					//if the first is true the second is implicitly always true
+					//e.g bool j, f;   ((j or (not j and f)) == (j or f)) == true
+					//Regardless of j and f values.
+					if (response == null || "".equals(response)) {
 						listener.cancel();
 					} else {
 						listener.confirm(response);
@@ -54,8 +64,14 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 			}
 		});
 
-		t.start();
+		if (hang) t.run();
+		else t.start();
 		return this;
+	}
+
+	@Override
+	public GDXTextPrompt show() {
+		return show(false);
 	}
 
 	@Override
@@ -92,7 +108,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence message) {
+	public GDXTextPrompt setValue(CharSequence inputTip) {
 		return this;
 	}
 

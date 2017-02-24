@@ -56,25 +56,41 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		this.activity = activity;
 	}
 
-	@Override
-	public GDXTextPrompt show() {
-		if (alertDialog == null || isBuild == false) {
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior. The boolean hangs the current thread if true.
+	 *
+	 *
+	 * @param hang if true hangs the thread witch it were called from
+	 * @return The same instance that the method was called from.
+	 */
+	public GDXTextPrompt show(boolean hang) {
+		if (alertDialog == null || !isBuild) {
 			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 
-		if (alertDialog != null && userInput != null) {
+		// When alert dialog is null, an except. is thrown and the code never gets here. No point in checking
+		if (userInput != null) {
 			userInput.setText(inputValue);
 		}
 
-		activity.runOnUiThread(new Runnable() {
+		Runnable r = new Runnable() {
 			@Override
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " now shown.");
 				alertDialog.show();
 			}
-		});
+		};
+
+		if (hang) r.run();
+		else activity.runOnUiThread(r);
 
 		return this;
+	}
+
+	@Override
+	public GDXTextPrompt show() {
+		return show(false);
 	}
 
 	@Override
@@ -156,8 +172,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence value) {
-		this.inputValue = value;
+	public GDXTextPrompt setValue(CharSequence inputTip) {
+		this.inputValue = inputTip;
 		return this;
 	}
 
@@ -182,17 +198,13 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt dismiss() {
 
-		if (alertDialog == null || isBuild == false) {
+		if (alertDialog == null || !isBuild) {
 			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
 		}
 
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");
-				alertDialog.dismiss();
-			}
-		});
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");
+		alertDialog.dismiss(); //Method is thread-safe.
+
 
 		return this;
 	}

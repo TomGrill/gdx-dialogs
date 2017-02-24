@@ -16,13 +16,11 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
+
+import javax.swing.*;
 
 public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
@@ -48,20 +46,35 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 		return this;
 	}
 
-	@Override
-	public GDXProgressDialog show() {
+	/**
+	 * Shows the dialog. show() can only be called after build() has been called
+	 * else there might be strange behavior. The boolean hangs the current thread if true.
+	 *
+	 *
+	 * @param hang if true hangs the thread witch it were called from
+	 * @return The same instance that the method was called from.
+	 */
+	public GDXProgressDialog show(boolean hang) {
 		Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() + " now shown.");
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() +
+						" now shown.");
 				dialog.setVisible(true);
 			}
 
 		});
-		t.start();
+		if (hang) t.run();
+		else t.start();
 		return this;
 	}
+
+	@Override
+	public GDXProgressDialog show() {
+		return show(false);
+	}
+
 
 	@Override
 	public GDXProgressDialog dismiss() {
@@ -74,7 +87,8 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 	@Override
 	public GDXProgressDialog build() {
 
-		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
+				new Object[] {}, null);
 		dialog = new JDialog();
 
 		dialog.setTitle((String) title);

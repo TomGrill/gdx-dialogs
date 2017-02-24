@@ -130,7 +130,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence value) {
+	public GDXTextPrompt setValue(CharSequence inputTip) {
 		return this;
 	}
 
