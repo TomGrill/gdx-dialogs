@@ -50,37 +50,22 @@ public class AndroidGDXProgressDialog implements GDXProgressDialog {
 		return this;
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXProgressDialog show(boolean hang) {
+	@Override
+	public GDXProgressDialog show() {
 		if (progressDialog == null || !isBuild) {
 			throw new RuntimeException(AndroidGDXProgressDialog.class.getSimpleName() + " has not been build. Use"+
 					" build() before show().");
 		}
 
-		Runnable r = new Runnable() {
+		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, GDXProgressDialog.class.getSimpleName() + " now shown.");
 				progressDialog.show();
 			}
-		};
-
-		if (hang) r.run();
-		else activity.runOnUiThread(r);
+		});
 
 		return this;
-	}
-
-	@Override
-	public GDXProgressDialog show() {
-		return show(false);
 	}
 
 	@Override

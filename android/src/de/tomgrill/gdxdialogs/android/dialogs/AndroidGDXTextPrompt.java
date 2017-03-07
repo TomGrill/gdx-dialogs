@@ -56,17 +56,12 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		this.activity = activity;
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXTextPrompt show(boolean hang) {
+
+	@Override
+	public GDXTextPrompt show() {
 		if (alertDialog == null || !isBuild) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before" +
+					" show().");
 		}
 
 		// When alert dialog is null, an except. is thrown and the code never gets here. No point in checking
@@ -74,23 +69,15 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 			userInput.setText(inputValue);
 		}
 
-		Runnable r = new Runnable() {
+		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " now shown.");
 				alertDialog.show();
 			}
-		};
-
-		if (hang) r.run();
-		else activity.runOnUiThread(r);
+		});
 
 		return this;
-	}
-
-	@Override
-	public GDXTextPrompt show() {
-		return show(false);
 	}
 
 	@Override
@@ -104,7 +91,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 				LayoutInflater li = LayoutInflater.from(activity);
 				//
 
-				View promptsView = li.inflate(getResourceId("gdxdialogs_inputtext", "layout"), null);
+				View promptsView = li.inflate(getResourceId("gdxdialogs_inputtext", "layout"),
+                        null);
 
 				alertDialogBuilder.setView(promptsView);
 
@@ -143,6 +131,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
+			    //Again, never supposed to run, never hurts to know if it does.
+			    e.printStackTrace();
 			}
 		}
 
@@ -153,7 +143,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		try {
 			return activity.getResources().getIdentifier(pVariableName, pVariableType, activity.getPackageName());
 		} catch (Exception e) {
-			Gdx.app.error(GDXDialogsVars.LOG_TAG, "Cannot find resouce with name: " + pVariableName + " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
+			Gdx.app.error(GDXDialogsVars.LOG_TAG, "Cannot find resouce with name: " + pVariableName +
+                    " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
 			e.printStackTrace();
 			return -1;
 		}
@@ -199,7 +190,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	public GDXTextPrompt dismiss() {
 
 		if (alertDialog == null || !isBuild) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() " +
+                    "before dismiss().");
 		}
 
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");

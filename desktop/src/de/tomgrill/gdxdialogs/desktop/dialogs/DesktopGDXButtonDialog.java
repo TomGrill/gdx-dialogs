@@ -22,7 +22,7 @@ import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
@@ -44,26 +44,18 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 		return this;
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXButtonDialog show(boolean hang) {
+	@Override
+	public GDXButtonDialog show() {
 
 		if (!isBuild) {
 			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() +
 					" has not been build. Use build() before show().");
 		}
 
-		Thread t = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-
 				Gdx.app.debug(
 						GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
 				Object[] options = new Object[labels.size];
@@ -84,21 +76,15 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 					listener.click(n);
 				}
 			}
-		});
-		if (hang) t.run();
-		else t.start();
+		}).start();
 
 		return this;
 	}
 
 	@Override
-	public GDXButtonDialog show() {
-		return show(false);
-	}
-
-	@Override
 	public GDXButtonDialog dismiss() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " dismiss ignored. (Desktop ButtonDialogs cannot be dismissed)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " dismiss " +
+				"ignored. (Desktop ButtonDialogs cannot be dismissed)");
 		return this;
 	}
 

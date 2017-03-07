@@ -56,38 +56,24 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 		return this;
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXButtonDialog show(boolean hang) {
+	@Override
+	public GDXButtonDialog show() {
 
 		if (dialog == null || !isBuild) {
 			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been built. Use build() " +
 					"before show().");
 		}
 
-		Runnable r = new Runnable() {
+		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() +
 						" now shown.");
 				dialog.show();
 			}
-		};
+		});
 
-		if (hang) r.run();
-		else activity.runOnUiThread(r);
 		return this;
-	}
-
-	@Override
-	public GDXButtonDialog show() {
-		return show(false);
 	}
 
 	@Override
@@ -183,6 +169,7 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
+				//Not meant to run but we better know when it does.
 				e.printStackTrace();
 			}
 		}

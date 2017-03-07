@@ -21,7 +21,7 @@ import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
@@ -33,16 +33,9 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	public DesktopGDXTextPrompt() {
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXTextPrompt show(boolean hang) {
-
-		Thread t = new Thread(new Runnable() {
+	@Override
+	public GDXTextPrompt show() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -62,16 +55,9 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 					}
 				}
 			}
-		});
+		}).start();
 
-		if (hang) t.run();
-		else t.start();
 		return this;
-	}
-
-	@Override
-	public GDXTextPrompt show() {
-		return show(false);
 	}
 
 	@Override
@@ -114,7 +100,8 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt dismiss() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " dismiss ignored. (Desktop TextPrompt cannot be dismissed)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " dismiss " +
+				"ignored. (Desktop TextPrompt cannot be dismissed)");
 		return this;
 	}
 

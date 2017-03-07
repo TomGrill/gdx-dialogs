@@ -20,7 +20,8 @@ import com.badlogic.gdx.Gdx;
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JDialog;
 
 public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
@@ -46,16 +47,9 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 		return this;
 	}
 
-	/**
-	 * Shows the dialog. show() can only be called after build() has been called
-	 * else there might be strange behavior. The boolean hangs the current thread if true.
-	 *
-	 *
-	 * @param hang if true hangs the thread witch it were called from
-	 * @return The same instance that the method was called from.
-	 */
-	public GDXProgressDialog show(boolean hang) {
-		Thread t = new Thread(new Runnable() {
+	@Override
+	public GDXProgressDialog show() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -64,15 +58,8 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 				dialog.setVisible(true);
 			}
 
-		});
-		if (hang) t.run();
-		else t.start();
+		}).start();
 		return this;
-	}
-
-	@Override
-	public GDXProgressDialog show() {
-		return show(false);
 	}
 
 
