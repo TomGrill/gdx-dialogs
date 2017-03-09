@@ -56,13 +56,16 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		this.activity = activity;
 	}
 
+
 	@Override
 	public GDXTextPrompt show() {
-		if (alertDialog == null || isBuild == false) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
+		if (alertDialog == null || !isBuild) {
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before" +
+					" show().");
 		}
 
-		if (alertDialog != null && userInput != null) {
+		// When alert dialog is null, an except. is thrown and the code never gets here. No point in checking
+		if (userInput != null) {
 			userInput.setText(inputValue);
 		}
 
@@ -88,7 +91,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 				LayoutInflater li = LayoutInflater.from(activity);
 				//
 
-				View promptsView = li.inflate(getResourceId("gdxdialogs_inputtext", "layout"), null);
+				View promptsView = li.inflate(getResourceId("gdxdialogs_inputtext", "layout"),
+                        null);
 
 				alertDialogBuilder.setView(promptsView);
 
@@ -127,6 +131,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
+			    //Again, never supposed to run, never hurts to know if it does.
+			    e.printStackTrace();
 			}
 		}
 
@@ -137,7 +143,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 		try {
 			return activity.getResources().getIdentifier(pVariableName, pVariableType, activity.getPackageName());
 		} catch (Exception e) {
-			Gdx.app.error(GDXDialogsVars.LOG_TAG, "Cannot find resouce with name: " + pVariableName + " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
+			Gdx.app.error(GDXDialogsVars.LOG_TAG, "Cannot find resouce with name: " + pVariableName +
+                    " Did you copy the layouts to /res/layouts and /res/layouts_v14 ?");
 			e.printStackTrace();
 			return -1;
 		}
@@ -156,8 +163,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence value) {
-		this.inputValue = value;
+	public GDXTextPrompt setValue(CharSequence inputTip) {
+		this.inputValue = inputTip;
 		return this;
 	}
 
@@ -182,17 +189,14 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt dismiss() {
 
-		if (alertDialog == null || isBuild == false) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+		if (alertDialog == null || !isBuild) {
+			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() " +
+                    "before dismiss().");
 		}
 
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");
-				alertDialog.dismiss();
-			}
-		});
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXTextPrompt.class.getSimpleName() + " dismissed.");
+		alertDialog.dismiss(); //Method is thread-safe.
+
 
 		return this;
 	}

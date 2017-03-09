@@ -16,14 +16,13 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
+import javax.swing.JOptionPane;
 
 public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
@@ -34,7 +33,7 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 
 	private Array<CharSequence> labels = new Array<CharSequence>();
 
-	boolean isBuild = false;
+	private boolean isBuild = false;
 
 	public DesktopGDXButtonDialog() {
 	}
@@ -48,16 +47,17 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 	@Override
 	public GDXButtonDialog show() {
 
-		if (isBuild == false) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+		if (!isBuild) {
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() +
+					" has not been build. Use build() before show().");
 		}
 
-		Thread t = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
+				Gdx.app.debug(
+						GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " now shown.");
 				Object[] options = new Object[labels.size];
 
 				for (int i = 0; i < labels.size; i++) {
@@ -70,20 +70,21 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 					optionType = JOptionPane.YES_NO_CANCEL_OPTION;
 				}
 
-				int n = JOptionPane.showOptionDialog(null, (String) message, (String) title, optionType, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				int n = JOptionPane.showOptionDialog(null, message, (String) title, optionType,
+						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				if (listener != null) {
 					listener.click(n);
 				}
 			}
-		});
-		t.start();
+		}).start();
 
 		return this;
 	}
 
 	@Override
 	public GDXButtonDialog dismiss() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " dismiss ignored. (Desktop ButtonDialogs cannot be dismissed)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXButtonDialog.class.getSimpleName() + " dismiss " +
+				"ignored. (Desktop ButtonDialogs cannot be dismissed)");
 		return this;
 	}
 

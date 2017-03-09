@@ -16,16 +16,13 @@
 
 package de.tomgrill.gdxdialogs.html.dialogs;
 
-import com.badlogic.gdx.utils.ObjectMap;
-
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @SuppressWarnings("JniMissingFunction")
 public class HTMLGDXTextPrompt implements GDXTextPrompt {
@@ -44,7 +41,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
 
     @Override
     public GDXTextPrompt show() {
-        if (isBuild == false) {
+        if (!isBuild) {
             throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
         }
         showJSTextPrompt(toString());
@@ -53,7 +50,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
 
     @Override
     public GDXTextPrompt dismiss() {
-        if (isBuild == false) {
+        if (!isBuild) {
             throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
         }
         dismissJSTextPrompt(toString());
@@ -74,8 +71,8 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
     }
 
     @Override
-    public GDXTextPrompt setValue(CharSequence message) {
-        this.value = (String) message;
+    public GDXTextPrompt setValue(CharSequence inputTip) {
+        this.value = (String) inputTip;
         return this;
     }
 
@@ -112,9 +109,8 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
     }
 
     public static void confirm(String id, String text) {
-        Iterator iterator = dialogs.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+        for (Object o : dialogs.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             if (id.equals(entry.getKey())) {
                 HTMLGDXTextPrompt prompt = (HTMLGDXTextPrompt) (entry.getValue());
                 if (prompt.listener != null) {

@@ -16,13 +16,12 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
+
+import javax.swing.JOptionPane;
+import javax.swing.JDialog;
 
 public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
@@ -50,18 +49,19 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 
 	@Override
 	public GDXProgressDialog show() {
-		Thread t = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() + " now shown.");
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXProgressDialog.class.getSimpleName() +
+						" now shown.");
 				dialog.setVisible(true);
 			}
 
-		});
-		t.start();
+		}).start();
 		return this;
 	}
+
 
 	@Override
 	public GDXProgressDialog dismiss() {
@@ -74,7 +74,8 @@ public class DesktopGDXProgressDialog implements GDXProgressDialog {
 	@Override
 	public GDXProgressDialog build() {
 
-		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+		optionPane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
+				new Object[] {}, null);
 		dialog = new JDialog();
 
 		dialog.setTitle((String) title);

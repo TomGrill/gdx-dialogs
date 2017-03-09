@@ -25,7 +25,8 @@ public class FallbackGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt show() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " now shown ignored. (Fallback with empty methods)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " now shown " +
+				"ignored. (Fallback with empty methods)");
 		return this;
 	}
 
@@ -60,13 +61,14 @@ public class FallbackGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence message) {
+	public GDXTextPrompt setValue(CharSequence inputTip) {
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt dismiss() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " dismiss ignored. (Fallback with empty methods)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, FallbackGDXTextPrompt.class.getSimpleName() + " dismiss" +
+				" ignored. (Fallback with empty methods)");
 		return this;
 	}
 

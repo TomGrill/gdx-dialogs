@@ -16,13 +16,12 @@
 
 package de.tomgrill.gdxdialogs.desktop.dialogs;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+
+import javax.swing.JOptionPane;
 
 public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
@@ -36,25 +35,28 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt show() {
-
-		Thread t = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
-				String response = JOptionPane.showInputDialog(null, (String) message, (String) title, JOptionPane.QUESTION_MESSAGE);
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG,
+						DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
+				String response = JOptionPane.showInputDialog(null, message, (String) title,
+						JOptionPane.QUESTION_MESSAGE);
 
 				if (listener != null) {
-					if (response == null || (response != null && ("".equals(response)))) {
+					//if the first is true the second is implicitly always true
+					//e.g bool j, f;   ((j or (not j and f)) == (j or f)) == true
+					//Regardless of j and f values.
+					if (response == null || "".equals(response)) {
 						listener.cancel();
 					} else {
 						listener.confirm(response);
 					}
 				}
 			}
-		});
+		}).start();
 
-		t.start();
 		return this;
 	}
 
@@ -92,13 +94,14 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
-	public GDXTextPrompt setValue(CharSequence message) {
+	public GDXTextPrompt setValue(CharSequence inputTip) {
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt dismiss() {
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " dismiss ignored. (Desktop TextPrompt cannot be dismissed)");
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, DesktopGDXTextPrompt.class.getSimpleName() + " dismiss " +
+				"ignored. (Desktop TextPrompt cannot be dismissed)");
 		return this;
 	}
 

@@ -59,34 +59,35 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 	@Override
 	public GDXButtonDialog show() {
 
-		if (dialog == null || isBuild == false) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+		if (dialog == null || !isBuild) {
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been built. Use build() " +
+					"before show().");
 		}
 
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() + " now shown.");
+				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() +
+						" now shown.");
 				dialog.show();
 			}
 		});
+
 		return this;
 	}
 
 	@Override
 	public GDXButtonDialog dismiss() {
 
-		if (dialog == null || isBuild == false) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+		if (dialog == null || !isBuild) {
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() " +
+					"before dismiss().");
 		}
 
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() + " dismissed.");
-				dialog.dismiss();
-			}
-		});
+		Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() +
+				" dismissed.");
+		dialog.dismiss(); //This method is thread safe.
+
 		return this;
 	}
 
@@ -163,11 +164,13 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 			}
 		});
 
-		// Wait till button is build
+		// Wait until the button is built
 		while (!isBuild) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
+				//Not meant to run but we better know when it does.
+				e.printStackTrace();
 			}
 		}
 

@@ -24,64 +24,64 @@ public interface GDXButtonDialog {
 	 * Only on Android: When set true, user can click outside of the dialog and
 	 * the dialog will be closed. Has no effect on other operating systems.
 	 * 
-	 * @param cancelable
-	 * @return
+	 * @param cancelable this value will be set to the corresponding android property if applicable.
+	 * @return  The same instance that the method was called from.
 	 */
-	public GDXButtonDialog setCancelable(boolean cancelable);
+	GDXButtonDialog setCancelable(boolean cancelable);
 
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
 	 * else there might be strange behavior. You need to add at least one button
-	 * with addButton() before calling build().
+	 * with addButton() before calling build(). Runs asynchronously on a different thread.
 	 * 
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog show();
+	GDXButtonDialog show();
 
 	/**
 	 * Dismisses the dialog. You can show the dialog again.
 	 * 
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog dismiss();
+	GDXButtonDialog dismiss();
 
 	/**
 	 * Sets the {@link ButtonClickListener}
 	 * 
-	 * @param listener
-	 * @return
+	 * @param listener listener to be called when the event is triggered
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog setClickListener(ButtonClickListener listener);
+	GDXButtonDialog setClickListener(ButtonClickListener listener);
 
 	/**
 	 * Add new button to the dialog. You need to add at least one button.
 	 * 
-	 * @param label
-	 * @return
+	 * @param label Text of the added new button.
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog addButton(CharSequence label);
+	GDXButtonDialog addButton(CharSequence label);
 
 	/**
 	 * This builds the button and prepares for usage. You need to add at least
 	 * one button with addButton() before calling build().
 	 * 
-	 * @return
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog build();
+	GDXButtonDialog build();
 
 	/**
 	 * Sets the message.
 	 * 
-	 * @param message
-	 * @return
+	 * @param message The text to be displayed at the body of the dialog.
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog setMessage(CharSequence message);
+	GDXButtonDialog setMessage(CharSequence message);
 
 	/**
 	 * Sets the title
 	 * 
-	 * @param title
-	 * @return
+	 * @param title String value to set the title
+	 * @return The same instance that the method was called from.
 	 */
-	public GDXButtonDialog setTitle(CharSequence title);
+	GDXButtonDialog setTitle(CharSequence title);
 }

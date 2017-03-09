@@ -49,7 +49,8 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 	@Override
 	public GDXButtonDialog show() {
 		if (alertView == null) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before show().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been built. Use build() " +
+					"before show().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXButtonDialog.class.getSimpleName() + " now shown.");
 		alertView.show();
@@ -59,7 +60,8 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 	@Override
 	public GDXButtonDialog dismiss() {
 		if (alertView == null) {
-			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+			throw new RuntimeException(GDXButtonDialog.class.getSimpleName() + " has not been build. Use build() " +
+					"before dismiss().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXButtonDialog.class.getSimpleName() + " dismissed.");
 		alertView.dismissWithClickedButtonIndexAnimated(-1, false);
@@ -103,7 +105,8 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 	public GDXButtonDialog build() {
 		Gdx.app.log(TAG, "build 1");
 		UIAlertViewDelegate delegate = new UIAlertViewDelegate() {
-			@Override public void alertViewDidDismissWithButtonIndex (UIAlertView alertView, @NInt long buttonIndex) {
+			@Override
+			public void alertViewDidDismissWithButtonIndex (UIAlertView alertView, @NInt long buttonIndex) {
 				performClickOnButton(buttonIndex);
 			}
 		};
