@@ -1,6 +1,6 @@
 ext {
 	GROUPID = 'de.tomgrill.gdxdialogs'
-	VERSION = '1.2.2-SNAPSHOT'
+	VERSION = '1.2.1'
 }
 
 buildscript {
@@ -8,13 +8,12 @@ buildscript {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
-        maven { url uri(System.getenv("INTEL_MULTI_OS_ENGINE_HOME") + "/gradle") }
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.0'
-        classpath 'org.multi-os-engine:moe-gradle:1.2.3'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.1'
+        classpath 'org.multi-os-engine:moe-gradle:1.3.6'
     }
 }
 
@@ -25,8 +24,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'gdx-dialogs'
-        gdxVersion = '1.9.5'
-        roboVMVersion = '2.3.0'
+        gdxVersion = '1.9.6'
+        roboVMVersion = '2.3.1'
 
     }
 
