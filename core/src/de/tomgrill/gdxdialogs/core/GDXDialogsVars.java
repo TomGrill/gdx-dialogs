@@ -17,6 +17,6 @@
 package de.tomgrill.gdxdialogs.core;
 
 public class GDXDialogsVars {
-	public static final String VERSION = "1.2.2-SNAPSHOT";
+	public static final String VERSION = "1.2.1";
 	public static final String LOG_TAG = "gdx-dialogs (" + VERSION + ")";
 }
