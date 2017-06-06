@@ -116,7 +116,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
 		UITextField uiTextField = alertView.getTextField(0);
-		uiTextField.setDelegate(new UITextFieldDelegate() {
+		uiTextField.setDelegate(new UITextFieldDelegateAdapter() {
 			@Override
 			public boolean shouldBeginEditing(UITextField uiTextField) {
 				return false;
