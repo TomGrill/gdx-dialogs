@@ -41,6 +41,11 @@ public class FallbackGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		return this;
+	}
+
+	@Override
 	public GDXTextPrompt setMessage(CharSequence message) {
 		return this;
 	}

@@ -16,8 +16,11 @@
 
 package de.tomgrill.gdxdialogs.iosmoe.dialogs;
 
+import apple.foundation.struct.NSRange;
+import apple.uikit.protocol.UITextFieldDelegate;
 import com.badlogic.gdx.Gdx;
 
+import org.moe.natj.general.ann.ByValue;
 import org.moe.natj.general.ann.NInt;
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
@@ -37,6 +40,8 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 	private TextPromptListener listener;
 
 	private UIAlertView alertView;
+
+	private int maxLength = 16;
 
 	public IOSMOEGDXTextPrompt () {
 	}
@@ -87,12 +92,69 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 
 		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
+		UITextField uiTextField = alertView.textFieldAtIndex(0);
+		uiTextField.setDelegate(new UITextFieldDelegate() {
+			@Override
+			public boolean textFieldShouldBeginEditing(UITextField textField) {
+				return false;
+			}
+
+			@Override
+			public boolean textFieldShouldChangeCharactersInRangeReplacementString(UITextField textField, @ByValue NSRange range, String string) {
+				if (textField.text().length() - range.length() > maxLength) {
+					return false;
+				}
+				return false;
+			}
+
+			@Override
+			public boolean textFieldShouldClear(UITextField textField) {
+				return false;
+			}
+
+			@Override
+			public boolean textFieldShouldEndEditing(UITextField textField) {
+				return false;
+			}
+
+			@Override
+			public boolean textFieldShouldReturn(UITextField textField) {
+				return false;
+			}
+
+			@Override
+			public void textFieldDidBeginEditing(UITextField textField) {
+
+			}
+
+			@Override
+			public void textFieldDidEndEditing(UITextField textField) {
+
+			}
+
+			@Override
+			public void textFieldDidEndEditingReason(UITextField textField, @NInt long reason) {
+
+			}
+
+		});
+
+
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = (String) title;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		if (maxLength < 1) {
+			throw new RuntimeException("Char limit must be >= 1");
+		}
+		this.maxLength = maxLength;
 		return this;
 	}
 

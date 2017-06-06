@@ -16,16 +16,15 @@
 
 package de.tomgrill.gdxdialogs.ios.dialogs;
 
-import org.robovm.apple.uikit.UIAlertView;
-import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
-import org.robovm.apple.uikit.UIAlertViewStyle;
-import org.robovm.apple.uikit.UITextField;
+import org.robovm.apple.foundation.NSRange;
+import org.robovm.apple.uikit.*;
 
 import com.badlogic.gdx.Gdx;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+import org.robovm.rt.bro.annotation.ByVal;
 
 public class IOSGDXTextPrompt implements GDXTextPrompt {
 
@@ -37,6 +36,8 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 	private TextPromptListener listener;
 
 	private UIAlertView alertView;
+
+	private int maxLength = 16;
 
 	public IOSGDXTextPrompt() {
 	}
@@ -114,12 +115,63 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 
 		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
+		UITextField uiTextField = alertView.getTextField(0);
+		uiTextField.setDelegate(new UITextFieldDelegate() {
+			@Override
+			public boolean shouldBeginEditing(UITextField uiTextField) {
+				return false;
+			}
+
+			@Override
+			public void didBeginEditing(UITextField uiTextField) {
+
+			}
+
+			@Override
+			public boolean shouldEndEditing(UITextField uiTextField) {
+				return false;
+			}
+
+			@Override
+			public void didEndEditing(UITextField uiTextField) {
+
+			}
+
+			@Override
+			public boolean shouldChangeCharacters(UITextField uiTextField, @ByVal NSRange nsRange, String s) {
+				if (uiTextField.getText().length() - nsRange.getLength() > maxLength) {
+					return false;
+				}
+				return true;
+			}
+
+			@Override
+			public boolean shouldClear(UITextField uiTextField) {
+				return false;
+			}
+
+			@Override
+			public boolean shouldReturn(UITextField uiTextField) {
+				return false;
+			}
+		});
+
+
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = (String) title;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		if (maxLength < 1) {
+			throw new RuntimeException("Char limit must be >= 1");
+		}
+		this.maxLength = maxLength;
 		return this;
 	}
 

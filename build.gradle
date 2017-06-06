@@ -1,6 +1,6 @@
 ext {
 	GROUPID = 'de.tomgrill.gdxdialogs'
-	VERSION = '1.2.1-SNAPSHOT'
+	VERSION = '1.2.2-SNAPSHOT'
 }
 
 buildscript {
