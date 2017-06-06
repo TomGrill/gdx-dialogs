@@ -116,27 +116,27 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
 		UITextField uiTextField = alertView.getTextField(0);
-		final UITextFieldDelegate ud = uiTextField.getDelegate();
+//		final UITextFieldDelegate ud = uiTextField.getDelegate();
 
 		uiTextField.setDelegate(new UITextFieldDelegateAdapter() {
 			@Override
 			public boolean shouldBeginEditing(UITextField uiTextField) {
-				return ud.shouldBeginEditing(uiTextField);
+				return true;
 			}
 
 			@Override
 			public void didBeginEditing(UITextField uiTextField) {
-				ud.didBeginEditing(uiTextField);
+//				ud.didBeginEditing(uiTextField);
 			}
 
 			@Override
 			public boolean shouldEndEditing(UITextField uiTextField) {
-				return ud.shouldEndEditing(uiTextField);
+				return true;
 			}
 
 			@Override
 			public void didEndEditing(UITextField uiTextField) {
-				ud.didEndEditing(uiTextField);
+//				ud.didEndEditing(uiTextField);
 			}
 
 			@Override
@@ -144,17 +144,17 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 				if (uiTextField.getText().length() - nsRange.getLength() > maxLength) {
 					return false;
 				}
-				return ud.shouldChangeCharacters(uiTextField, nsRange, s);
+				return true;
 			}
 
 			@Override
 			public boolean shouldClear(UITextField uiTextField) {
-				return ud.shouldClear(uiTextField);
+				return true;
 			}
 
 			@Override
 			public boolean shouldReturn(UITextField uiTextField) {
-				return ud.shouldReturn(uiTextField);
+				return true;
 			}
 		});
 
