@@ -141,9 +141,8 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 
             @Override
             public boolean shouldChangeCharacters(UITextField uiTextField, @ByVal NSRange nsRange, String s) {
+                Gdx.app.debug("TP", uiTextField.getText());
                 if (uiTextField.getText().length() - nsRange.getLength() > maxLength) {
-                    Gdx.app.debug("TP", s);
-                    Gdx.app.debug("TP", uiTextField.getText());
 
 //                    uiTextField.setText(s.substring(0, maxLength));
 
