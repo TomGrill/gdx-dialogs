@@ -99,7 +99,7 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 				if (textField.text().length() + additionalText.length() > maxLength) {
 					String oldText = textField.text();
 					String newText = oldText + additionalText;
-					uiTextField.setText(newText.substring(0, 10));
+					uiTextField.setText(newText.substring(0, maxLength));
 					return false;
 				}
 				return true;

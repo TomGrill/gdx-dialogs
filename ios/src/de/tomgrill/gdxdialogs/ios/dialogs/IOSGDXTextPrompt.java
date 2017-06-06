@@ -123,7 +123,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
                 if (textField.getText().length() + additionalText.length() > maxLength) {
                     String oldText = textField.getText();
                     String newText = oldText + additionalText;
-                    textField.setText(newText.substring(0, 10));
+                    textField.setText(newText.substring(0, maxLength));
                     return false;
                 }
                 return true;
