@@ -95,48 +95,15 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 		UITextField uiTextField = alertView.textFieldAtIndex(0);
 		uiTextField.setDelegate(new UITextFieldDelegate() {
 			@Override
-			public boolean textFieldShouldBeginEditing(UITextField textField) {
-				return false;
-			}
-
-			@Override
-			public boolean textFieldShouldChangeCharactersInRangeReplacementString(UITextField textField, @ByValue NSRange range, String string) {
-				if (textField.text().length() - range.length() > maxLength) {
+			public boolean textFieldShouldChangeCharactersInRangeReplacementString(UITextField textField, @ByValue NSRange range, String additionalText) {
+				if (textField.text().length() + additionalText.length() > maxLength) {
+					String oldText = textField.text();
+					String newText = oldText + additionalText;
+					uiTextField.setText(newText.substring(0, 10));
 					return false;
 				}
-				return false;
+				return true;
 			}
-
-			@Override
-			public boolean textFieldShouldClear(UITextField textField) {
-				return false;
-			}
-
-			@Override
-			public boolean textFieldShouldEndEditing(UITextField textField) {
-				return false;
-			}
-
-			@Override
-			public boolean textFieldShouldReturn(UITextField textField) {
-				return false;
-			}
-
-			@Override
-			public void textFieldDidBeginEditing(UITextField textField) {
-
-			}
-
-			@Override
-			public void textFieldDidEndEditing(UITextField textField) {
-
-			}
-
-			@Override
-			public void textFieldDidEndEditingReason(UITextField textField, @NInt long reason) {
-
-			}
-
 		});
 
 

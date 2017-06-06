@@ -16,14 +16,12 @@
 
 package de.tomgrill.gdxdialogs.ios.dialogs;
 
-import org.robovm.apple.foundation.NSRange;
-import org.robovm.apple.uikit.*;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+import org.robovm.apple.foundation.NSRange;
+import org.robovm.apple.uikit.*;
 import org.robovm.rt.bro.annotation.ByVal;
 
 public class IOSGDXTextPrompt implements GDXTextPrompt {
@@ -120,48 +118,14 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 
         uiTextField.setDelegate(new UITextFieldDelegateAdapter() {
             @Override
-            public boolean shouldBeginEditing(UITextField uiTextField) {
-                return true;
-            }
+            public boolean shouldChangeCharacters(UITextField textField, @ByVal NSRange nsRange, String additionalText) {
 
-            @Override
-            public void didBeginEditing(UITextField uiTextField) {
-//				ud.didBeginEditing(uiTextField);
-            }
-
-            @Override
-            public boolean shouldEndEditing(UITextField uiTextField) {
-                return true;
-            }
-
-            @Override
-            public void didEndEditing(UITextField uiTextField) {
-//				ud.didEndEditing(uiTextField);
-            }
-
-            @Override
-            public boolean shouldChangeCharacters(UITextField uiTextField, @ByVal NSRange nsRange, String additionalText) {
-
-
-
-                Gdx.app.debug("OLD", uiTextField.getText());
-                Gdx.app.debug("REP", additionalText);
-                if (uiTextField.getText().length() + additionalText.length() > maxLength) {
-                    String oldText = uiTextField.getText();
+                if (textField.getText().length() + additionalText.length() > maxLength) {
+                    String oldText = textField.getText();
                     String newText = oldText + additionalText;
-                    uiTextField.setText(newText.substring(0, 10));
+                    textField.setText(newText.substring(0, 10));
                     return false;
                 }
-                return true;
-            }
-
-            @Override
-            public boolean shouldClear(UITextField uiTextField) {
-                return true;
-            }
-
-            @Override
-            public boolean shouldReturn(UITextField uiTextField) {
                 return true;
             }
         });
