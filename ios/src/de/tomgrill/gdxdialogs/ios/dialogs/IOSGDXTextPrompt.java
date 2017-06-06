@@ -16,150 +16,176 @@
 
 package de.tomgrill.gdxdialogs.ios.dialogs;
 
-import org.robovm.apple.uikit.UIAlertView;
-import org.robovm.apple.uikit.UIAlertViewDelegateAdapter;
-import org.robovm.apple.uikit.UIAlertViewStyle;
-import org.robovm.apple.uikit.UITextField;
-
 import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
+import org.robovm.apple.foundation.NSRange;
+import org.robovm.apple.uikit.*;
+import org.robovm.rt.bro.annotation.ByVal;
 
 public class IOSGDXTextPrompt implements GDXTextPrompt {
 
-	private String message = "";
-	private String title = "";
-	private String cancelLabel = "";
-	private String confirmLabel = "";
+    private String message = "";
+    private String title = "";
+    private String cancelLabel = "";
+    private String confirmLabel = "";
 
-	private TextPromptListener listener;
+    private TextPromptListener listener;
 
-	private UIAlertView alertView;
+    private UIAlertView alertView;
 
-	public IOSGDXTextPrompt() {
-	}
+    private int maxLength = 16;
 
-	@Override
-	public GDXTextPrompt show() {
+    public IOSGDXTextPrompt() {
+    }
 
-		if (alertView == null) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
-		}
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " now shown.");
-		alertView.show();
-		return this;
-	}
+    @Override
+    public GDXTextPrompt show() {
 
-	@Override
-	public GDXTextPrompt build() {
+        if (alertView == null) {
+            throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
+        }
+        Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " now shown.");
+        alertView.show();
+        return this;
+    }
 
-		if (alertView != null) {
-			alertView.dispose();
-		}
+    @Override
+    public GDXTextPrompt build() {
 
-		UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
+        if (alertView != null) {
+            alertView.dispose();
+        }
 
-			@Override
-			public void didDismiss(UIAlertView alertView, long buttonIndex) {
-				if (listener != null) {
-					if (buttonIndex == 0) {
-						listener.cancel();
-					}
+        UIAlertViewDelegateAdapter delegate = new UIAlertViewDelegateAdapter() {
 
-					if (buttonIndex == 1) {
-						UITextField textFiel = alertView.getTextField(0);
-						listener.confirm(textFiel.getText());
-					}
-				}
-			}
+            @Override
+            public void didDismiss(UIAlertView alertView, long buttonIndex) {
+                if (listener != null) {
+                    if (buttonIndex == 0) {
+                        listener.cancel();
+                    }
 
-			@Override
-			public void clicked(UIAlertView alertView, long buttonIndex) {
+                    if (buttonIndex == 1) {
+                        UITextField textFiel = alertView.getTextField(0);
+                        listener.confirm(textFiel.getText());
+                    }
+                }
+            }
 
-			}
+            @Override
+            public void clicked(UIAlertView alertView, long buttonIndex) {
 
-			@Override
-			public void cancel(UIAlertView alertView) {
+            }
 
-			}
+            @Override
+            public void cancel(UIAlertView alertView) {
 
-			@Override
-			public void willPresent(UIAlertView alertView) {
+            }
 
-			}
+            @Override
+            public void willPresent(UIAlertView alertView) {
 
-			@Override
-			public void didPresent(UIAlertView alertView) {
+            }
 
-			}
+            @Override
+            public void didPresent(UIAlertView alertView) {
 
-			@Override
-			public void willDismiss(UIAlertView alertView, long buttonIndex) {
+            }
 
-			}
+            @Override
+            public void willDismiss(UIAlertView alertView, long buttonIndex) {
 
-			@Override
-			public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
-				return false;
-			}
+            }
 
-		};
+            @Override
+            public boolean shouldEnableFirstOtherButton(UIAlertView alertView) {
+                return false;
+            }
 
-		String[] otherButtons = new String[1];
-		otherButtons[0] = confirmLabel;
+        };
 
-		alertView = new UIAlertView(title, message, delegate, cancelLabel, otherButtons);
+        String[] otherButtons = new String[1];
+        otherButtons[0] = confirmLabel;
 
-		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
+        alertView = new UIAlertView(title, message, delegate, cancelLabel, otherButtons);
 
-		return this;
-	}
+        alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
-	@Override
-	public GDXTextPrompt setTitle(CharSequence title) {
-		this.title = (String) title;
-		return this;
-	}
+        UITextField uiTextField = alertView.getTextField(0);
+//		final UITextFieldDelegate ud = uiTextField.getDelegate();
 
-	@Override
-	public GDXTextPrompt setMessage(CharSequence message) {
-		this.message = (String) message;
-		return this;
-	}
+        uiTextField.setDelegate(new UITextFieldDelegateAdapter() {
+            @Override
+            public boolean shouldChangeCharacters(UITextField textField, @ByVal NSRange nsRange, String additionalText) {
 
-	@Override
-	public GDXTextPrompt setValue(CharSequence inputTip) {
-		return this;
-	}
+                if (textField.getText().length() + additionalText.length() > maxLength) {
+                    String oldText = textField.getText();
+                    String newText = oldText + additionalText;
+                    textField.setText(newText.substring(0, 10));
+                    return false;
+                }
+                return true;
+            }
+        });
 
-	@Override
-	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
-		this.cancelLabel = (String) label;
-		return this;
-	}
 
-	@Override
-	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
-		this.confirmLabel = (String) label;
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
-		this.listener = listener;
-		return this;
-	}
+    @Override
+    public GDXTextPrompt setTitle(CharSequence title) {
+        this.title = (String) title;
+        return this;
+    }
 
-	@Override
-	public GDXTextPrompt dismiss() {
-		if (alertView == null) {
-			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
-		}
-		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " dismissed.");
-		alertView.dismiss(0, false);
-		return this;
-	}
+    @Override
+    public GDXTextPrompt setMaxLength(int maxLength) {
+        if (maxLength < 1) {
+            throw new RuntimeException("Char limit must be >= 1");
+        }
+        this.maxLength = maxLength;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setMessage(CharSequence message) {
+        this.message = (String) message;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setValue(CharSequence inputTip) {
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
+        this.cancelLabel = (String) label;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
+        this.confirmLabel = (String) label;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
+        this.listener = listener;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt dismiss() {
+        if (alertView == null) {
+            throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before dismiss().");
+        }
+        Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSGDXTextPrompt.class.getSimpleName() + " dismissed.");
+        alertView.dismiss(0, false);
+        return this;
+    }
 
 }

@@ -19,6 +19,7 @@ package de.tomgrill.gdxdialogs.android.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +34,8 @@ import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 public class AndroidGDXTextPrompt implements GDXTextPrompt {
 
 	private Activity activity;
+
+	private int maxLength = 16;
 
 	private TextView titleView;
 	private TextView messageView;
@@ -97,6 +100,7 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 				alertDialogBuilder.setView(promptsView);
 
 				userInput = (EditText) promptsView.findViewById(getResourceId("gdxDialogsEditTextInput", "id"));
+				userInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
 
 				titleView = (TextView) promptsView.findViewById(getResourceId("gdxDialogsEnterTitle", "id"));
 				messageView = (TextView) promptsView.findViewById(getResourceId("gdxDialogsEnterMessage", "id"));
@@ -153,6 +157,15 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = title;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		if (maxLength < 1) {
+			throw new RuntimeException("Char limit must be >= 1");
+		}
+		this.maxLength = maxLength;
 		return this;
 	}
 

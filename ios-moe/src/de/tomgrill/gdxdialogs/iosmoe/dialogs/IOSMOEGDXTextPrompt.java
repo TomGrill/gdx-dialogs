@@ -16,8 +16,11 @@
 
 package de.tomgrill.gdxdialogs.iosmoe.dialogs;
 
+import apple.foundation.struct.NSRange;
+import apple.uikit.protocol.UITextFieldDelegate;
 import com.badlogic.gdx.Gdx;
 
+import org.moe.natj.general.ann.ByValue;
 import org.moe.natj.general.ann.NInt;
 import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
@@ -37,6 +40,8 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 	private TextPromptListener listener;
 
 	private UIAlertView alertView;
+
+	private int maxLength = 16;
 
 	public IOSMOEGDXTextPrompt () {
 	}
@@ -87,12 +92,36 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 
 		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
 
+		UITextField uiTextField = alertView.textFieldAtIndex(0);
+		uiTextField.setDelegate(new UITextFieldDelegate() {
+			@Override
+			public boolean textFieldShouldChangeCharactersInRangeReplacementString(UITextField textField, @ByValue NSRange range, String additionalText) {
+				if (textField.text().length() + additionalText.length() > maxLength) {
+					String oldText = textField.text();
+					String newText = oldText + additionalText;
+					uiTextField.setText(newText.substring(0, 10));
+					return false;
+				}
+				return true;
+			}
+		});
+
+
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt setTitle(CharSequence title) {
 		this.title = (String) title;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		if (maxLength < 1) {
+			throw new RuntimeException("Char limit must be >= 1");
+		}
+		this.maxLength = maxLength;
 		return this;
 	}
 

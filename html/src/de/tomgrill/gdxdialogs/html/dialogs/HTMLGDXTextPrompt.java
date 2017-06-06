@@ -33,9 +33,20 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
     TextPromptListener listener;
     boolean isBuild = false;
 
+    private int maxLength = 16;
+
     @Override
     public GDXTextPrompt setTitle(CharSequence title) {
         this.title = (String) title;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setMaxLength(int maxLength) {
+        if (maxLength < 1) {
+            throw new RuntimeException("Char limit must be >= 1");
+        }
+        this.maxLength = maxLength;
         return this;
     }
 
@@ -59,7 +70,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
 
     @Override
     public GDXTextPrompt build() {
-        createJSTextPrompt(title, message, toString(), value, cancel, confirm, listener); //this.toString() is the dialog id.
+        createJSTextPrompt(title, message, maxLength, toString(), value, cancel, confirm, listener); //this.toString() is the dialog id.
         isBuild = true;
         return this;
     }
@@ -121,7 +132,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
         }
     }
 
-    protected native void createJSTextPrompt(String title, String message, String id, String value, String cancel, String confirm, TextPromptListener listener)/*-{
+    protected native void createJSTextPrompt(String title, String message, int maxLength, String id, String value, String cancel, String confirm, TextPromptListener listener)/*-{
         var background = $doc.createElement('div');
         background.id = id + "-background";
         background.style = "display:none;";
@@ -150,6 +161,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
         var input = $doc.createElement('input');
         input.id = id + "-input";
         input.type = "text";
+        input.maxLength = maxLength;
         if (value) {
             input.value = value;
         } else {

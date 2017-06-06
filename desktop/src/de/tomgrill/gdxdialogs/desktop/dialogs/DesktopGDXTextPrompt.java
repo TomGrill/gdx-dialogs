@@ -67,6 +67,14 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
+	public GDXTextPrompt setMaxLength(int maxLength) {
+		if (maxLength < 1) {
+			throw new RuntimeException("Char limit must be >= 1");
+		}
+		return this;
+	}
+
+	@Override
 	public GDXTextPrompt setMessage(CharSequence message) {
 		this.message = message;
 		return this;

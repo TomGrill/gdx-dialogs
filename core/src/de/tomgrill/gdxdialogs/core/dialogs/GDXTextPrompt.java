@@ -27,6 +27,15 @@ public interface GDXTextPrompt {
 	 */
 	GDXTextPrompt setTitle(CharSequence title);
 
+
+	/**
+	 * Set the character limit for input. Default is 16. Desktop implementation will ignore this method.
+	 *
+	 * @param maxLength
+	 * @return
+	 */
+	GDXTextPrompt setMaxLength(int maxLength);
+
 	/**
 	 * Shows the dialog. show() can only be called after build() has been called
 	 * else there might be strange behavior. Runs asynchronously on a different thread.
