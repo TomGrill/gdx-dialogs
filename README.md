@@ -42,7 +42,7 @@ Add this to your build.gradle android dependencies
 compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:1.2.1"
 ```
 
-Copy the the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
+Copy the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
 
 You can edit the [/gdx-dialogs-android/res/values-v11/styles.xml](/gdx-dialogs-android/res/values-v11/styles.xml) if you want use another theme like Holo.Light
 
@@ -61,6 +61,13 @@ Add this to your robovm.xml
 Add this to your build.gradle ios dependencies
 ```gradle
 compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:1.2.1"
+```
+
+**iOS-MOE**
+
+Add this to your build.gradle ios-moe dependencies
+```gradle
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios-moe:1.2.1"
 ```
 
 **Desktop**
