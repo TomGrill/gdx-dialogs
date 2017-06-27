@@ -23,6 +23,7 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 public class FallbackGDXButtonDialog implements GDXButtonDialog {
 
+
 	@Override
 	public GDXButtonDialog setCancelable(boolean cancelable) {
 		return this;

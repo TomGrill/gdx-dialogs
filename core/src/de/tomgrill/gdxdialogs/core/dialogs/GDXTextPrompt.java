@@ -19,6 +19,11 @@ package de.tomgrill.gdxdialogs.core.dialogs;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
 public interface GDXTextPrompt {
+	enum InputType {
+		PLAIN_TEXT,
+		PASSWORD
+	}
+
 	/**
 	 * Sets the title
 	 *
@@ -97,4 +102,6 @@ public interface GDXTextPrompt {
 	 * @return The same instance that the method was called from.
 	 */
 	GDXTextPrompt setTextPromptListener(TextPromptListener listener);
+
+	GDXTextPrompt setInputType(InputType inputType);
 }

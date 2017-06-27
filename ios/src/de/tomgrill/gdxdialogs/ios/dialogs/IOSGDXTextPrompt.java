@@ -37,6 +37,8 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 
     private int maxLength = 16;
 
+    private UIAlertViewStyle inputType = UIAlertViewStyle.PlainTextInput;
+
     public IOSGDXTextPrompt() {
     }
 
@@ -111,7 +113,7 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
 
         alertView = new UIAlertView(title, message, delegate, cancelLabel, otherButtons);
 
-        alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
+        alertView.setAlertViewStyle(inputType);
 
         UITextField uiTextField = alertView.getTextField(0);
 //		final UITextFieldDelegate ud = uiTextField.getDelegate();
@@ -175,6 +177,20 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
     @Override
     public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
         this.listener = listener;
+        return this;
+    }
+
+    @Override
+    public GDXTextPrompt setInputType(InputType inputType) {
+        switch (inputType) {
+            case PLAIN_TEXT:
+                this.inputType = UIAlertViewStyle.PlainTextInput;
+                break;
+
+            case PASSWORD:
+                this.inputType = UIAlertViewStyle.SecureTextInput;
+                break;
+        }
         return this;
     }
 

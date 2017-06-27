@@ -34,6 +34,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
     boolean isBuild = false;
 
     private int maxLength = 16;
+    private String inputType = "text";
 
     @Override
     public GDXTextPrompt setTitle(CharSequence title) {
@@ -70,7 +71,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
 
     @Override
     public GDXTextPrompt build() {
-        createJSTextPrompt(title, message, maxLength, toString(), value, cancel, confirm, listener); //this.toString() is the dialog id.
+        createJSTextPrompt(title, message, maxLength, inputType, toString(), value, cancel, confirm, listener); //this.toString() is the dialog id.
         isBuild = true;
         return this;
     }
@@ -105,6 +106,20 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
         return this;
     }
 
+    @Override
+    public GDXTextPrompt setInputType(InputType inputType) {
+        switch (inputType) {
+            case PLAIN_TEXT:
+                this.inputType = "text";
+                break;
+
+            case PASSWORD:
+                this.inputType = "password";
+                break;
+        }
+        return this;
+    }
+
     public static void cancel(String id) {
         Iterator iterator = dialogs.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -132,7 +147,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
         }
     }
 
-    protected native void createJSTextPrompt(String title, String message, int maxLength, String id, String value, String cancel, String confirm, TextPromptListener listener)/*-{
+    protected native void createJSTextPrompt(String title, String message, int maxLength, String inputType, String id, String value, String cancel, String confirm, TextPromptListener listener)/*-{
         var background = $doc.createElement('div');
         background.id = id + "-background";
         background.style = "display:none;";
@@ -160,7 +175,7 @@ public class HTMLGDXTextPrompt implements GDXTextPrompt {
 
         var input = $doc.createElement('input');
         input.id = id + "-input";
-        input.type = "text";
+        input.type = inputType;
         input.maxLength = maxLength;
         if (value) {
             input.value = value;

@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -54,6 +55,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	private AlertDialog alertDialog;
 
 	private boolean isBuild = false;
+
+	private int inputType = android.text.InputType.TYPE_CLASS_TEXT;
 
 	public AndroidGDXTextPrompt(Activity activity) {
 		this.activity = activity;
@@ -101,6 +104,7 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 
 				userInput = (EditText) promptsView.findViewById(getResourceId("gdxDialogsEditTextInput", "id"));
 				userInput.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+				userInput.setInputType(inputType);
 
 				titleView = (TextView) promptsView.findViewById(getResourceId("gdxDialogsEnterTitle", "id"));
 				messageView = (TextView) promptsView.findViewById(getResourceId("gdxDialogsEnterMessage", "id"));
@@ -196,6 +200,20 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setInputType(InputType inputType) {
+		switch (inputType) {
+			case PLAIN_TEXT:
+				this.inputType = android.text.InputType.TYPE_CLASS_TEXT;
+				break;
+
+			case PASSWORD:
+				this.inputType = android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD;
+				break;
+		}
 		return this;
 	}
 
