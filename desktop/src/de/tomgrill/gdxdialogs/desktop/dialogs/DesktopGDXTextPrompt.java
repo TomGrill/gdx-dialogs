@@ -37,8 +37,6 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	private TextPromptListener listener;
 
-	private int maxLength = 16;
-
 	private InputType inputType = InputType.PLAIN_TEXT;
 
 	public DesktopGDXTextPrompt() {
@@ -60,12 +58,12 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 				JTextField textField;
 				switch (inputType) {
 					case PASSWORD:
-						textField = new JPasswordField(maxLength);
+						textField = new JPasswordField();
 						break;
 
 					case PLAIN_TEXT:
 					default:
-						textField = new JTextField(maxLength);
+						textField = new JTextField();
 				}
 
 				panel.add(label);
@@ -118,8 +116,6 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 		if (maxLength < 1) {
 			throw new RuntimeException("Char limit must be >= 1");
 		}
-
-		this.maxLength = maxLength;
 		return this;
 	}
 

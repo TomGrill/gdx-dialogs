@@ -77,7 +77,7 @@ public interface GDXTextPrompt {
 	/**
 	 * Sets the message.
 	 *
-	 * @param message The text to be displayed at the body of the dialog.
+	 * @param message The text to be displayed at the body of the dialog. Desktop implementation will ignore this method.
 	 * @return The same instance that the method was called from.
 	 */
 	GDXTextPrompt setMessage(CharSequence message);
