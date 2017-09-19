@@ -21,14 +21,23 @@ import de.tomgrill.gdxdialogs.core.GDXDialogsVars;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXTextPrompt;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	private CharSequence title = "";
 	private CharSequence message = "";
 
+	private CharSequence cancelButtonLabel, confirmButtonLabel;
+
 	private TextPromptListener listener;
+
+	private InputType inputType = InputType.PLAIN_TEXT;
 
 	public DesktopGDXTextPrompt() {
 	}
@@ -41,17 +50,53 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG,
 						DesktopGDXTextPrompt.class.getSimpleName() + " now shown");
-				String response = JOptionPane.showInputDialog(null, message, (String) title,
-						JOptionPane.QUESTION_MESSAGE);
+
+				JPanel panel = new JPanel();
+				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+				JLabel label = new JLabel(message.toString());
+
+				JTextField textField;
+				switch (inputType) {
+					case PASSWORD:
+						textField = new JPasswordField();
+						break;
+
+					case PLAIN_TEXT:
+					default:
+						textField = new JTextField();
+				}
+
+				panel.add(label);
+				panel.add(textField);
+
+				String[] options = new String[] {(String) confirmButtonLabel, (String) cancelButtonLabel};
+				int response = JOptionPane.showOptionDialog(
+						null,
+						panel,
+						(String) title,
+						JOptionPane.NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
+						options[1]
+				);
 
 				if (listener != null) {
 					//if the first is true the second is implicitly always true
 					//e.g bool j, f;   ((j or (not j and f)) == (j or f)) == true
 					//Regardless of j and f values.
-					if (response == null || "".equals(response)) {
+					if (response == 1) {
 						listener.cancel();
 					} else {
-						listener.confirm(response);
+						switch (inputType) {
+							case PASSWORD:
+								listener.confirm(new String(((JPasswordField)textField).getPassword()));
+								break;
+
+							case PLAIN_TEXT:
+							default:
+								listener.confirm(textField.getText());
+						}
 					}
 				}
 			}
@@ -82,11 +127,13 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt setCancelButtonLabel(CharSequence label) {
+		cancelButtonLabel = label;
 		return this;
 	}
 
 	@Override
 	public GDXTextPrompt setConfirmButtonLabel(CharSequence label) {
+		confirmButtonLabel = label;
 		return this;
 	}
 
@@ -98,6 +145,12 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setInputType(InputType inputType) {
+		this.inputType = inputType;
 		return this;
 	}
 

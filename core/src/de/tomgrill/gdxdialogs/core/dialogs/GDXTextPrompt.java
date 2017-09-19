@@ -19,6 +19,22 @@ package de.tomgrill.gdxdialogs.core.dialogs;
 import de.tomgrill.gdxdialogs.core.listener.TextPromptListener;
 
 public interface GDXTextPrompt {
+
+	/**
+	 * Type of input used by the textfield
+	 */
+	enum InputType {
+		/**
+		 * prints readable text
+		 */
+		PLAIN_TEXT,
+
+		/**
+		 * hides typed text behind specified character
+		 */
+		PASSWORD
+	}
+
 	/**
 	 * Sets the title
 	 *
@@ -29,7 +45,7 @@ public interface GDXTextPrompt {
 
 
 	/**
-	 * Set the character limit for input. Default is 16. Desktop implementation will ignore this method.
+	 * Set the character limit for input. Default is 16.
 	 *
 	 * @param maxLength
 	 * @return
@@ -61,7 +77,7 @@ public interface GDXTextPrompt {
 	/**
 	 * Sets the message.
 	 *
-	 * @param message The text to be displayed at the body of the dialog.
+	 * @param message The text to be displayed at the body of the dialog. Desktop implementation will ignore this method.
 	 * @return The same instance that the method was called from.
 	 */
 	GDXTextPrompt setMessage(CharSequence message);
@@ -97,4 +113,12 @@ public interface GDXTextPrompt {
 	 * @return The same instance that the method was called from.
 	 */
 	GDXTextPrompt setTextPromptListener(TextPromptListener listener);
+
+	/**
+	 * Sets the type of input for the text input field.
+	 *
+	 * @param inputType type of input
+	 * @return The same instance that the method was called from.
+	 */
+	GDXTextPrompt setInputType(InputType inputType);
 }

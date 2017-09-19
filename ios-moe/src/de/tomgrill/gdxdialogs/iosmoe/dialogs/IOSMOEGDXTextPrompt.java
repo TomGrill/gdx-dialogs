@@ -43,6 +43,8 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 
 	private int maxLength = 16;
 
+	private long inputType = UIAlertViewStyle.PlainTextInput;
+
 	public IOSMOEGDXTextPrompt () {
 	}
 
@@ -89,8 +91,7 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 		alertView.addButtonWithTitle(cancelLabel);
 		alertView.addButtonWithTitle(confirmLabel);
 		alertView.setCancelButtonIndex(0);
-
-		alertView.setAlertViewStyle(UIAlertViewStyle.PlainTextInput);
+		alertView.setAlertViewStyle(inputType);
 
 		UITextField uiTextField = alertView.textFieldAtIndex(0);
 		uiTextField.setDelegate(new UITextFieldDelegate() {
@@ -151,6 +152,20 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 	@Override
 	public GDXTextPrompt setTextPromptListener(TextPromptListener listener) {
 		this.listener = listener;
+		return this;
+	}
+
+	@Override
+	public GDXTextPrompt setInputType(InputType inputType) {
+		switch (inputType) {
+			case PLAIN_TEXT:
+				this.inputType = UIAlertViewStyle.PlainTextInput;
+				break;
+
+			case PASSWORD:
+				this.inputType = UIAlertViewStyle.SecureTextInput;
+				break;
+		}
 		return this;
 	}
 

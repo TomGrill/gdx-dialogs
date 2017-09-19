@@ -66,6 +66,11 @@ public class FallbackGDXTextPrompt implements GDXTextPrompt {
 	}
 
 	@Override
+	public GDXTextPrompt setInputType(InputType inputType) {
+		return this;
+	}
+
+	@Override
 	public GDXTextPrompt setValue(CharSequence inputTip) {
 		return this;
 	}
