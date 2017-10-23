@@ -69,7 +69,9 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 			public void run() {
 				Gdx.app.debug(GDXDialogsVars.LOG_TAG, AndroidGDXButtonDialog.class.getSimpleName() +
 						" now shown.");
-				dialog.show();
+				if (!activity.isFinishing()) {
+					dialog.show();
+				}
 			}
 		});
 
