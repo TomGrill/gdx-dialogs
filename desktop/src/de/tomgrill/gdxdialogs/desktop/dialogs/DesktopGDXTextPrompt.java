@@ -60,11 +60,13 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 				switch (inputType) {
 					case PASSWORD:
 						textField = new JPasswordField();
+						textField.setText(String.valueOf(value));
 						break;
 
 					case PLAIN_TEXT:
 					default:
 						textField = new JTextField();
+						textField.setText(String.valueOf(value));
 				}
 
 				panel.add(label);
@@ -81,9 +83,6 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 						options,
 						options[1]
 				);
-
-//				Object response = JOptionPane.showInputDialog(null, message, (String) title,
-//						JOptionPane.QUESTION_MESSAGE,null,null, value);
 
 				if (listener != null) {
 					if (response == 1) {
