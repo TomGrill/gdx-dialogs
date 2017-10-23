@@ -32,6 +32,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	private CharSequence title = "";
 	private CharSequence message = "";
+	private CharSequence value = "";
 
 	private CharSequence cancelButtonLabel, confirmButtonLabel;
 
@@ -81,10 +82,10 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 						options[1]
 				);
 
+//				Object response = JOptionPane.showInputDialog(null, message, (String) title,
+//						JOptionPane.QUESTION_MESSAGE,null,null, value);
+
 				if (listener != null) {
-					//if the first is true the second is implicitly always true
-					//e.g bool j, f;   ((j or (not j and f)) == (j or f)) == true
-					//Regardless of j and f values.
 					if (response == 1) {
 						listener.cancel();
 					} else {
@@ -156,6 +157,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 
 	@Override
 	public GDXTextPrompt setValue(CharSequence inputTip) {
+		this.value = inputTip;
 		return this;
 	}
 
