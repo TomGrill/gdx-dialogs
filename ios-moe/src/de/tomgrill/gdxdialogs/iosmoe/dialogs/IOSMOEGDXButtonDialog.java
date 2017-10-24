@@ -53,7 +53,12 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 					"before show().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXButtonDialog.class.getSimpleName() + " now shown.");
-		alertView.show();
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				alertView.show();
+			}
+		});
 		return this;
 	}
 

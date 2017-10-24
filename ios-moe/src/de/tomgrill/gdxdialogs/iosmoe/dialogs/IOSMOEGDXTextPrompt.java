@@ -55,7 +55,12 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 			throw new RuntimeException(GDXTextPrompt.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXTextPrompt.class.getSimpleName() + " now shown.");
-		alertView.show();
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				alertView.show();
+			}
+		});
 		return this;
 	}
 

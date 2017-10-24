@@ -53,7 +53,12 @@ public class IOSMOEGDXProgressDialog implements GDXProgressDialog {
 			throw new RuntimeException(GDXProgressDialog.class.getSimpleName() + " has not been build. Use build() before show().");
 		}
 		Gdx.app.debug(GDXDialogsVars.LOG_TAG, IOSMOEGDXProgressDialog.class.getSimpleName() + " now shown.");
-		alertView.show();
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				alertView.show();
+			}
+		});
 		return this;
 	}
 
