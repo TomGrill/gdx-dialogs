@@ -34,7 +34,7 @@ public class DesktopGDXTextPrompt implements GDXTextPrompt {
 	private CharSequence message = "";
 	private CharSequence value = "";
 
-	private CharSequence cancelButtonLabel, confirmButtonLabel;
+	private CharSequence cancelButtonLabel = "Cancel", confirmButtonLabel = "OK";
 
 	private TextPromptListener listener;
 
