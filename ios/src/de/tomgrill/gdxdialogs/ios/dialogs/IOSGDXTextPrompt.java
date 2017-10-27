@@ -66,12 +66,23 @@ public class IOSGDXTextPrompt implements GDXTextPrompt {
             public void didDismiss(UIAlertView alertView, long buttonIndex) {
                 if (listener != null) {
                     if (buttonIndex == 0) {
-                        listener.cancel();
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.cancel();
+                            }
+                        });
                     }
 
                     if (buttonIndex == 1) {
-                        UITextField textFiel = alertView.getTextField(0);
-                        listener.confirm(textFiel.getText());
+                        UITextField textField = alertView.getTextField(0);
+                        final String result = textField.getText();
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.confirm(result);
+                            }
+                        });
                     }
                 }
             }

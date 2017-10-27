@@ -114,9 +114,14 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 
 				alertDialogBuilder.setCancelable(false).setPositiveButton(confirmLabel, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-
+						final String result = userInput.getText().toString();
 						if (listener != null) {
-							listener.confirm(userInput.getText().toString());
+							Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run() {
+									listener.confirm(result);
+								}
+							});
 						}
 
 					}
@@ -124,7 +129,13 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
 						if (listener != null) {
-							listener.cancel();
+							Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run() {
+									listener.cancel();
+								}
+							});
+
 						}
 					}
 				});

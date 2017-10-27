@@ -102,7 +102,13 @@ public class IOSMOEGDXButtonDialog implements GDXButtonDialog {
 				}
 			}
 
-			listener.click(buttonNr);
+			final int resultNr = buttonNr;
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					listener.click(resultNr);
+				}
+			});
 		}
 	}
 

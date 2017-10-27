@@ -75,12 +75,23 @@ public class IOSMOEGDXTextPrompt implements GDXTextPrompt {
 			@Override public void alertViewDidDismissWithButtonIndex (UIAlertView alertView, @NInt long buttonIndex) {
 				if (listener != null) {
 					if (buttonIndex == 0) {
-						listener.cancel();
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run() {
+								listener.cancel();
+							}
+						});
 					}
 
 					if (buttonIndex == 1) {
 						UITextField uiTextField = alertView.textFieldAtIndex(0);
-						listener.confirm(uiTextField.text());
+						final String result = uiTextField.text();
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run() {
+								listener.confirm(result);
+							}
+						});
 					}
 				}
 			}

@@ -85,6 +85,7 @@ public class IOSGDXButtonDialog implements GDXButtonDialog {
 
 			int buttonNr = (int) buttonIndex;
 
+			// swap first and second if we have 2 buttons
 			if (labels.size == 2) {
 				if (buttonIndex == 0) {
 					buttonNr = 1;
@@ -93,7 +94,13 @@ public class IOSGDXButtonDialog implements GDXButtonDialog {
 				}
 			}
 
-			listener.click(buttonNr);
+			final int resultNr = buttonNr;
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					listener.click(resultNr);
+				}
+			});
 		}
 	}
 

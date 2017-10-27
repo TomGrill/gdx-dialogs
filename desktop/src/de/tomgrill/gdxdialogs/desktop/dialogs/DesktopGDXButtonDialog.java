@@ -70,10 +70,15 @@ public class DesktopGDXButtonDialog implements GDXButtonDialog {
 					optionType = JOptionPane.YES_NO_CANCEL_OPTION;
 				}
 
-				int n = JOptionPane.showOptionDialog(null, message, (String) title, optionType,
+				final int n = JOptionPane.showOptionDialog(null, message, (String) title, optionType,
 						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				if (listener != null) {
-					listener.click(n);
+					Gdx.app.postRunnable(new Runnable() {
+						@Override
+						public void run() {
+							listener.click(n);
+						}
+					});
 				}
 			}
 		}).start();

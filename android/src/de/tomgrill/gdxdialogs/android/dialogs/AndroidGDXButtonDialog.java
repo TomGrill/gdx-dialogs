@@ -124,7 +124,12 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 					@Override
 					public void onClick(DialogInterface di, int which) {
 						if (AndroidGDXButtonDialog.this.listener != null) {
-							AndroidGDXButtonDialog.this.listener.click(0);
+							Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run() {
+									AndroidGDXButtonDialog.this.listener.click(0);
+								}
+							});
 						}
 
 					}
@@ -137,7 +142,12 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (AndroidGDXButtonDialog.this.listener != null) {
-							AndroidGDXButtonDialog.this.listener.click(1);
+							Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run() {
+									AndroidGDXButtonDialog.this.listener.click(1);
+								}
+							});
 						}
 					}
 
@@ -150,7 +160,12 @@ public class AndroidGDXButtonDialog implements GDXButtonDialog {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (AndroidGDXButtonDialog.this.listener != null) {
-							AndroidGDXButtonDialog.this.listener.click(2);
+							Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run() {
+									AndroidGDXButtonDialog.this.listener.click(2);
+								}
+							});
 						}
 					}
 
