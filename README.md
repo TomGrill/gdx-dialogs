@@ -12,7 +12,7 @@ I will also stream sometimes when developing at https://www.twitch.tv/tomgrill a
 
 ## Version
 
-Current stable: **1.2.5**
+Current stable: **1.3.0**
 (Snapshot versions are no longer provided)
 
 ##Supported Platforms
@@ -32,14 +32,14 @@ libGDX 1.9.3+, Android API 9+, ios 6+, ios-moe 9+
 
 Add this to your build.gradle core dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.3.0"
 ```
 
 **Android**
 
 Add this to your build.gradle android dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:1.2.5"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-android:1.3.0"
 ```
 
 Copy the [/gdx-dialogs-android/res](/gdx-dialogs-android/res) folder from this project to your android project. Keep the directory structure.
@@ -60,30 +60,30 @@ Add this to your robovm.xml
 
 Add this to your build.gradle ios dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:1.2.5"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:1.3.0"
 ```
 
 **iOS-MOE**
 
 Add this to your build.gradle ios-moe dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios-moe:1.2.5"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios-moe:1.3.0"
 ```
 
 **Desktop**
 
 Add this to your build.gradle desktop dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.2.5"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-desktop:1.3.0"
 ```
 
 **HTML(GWT)**
 
 Add this to your build.gradle html dependencies
 ```gradle
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.2.5"
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5:sources"
-compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.2.5:sources"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.3.0"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.3.0:sources"
+compile "de.tomgrill.gdxdialogs:gdx-dialogs-html:1.3.0:sources"
 ```
 
 Add this to your GdxDefinition.gwt.xml
@@ -224,6 +224,7 @@ dialogs.newDialog(GDXButtonDialog.class); // Use your dialog interface here
 
 Release history for major milestones (available via Maven):
 
+* Version 1.3.0: Bugfix: Submodules had dependency on SNAPSHOT versions
 * Version 1.2.5: Bugfix: DesktopTextPrompt;
 * Version 1.2.4: Bugfix: DesktopTextPrompt;
 * Version 1.2.3: Bugfix: DesktopTextPrompt not showing default value;
