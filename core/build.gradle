@@ -3,6 +3,8 @@ apply plugin : 'java'
 targetCompatibility = 1.7
 sourceCompatibility = 1.7
 
+project.group = 'com.github.cuong0993.gdxdialogs.core'
+
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 ext {
