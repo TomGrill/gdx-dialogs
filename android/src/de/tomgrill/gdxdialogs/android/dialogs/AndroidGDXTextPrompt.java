@@ -112,7 +112,8 @@ public class AndroidGDXTextPrompt implements GDXTextPrompt {
 				titleView.setText(title);
 				messageView.setText(message);
 
-				alertDialogBuilder.setCancelable(false).setPositiveButton(confirmLabel, new DialogInterface.OnClickListener() {
+				// Fixed the library because the dialog did not support back button android
+				alertDialogBuilder.setCancelable(true).setPositiveButton(confirmLabel, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						final String result = userInput.getText().toString();
 						if (listener != null) {
