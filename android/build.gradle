@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-project.group = 'de.tomgrill.gdxdialogs.android'
+project.group = 'com.github.cuong0993.gdxdialogs.android'
 
 android {
 

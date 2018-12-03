@@ -1,5 +1,5 @@
 ext {
-	GROUPID = 'de.tomgrill.gdxdialogs'
+	GROUPID = 'com.github.cuong0993.gdxdialogs'
 	VERSION = '1.3.0'
 }
 
