@@ -247,3 +247,12 @@ Awesome! If you would like to contribute with a new feature or a bugfix, fork th
 ##License
 
 The gdx-dialogs project is licensed under the Apache 2 License, meaning you can use it free of charge, without strings attached in commercial and non-commercial projects. We love to get (non-mandatory) credit in case you release a game or app using gdx-dialogs!
+
+### Apps that integrate with gdx-dialogs
+Please send a pull request to add your apps to this list.
+* [Minesweeper](https://play.google.com/store/apps/details?id=com.popoko.minesweeper)
+* [Chess](https://play.google.com/store/apps/details?id=com.popoko.chessru)
+* [Gomoku](https://play.google.com/store/apps/details?id=com.popoko.gomokukr)
+* [Tic Tac Toe ⑤](https://play.google.com/store/apps/details?id=com.popoko.gomokuvn) 
+* [Tic Tac Toe ⑤ for iOS](https://apps.apple.com/us/app/id1107349135)
+
